@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Build output (Nuitka)
+build/
+dist/
+*.build/
+*.dist/
+*.onefile-build/
+
+# Installer output (Inno Setup)
+Output/
+*.exe
+
+# IDE / editor
+.vscode/
+.idea/
+*.spec
+.vs/
+
+# OS junk
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Local run artifacts
+*.log
+*.tmp
