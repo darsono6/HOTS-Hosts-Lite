@@ -195,7 +195,7 @@ HOTS Hosts Lite is provided in good faith but **without any warranty**. The auth
 
 If HOTS Hosts Lite saves you time or you simply want to say thanks:
 
-[![Support me on Ko-fi](assets/kofi_badge_dark.png)](https://ko-fi.com/darsono)
+<a href="https://ko-fi.com/darsono"><img src="assets/kofi_badge_dark.png" alt="Support me on Ko-fi" width="200"/></a>
 
 **Website:** [hotstools.com](https://hotstools.com)
 **Ko-fi:** [ko-fi.com/darsono](https://ko-fi.com/darsono)
