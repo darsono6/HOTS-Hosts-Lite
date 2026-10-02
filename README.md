@@ -220,6 +220,12 @@ HOTS Hosts Lite is provided in good faith but **without any warranty**. The auth
 
 ---
 
+## Bug reports
+
+Found a bug? Open an [issue](https://github.com/darsono6/HOTS-Hosts-Lite/issues/new/choose) — the form asks for everything needed to reproduce it.
+
+---
+
 ## Security
 
 Found a security issue? Please report it privately rather than opening a public issue — see **[SECURITY.md](SECURITY.md)** for how to report and what's in scope.
