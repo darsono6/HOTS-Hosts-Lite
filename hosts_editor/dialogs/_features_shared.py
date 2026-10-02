@@ -1,13 +1,14 @@
 import os
+import weakref
 
 from PySide6.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QFrame
-from PySide6.QtCore import Qt, Signal, QObject, QTimer
+from PySide6.QtCore import Qt, Signal, QObject
 from PySide6.QtGui import QColor
 import shiboken6
 
-from qfluentwidgets import FluentIcon as FIF, IconWidget
-
-from ..constants import DARK, load_settings, save_settings, accent_rgba, custom_domains_path
+from ..icons import FIF
+from ..ui_parts import IconWidget
+from ..constants import DARK, accent_rgba, custom_domains_path
 from ..core import toggle_hosts_lock, HostsLimitExceeded, HostsBusyError, MAX_ACTIVE_ENTRIES
 from ..core_hosts_lock import HostsLockError
 from ..widgets_qt import HOTSButton, HOTSDialog, attach_fluent_tip, colored_svg_icon
@@ -438,7 +439,25 @@ class _InfoButton(QWidget):
         popup = QWidget(None, Qt.Popup | Qt.FramelessWindowHint | Qt.NoDropShadowWindowHint)
         popup.setAttribute(Qt.WA_TranslucentBackground)
         popup.setAttribute(Qt.WA_DeleteOnClose)
-        popup.destroyed.connect(self._on_popup_destroyed)
+
+        # This page can rebuild its whole widget tree while this popup is still
+        # closing. WA_DeleteOnClose defers the delete, so `self` may already be
+        # destroyed by the time `popup.destroyed` fires — connecting straight to
+        # a bound method then crashes the process (access violation deep inside
+        # PySide's signal dispatch) instead of raising. A weakref makes it a
+        # safe no-op instead.
+        self_ref = weakref.ref(self)
+
+        def _on_popup_destroyed(*_args, _ref=self_ref):
+            obj = _ref()
+            if obj is not None:
+                obj._handle_popup_destroyed()
+            else:
+                global _open_info_popups
+                _open_info_popups = max(0, _open_info_popups - 1)
+                info_popup_bus.popup_closed.emit()
+
+        popup.destroyed.connect(_on_popup_destroyed)
 
         outer = QFrame(popup)
         outer.setObjectName("infoPopup")
@@ -474,6 +493,7 @@ class _InfoButton(QWidget):
         spacer.ensurePolished()
         msg.ensurePolished()
         outer.ensurePolished()
+        msg.setMinimumHeight(msg.heightForWidth(msg.width()) + 2)
         outer.adjustSize()
         popup.resize(outer.size())
 
@@ -496,7 +516,7 @@ class _InfoButton(QWidget):
         global _open_info_popups
         _open_info_popups += 1
 
-    def _on_popup_destroyed(self):
+    def _handle_popup_destroyed(self):
         self._popup = None
 
         global _open_info_popups

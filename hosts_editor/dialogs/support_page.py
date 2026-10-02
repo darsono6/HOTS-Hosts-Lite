@@ -5,8 +5,7 @@ from PySide6.QtWidgets import QVBoxLayout, QHBoxLayout, QLabel, QFrame, QPushBut
 from PySide6.QtCore import Qt, QSize
 from PySide6.QtGui import QPixmap, QPainter, QIcon
 
-from qfluentwidgets import FluentIcon as FIF
-
+from ..icons import FIF
 from ..constants import DARK, IS_LIGHT_THEME
 from ..widgets_qt import HOTSPage, HOTSDialog, HOTSButton
 from ..i18n import T

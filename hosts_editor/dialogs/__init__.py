@@ -9,6 +9,7 @@ from .about_page          import AboutPage
 from .language_dialog     import LanguageDialog
 from .accent_dialog       import AccentColorDialog
 from .export_dialog       import ExportOptionsDialog
+from .uninstall_wizard    import UninstallWizardDialog
 
 __all__ = [
     "EntryDialog", "DiffDialog", "BackupManagerPage",
@@ -16,4 +17,5 @@ __all__ = [
     "FeaturesPage", "SupportPage",
     "SetPasswordDialog", "PasswordPromptDialog",
     "AboutPage", "LanguageDialog", "AccentColorDialog", "ExportOptionsDialog",
+    "UninstallWizardDialog",
 ]

@@ -1,6 +1,6 @@
-
+﻿
 #define MyAppName "HOTS Hosts Lite"
-#define MyAppVersion "1.0"
+#define MyAppVersion "1.1"
 #define MyAppPublisher "Darsono"
 #define MyAppExeName "HOTS Hosts Lite.exe"
 #define MyAppAssocName MyAppName + " File"
@@ -30,6 +30,8 @@ OutputBaseFilename=HOTS_Hosts_Lite_setup
 SetupIconFile=icon.ico
 SolidCompression=yes
 WizardStyle=modern dynamic
+; Must match the mutex held by hosts_editor_launcher.pyw.
+AppMutex=Global\HOTS_HostsLite_SingleInstance_Mutex
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
@@ -56,123 +58,129 @@ Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChang
 [UninstallRun]
 Filename: "{app}\hots_uninstall_cleanup.cmd"; Flags: runhidden waituntilterminated
 
+[UninstallDelete]
+; hots_uninstall_cleanup.cmd (UninstallRun) runs before this; {app} holds no user data.
+Type: filesandordirs; Name: "{app}"
+
 [Code]
 
-function VerifyUninstallPassword(const Password: String): Boolean;
-var
-  TempFile: String;
-  ResultCode: Integer;
-  ExePath: String;
+procedure CurStepChanged(CurStep: TSetupStep);
 begin
-  Result := False;
-  TempFile := ExpandConstant('{tmp}\hots_uninst_pw.tmp');
-  SaveStringToFile(TempFile, Password, False);
-  ExePath := ExpandConstant('{app}\{#MyAppExeName}');
-
-  if Exec(ExePath, '--verify-uninstall-password "' + TempFile + '"', '',
-          SW_HIDE, ewWaitUntilTerminated, ResultCode) then
+  if CurStep = ssInstall then
   begin
-    Result := (ResultCode = 0);
+    // User data lives outside {app}, so wiping it is safe (also removes stale files on update).
+    DelTree(ExpandConstant('{app}'), True, True, True);
   end;
-
-  if FileExists(TempFile) then
-    DeleteFile(TempFile);
 end;
 
-function AskUninstallPassword(): Boolean;
+function GetAppLanguage(): String;
 var
-  Form: TSetupForm;
-  EditPwd: TEdit;
-  LabelInfo: TNewStaticText;
-  BtnOK, BtnCancel: TNewButton;
-  Attempts: Integer;
-  ModalRes: Integer;
+  SettingsPath: String;
+  Lines: TArrayOfString;
+  I, P1, P2: Integer;
+  Line, Lang: String;
 begin
-  Result := False;
-  Attempts := 0;
+  Result := 'en';
+  SettingsPath := ExpandConstant('{userappdata}') + '\HOTS Hosts Lite\settings.json';
+  if not FileExists(SettingsPath) then
+    Exit;
+  if not LoadStringsFromFile(SettingsPath, Lines) then
+    Exit;
 
-  while Attempts < 3 do
+  for I := 0 to GetArrayLength(Lines) - 1 do
   begin
-    Form := CreateCustomForm(ScaleX(360), ScaleY(140), False, False);
-    Form.Caption := '{#MyAppName}';
-    Form.Position := poScreenCenter;
-
-    LabelInfo := TNewStaticText.Create(Form);
-    LabelInfo.Parent := Form;
-    LabelInfo.Left := ScaleX(16);
-    LabelInfo.Top := ScaleY(16);
-    LabelInfo.Width := Form.ClientWidth - ScaleX(32);
-    LabelInfo.AutoSize := False;
-    LabelInfo.WordWrap := True;
-    LabelInfo.Caption := 'This program is password-protected. Enter the password to continue uninstalling:';
-
-    EditPwd := TEdit.Create(Form);
-    EditPwd.Parent := Form;
-    EditPwd.Left := ScaleX(16);
-    EditPwd.Top := ScaleY(56);
-    EditPwd.Width := Form.ClientWidth - ScaleX(32);
-    EditPwd.PasswordChar := '*';
-
-    BtnOK := TNewButton.Create(Form);
-    BtnOK.Parent := Form;
-    BtnOK.Caption := 'OK';
-    BtnOK.Left := Form.ClientWidth - ScaleX(170);
-    BtnOK.Top := ScaleY(96);
-    BtnOK.Width := ScaleX(75);
-    BtnOK.ModalResult := mrOk;
-    BtnOK.Default := True;
-
-    BtnCancel := TNewButton.Create(Form);
-    BtnCancel.Parent := Form;
-    BtnCancel.Caption := 'Cancel';
-    BtnCancel.Left := Form.ClientWidth - ScaleX(85);
-    BtnCancel.Top := ScaleY(96);
-    BtnCancel.Width := ScaleX(75);
-    BtnCancel.ModalResult := mrCancel;
-    BtnCancel.Cancel := True;
-
-    Form.ActiveControl := EditPwd;
-    ModalRes := Form.ShowModal();
-
-    if ModalRes = mrOk then
+    Line := Lines[I];
+    if Pos('"language"', Line) > 0 then
     begin
-      if VerifyUninstallPassword(EditPwd.Text) then
-      begin
-        Form.Free();
-        Result := True;
-        Exit;
-      end;
-      Attempts := Attempts + 1;
-      Form.Free();
-      if Attempts < 3 then
-        MsgBox('Incorrect password. Attempts remaining: ' + IntToStr(3 - Attempts), mbError, MB_OK)
-      else
-        MsgBox('Too many failed attempts. Uninstall has been cancelled.', mbError, MB_OK);
-    end
-    else
-    begin
-      Form.Free();
+      P1 := Pos(':', Line);
+      if P1 = 0 then
+        Continue;
+      Line := Copy(Line, P1 + 1, Length(Line) - P1);
+      P1 := Pos('"', Line);
+      if P1 = 0 then
+        Continue;
+      Line := Copy(Line, P1 + 1, Length(Line) - P1);
+      P2 := Pos('"', Line);
+      if P2 = 0 then
+        Continue;
+      Lang := Copy(Line, 1, P2 - 1);
+
+      if (Lang = 'pl') or (Lang = 'fr') or (Lang = 'de') or (Lang = 'es')
+         or (Lang = 'ru') or (Lang = 'pt') or (Lang = 'en') then
+        Result := Lang;
       Exit;
     end;
   end;
 end;
 
-function InitializeUninstall(): Boolean;
+function GetUpdateVsUninstallText(): String;
 var
-  Hash: String;
+  Lang: String;
+begin
+  Lang := GetAppLanguage();
+
+  if Lang = 'pl' then
+    Result :=
+      'Jeśli planujesz zainstalować nowszą wersję HOTS Hosts Lite, nie musisz najpierw ' +
+      'odinstalowywać programu — wystarczy uruchomić nowy instalator bezpośrednio. ' +
+      'Zaktualizuje on program w miejscu, bez utraty ustawień ani listy domen.' + #13#10 + #13#10 +
+      'Czy mimo to chcesz kontynuować i całkowicie usunąć HOTS Hosts Lite, cofając zmiany ' +
+      'wprowadzone w systemie?'
+  else if Lang = 'fr' then
+    Result :=
+      'Si vous êtes sur le point d''installer une version plus récente de HOTS Hosts Lite, ' +
+      'il n''est pas nécessaire de désinstaller d''abord - lancez simplement le nouvel ' +
+      'installateur directement. Il mettra à jour le programme sur place, sans perdre ' +
+      'vos paramètres ni votre liste de domaines.' + #13#10 + #13#10 +
+      'Voulez-vous tout de même continuer et supprimer complètement HOTS Hosts Lite, en ' +
+      'annulant les modifications apportées à ce système ?'
+  else if Lang = 'de' then
+    Result :=
+      'Wenn Sie eine neuere Version von HOTS Hosts Lite installieren möchten, müssen Sie ' +
+      'das Programm nicht vorher deinstallieren - führen Sie einfach das neue ' +
+      'Installationsprogramm direkt aus. Es aktualisiert das Programm an Ort und Stelle, ' +
+      'ohne Ihre Einstellungen oder Ihre Domainliste zu verlieren.' + #13#10 + #13#10 +
+      'Möchten Sie trotzdem fortfahren und HOTS Hosts Lite vollständig entfernen und die am ' +
+      'System vorgenommenen Änderungen rückgängig machen?'
+  else if Lang = 'es' then
+    Result :=
+      'Si estás a punto de instalar una versión más reciente de HOTS Hosts Lite, no es ' +
+      'necesario desinstalar primero - simplemente ejecuta el nuevo instalador ' +
+      'directamente. Actualizará el programa en su lugar, sin perder tu configuración ' +
+      'ni tu lista de dominios.' + #13#10 + #13#10 +
+      '¿Deseas continuar de todos modos y eliminar completamente HOTS Hosts Lite, revirtiendo ' +
+      'los cambios realizados en este sistema?'
+  else if Lang = 'ru' then
+    Result :=
+      'Если вы собираетесь установить более новую версию HOTS Hosts Lite, вам не нужно ' +
+      'сначала удалять программу - просто запустите новый установщик напрямую. Он ' +
+      'обновит программу на месте, не потеряв ваши настройки и список доменов.' + #13#10 + #13#10 +
+      'Всё равно хотите продолжить и полностью удалить HOTS Hosts Lite, отменив изменения, ' +
+      'внесённые в систему?'
+  else if Lang = 'pt' then
+    Result :=
+      'Se está prestes a instalar uma versão mais recente do HOTS Hosts Lite, não precisa de ' +
+      'desinstalar primeiro - basta executar o novo instalador diretamente. Ele ' +
+      'atualizará o programa no local, sem perder as suas definições ou a sua lista de domínios.' + #13#10 + #13#10 +
+      'Ainda assim, deseja continuar e remover completamente o HOTS Hosts Lite, revertendo as ' +
+      'alterações feitas neste sistema?'
+  else
+    Result :=
+      'If you are about to install a newer version of HOTS Hosts Lite, you do NOT need to ' +
+      'uninstall first - just run the new installer directly. It will update the ' +
+      'program in place, without losing your settings or domain list.' + #13#10 + #13#10 +
+      'Do you want to continue and completely remove HOTS Hosts Lite, undoing the changes ' +
+      'it made to this system?';
+end;
+
+function InitializeUninstall(): Boolean;
 begin
   Result := True;
 
-  if not RegQueryStringValue(HKLM, 'Software\HOTS Hosts Lite', 'AppPasswordHash', Hash) then
-    Exit;
-  if Hash = '' then
-    Exit;
-
-  if UninstallSilent then
+  // Lite has no parental controls, so unlike the full version uninstall needs no password.
+  if not UninstallSilent then
   begin
-    Result := False;
-    Exit;
+    if MsgBox(GetUpdateVsUninstallText(), mbConfirmation, MB_YESNO or MB_DEFBUTTON2) = IDNO then
+      Result := False;
   end;
-
-  Result := AskUninstallPassword();
 end;

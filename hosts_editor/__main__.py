@@ -11,13 +11,16 @@ def _setup_error_log():
         log_dir = Path(os.environ.get("APPDATA", Path.home())) / "HOTS Hosts Lite"
         log_dir.mkdir(parents=True, exist_ok=True)
         log_path = log_dir / "error.log"
-        if getattr(sys.stderr, "name", None) == str(log_path):
-            return
-        sys.stderr = open(log_path, "w", encoding="utf-8", buffering=1)
-        sys.stdout = sys.stderr
+        # If the launcher (.pyw) already opened the log, don't open it a second
+        # time — but faulthandler is ALWAYS enabled (an earlier early "return"
+        # used to skip it during a normal launch via the launcher).
+        if getattr(sys.stderr, "name", None) != str(log_path):
+            sys.stderr = open(log_path, "w", encoding="utf-8", buffering=1)
+            sys.stdout = sys.stderr
         faulthandler.enable(file=sys.stderr, all_threads=True)
     except Exception:
         pass
+
 
 _setup_error_log()
 
@@ -29,15 +32,6 @@ def _log_unhandled_exception(exc_type, exc_value, exc_tb):
         pass
 
 sys.excepthook = _log_unhandled_exception
-
-
-try:
-    ctypes.windll.shcore.SetProcessDpiAwareness(2)
-except Exception:
-    try:
-        ctypes.windll.user32.SetProcessDPIAware()
-    except Exception:
-        pass
 
 
 def _set_app_user_model_id():

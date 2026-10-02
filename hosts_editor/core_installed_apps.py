@@ -47,8 +47,9 @@ def _find_exe_in_folder(folder: str, hint_name: str) -> str:
         if stem and (stem in hint or hint.startswith(stem)):
             return os.path.join(folder, f)
     non_junk = [f for f in entries if not any(j in f.lower() for j in _JUNK_EXE_HINTS)]
-    pick = non_junk[0] if non_junk else entries[0]
-    return os.path.join(folder, pick)
+    if len(non_junk) == 1:
+        return os.path.join(folder, non_junk[0])
+    return ""
 
 
 def _resolve_exe(display_name: str, icon_raw: str, install_location: str) -> str:

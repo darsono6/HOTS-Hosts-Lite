@@ -5,19 +5,22 @@ from typing import Dict
 
 from PySide6.QtWidgets import (
     QVBoxLayout, QHBoxLayout, QLabel, QWidget, QScrollArea,
-    QLineEdit, QCompleter, QFileDialog, QFileIconProvider, QFrame,
+    QLineEdit, QCompleter, QFileDialog, QFileIconProvider, QFrame, QGraphicsOpacityEffect,
 )
-from PySide6.QtCore import Qt, QObject, Signal, QTimer, QFileInfo
+from PySide6.QtCore import Qt, QObject, QEvent, Signal, QTimer, QFileInfo
 from PySide6.QtGui import QColor, QIcon, QTransform
 import shiboken6
 
-from qfluentwidgets import FluentIcon as FIF, IconWidget, TransparentToolButton
-
-from ..constants import DARK
-from ..core_hosts_lock import HostsLockError, HostsLockManager
+from ..icons import FIF
+from ..ui_parts import IconWidget, TransparentToolButton
+from ..constants import DARK, HOSTS_PATH
+from ..core_hosts_lock import HostsLockManager
 from ..core_firewall import FirewallAppBlocker
 from ..core_installed_apps import scan_installed_apps
-from ..widgets_qt import HOTSPage, HOTSDialog, HOTSButton, h_separator, attach_fluent_tip, colored_svg_icon, attach_line_edit_context_menu
+from ..widgets_qt import (
+    HOTSPage, HOTSDialog, HOTSButton, h_separator, attach_fluent_tip, colored_svg_icon,
+    attach_line_edit_context_menu, style_completer_popup, SmoothWheel, quiet_faulthandler,
+)
 from ..i18n import T
 from ..bg_tasks import start_bg_thread, is_shutting_down
 
@@ -124,7 +127,7 @@ class _FirewallRow(QWidget):
             tooltip = T("fw_missing_tooltip")
         else:
             suffix = None
-            tooltip = path
+            tooltip = path.replace("\\", "\\\u200b")
 
         name_lbl = QLabel(f"{name}  {suffix}" if suffix else name)
         name_lbl.setStyleSheet(f"color: {DARK['fg2'] if missing else DARK['fg']}; font-size: 9pt; background: transparent; border: none;")
@@ -171,6 +174,12 @@ class _FirewallRow(QWidget):
         return btn
 
 
+def _fw_card_status_text() -> str:
+    if not FirewallAppBlocker.is_enabled():
+        return T("fw_card_disabled")
+    return T("fw_card_count", n=sum(1 for a in FirewallAppBlocker.list_apps() if a["blocked_out"] or a["blocked_in"]))
+
+
 class _HostsLockToggleSignals(QObject):
     done = Signal(bool)
 
@@ -188,11 +197,36 @@ def _clear_layout(layout):
         item = layout.takeAt(0)
         w = item.widget()
         if w:
+            w.hide()
             w.deleteLater()
         else:
             child_layout = item.layout()
             if child_layout:
                 _clear_layout(child_layout)
+
+
+class _EqualHeight(QObject):
+
+    def __init__(self, source: QWidget, targets):
+        super().__init__(source)
+        self._targets = targets
+        source.installEventFilter(self)
+
+    def eventFilter(self, obj, event):
+        if event.type() == QEvent.Type.Resize:
+            h = obj.height()
+            for w in self._targets:
+                if shiboken6.isValid(w) and (w.minimumHeight() != h or w.maximumHeight() != h):
+                    w.setFixedHeight(h)
+        return False
+
+
+def _file_stamp(path: str):
+    try:
+        st = os.stat(path)
+        return st.st_mtime_ns, st.st_size
+    except OSError:
+        return None
 
 
 class FeaturesPage(_FeatureCardMixin, HOTSPage):
@@ -212,6 +246,7 @@ class FeaturesPage(_FeatureCardMixin, HOTSPage):
         self._fw_missing_prompted = False
         self._fw_installed_cache = None
         self._fw_installed_map = {}
+        self._built_signature = None
         info_popup_bus.popup_closed.connect(self._retry_pending_refresh)
         self._build()
 
@@ -219,19 +254,21 @@ class FeaturesPage(_FeatureCardMixin, HOTSPage):
         if self._pending_refresh:
             self.refresh_content()
 
-    def _sync_card_heights(self, hosts_lock_card, other_cards):
-        if not shiboken6.isValid(self) or not shiboken6.isValid(hosts_lock_card):
-            return
-        h = hosts_lock_card.height()
-        for card in other_cards:
-            if shiboken6.isValid(card):
-                card.setFixedHeight(h)
+    def _content_signature(self):
+        return (
+            _file_stamp(HOSTS_PATH),
+            _file_stamp(CUSTOM_CATEGORY["path"]),
+            HostsLockManager.is_active(),
+            getattr(self._parent_win, "_active_profile", 1),
+        )
 
     def refresh_content(self):
         if self._manual_ops_active > 0 or any_info_popup_open():
             self._pending_refresh = True
             return
         self._pending_refresh = False
+        if self._content_signature() == self._built_signature:
+            return
         self._states = {}
         _clear_layout(self.content_layout)
         self._build()
@@ -257,6 +294,7 @@ class FeaturesPage(_FeatureCardMixin, HOTSPage):
             self._mark_op_end()
 
     def _build(self):
+        signature = self._content_signature()
         rl = self.content_layout
 
         sub_row = QHBoxLayout()
@@ -272,6 +310,7 @@ class FeaturesPage(_FeatureCardMixin, HOTSPage):
         scroll = QScrollArea()
         scroll.setWidgetResizable(True)
         scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        SmoothWheel(scroll)
         scroll.setStyleSheet("QScrollArea { background: transparent; border: none; }")
 
         inner = QWidget()
@@ -303,15 +342,14 @@ class FeaturesPage(_FeatureCardMixin, HOTSPage):
             self._fw_refresh_list()
             self._fw_ensure_installed_apps_loaded()
 
-        QTimer.singleShot(
-            0,
-            lambda hc=hosts_lock_card, others=(custom_domains_module, profiles_card, self._firewall_header):
-                self._sync_card_heights(hc, others),
+        self._height_sync = _EqualHeight(
+            hosts_lock_card, (custom_domains_module, profiles_card, self._firewall_header)
         )
 
         inner_lay.addStretch()
         scroll.setWidget(inner)
         rl.addWidget(scroll, 1)
+        self._built_signature = signature
 
 
     def _make_hosts_lock_card(self) -> QWidget:
@@ -453,6 +491,15 @@ class FeaturesPage(_FeatureCardMixin, HOTSPage):
             status_lbl.setText(T("hosts_lock_drift_restored"))
             status_lbl.setStyleSheet(f"color: {DARK['green']}; font-size: 8.5pt; background: transparent; border: none;")
 
+    def apply_firewall_watchdog_result(self, result):
+        if not shiboken6.isValid(self) or is_shutting_down():
+            return
+        self._refresh_firewall_card()
+        banner = getattr(self, "_fw_banner", None)
+        if not self._fw_expanded or banner is None or not shiboken6.isValid(banner):
+            return
+        if result in ("regressed", "restored", "updated") or banner.isHidden() != FirewallAppBlocker.is_enabled():
+            self._fw_refresh_list()
 
     def _make_custom_domains_module(self) -> QWidget:
         return self._make_card(CUSTOM_CATEGORY)
@@ -549,7 +596,7 @@ class FeaturesPage(_FeatureCardMixin, HOTSPage):
         desc.setStyleSheet(f"color: {DARK['fg2']}; font-size: 8pt; background: transparent; border: none;")
         text_col.addWidget(desc)
 
-        status_lbl = QLabel(T("fw_card_count", n=sum(1 for a in FirewallAppBlocker.list_apps() if a["blocked_out"] or a["blocked_in"])))
+        status_lbl = QLabel(_fw_card_status_text())
         status_lbl.setStyleSheet(f"color: {DARK['fg2']}; font-size: 8.5pt; background: transparent; border: none;")
         text_col.addWidget(status_lbl)
         h.addLayout(text_col, 1)
@@ -593,7 +640,7 @@ class FeaturesPage(_FeatureCardMixin, HOTSPage):
             return
         lbl = state.get("status_lbl")
         if lbl is not None and shiboken6.isValid(lbl):
-            lbl.setText(T("fw_card_count", n=sum(1 for a in FirewallAppBlocker.list_apps() if a["blocked_out"] or a["blocked_in"])))
+            lbl.setText(_fw_card_status_text())
         btn = state.get("toggle_btn")
         if btn is not None and shiboken6.isValid(btn):
             attach_fluent_tip(btn, T("fw_btn_collapse") if self._fw_expanded else T("fw_btn_manage"))
@@ -624,6 +671,24 @@ class FeaturesPage(_FeatureCardMixin, HOTSPage):
         v.setContentsMargins(16, 12, 16, 14)
         v.setSpacing(8)
 
+        banner = QWidget()
+        banner.setStyleSheet("background: transparent; border: none;")
+        banner_lay = QHBoxLayout(banner)
+        banner_lay.setContentsMargins(0, 0, 0, 0)
+        banner_lay.setSpacing(10)
+        banner_lbl = QLabel(T("fw_err_disabled"))
+        banner_lbl.setWordWrap(True)
+        banner_lbl.setStyleSheet(f"color: {DARK['red']}; font-size: 8.5pt; background: transparent; border: none;")
+        banner_lay.addWidget(banner_lbl, 1)
+        enable_btn = HOTSButton(FIF.POWER_BUTTON, "#ffffff", "", accent=True, h_margins=(12, 12))
+        enable_btn.setFixedWidth(42)
+        attach_fluent_tip(enable_btn, T("fw_btn_enable"))
+        enable_btn.clicked.connect(self._fw_enable_firewall)
+        banner_lay.addWidget(enable_btn, 0, Qt.AlignVCenter)
+        banner.setVisible(False)
+        v.addWidget(banner)
+        self._fw_banner = banner
+
         search_row = QHBoxLayout()
         search_row.setSpacing(6)
 
@@ -640,6 +705,7 @@ class FeaturesPage(_FeatureCardMixin, HOTSPage):
         completer.setCaseSensitivity(Qt.CaseInsensitive)
         completer.setFilterMode(Qt.MatchContains)
         completer.setCompletionMode(QCompleter.PopupCompletion)
+        style_completer_popup(completer)
         search_edit.setCompleter(completer)
         completer.activated[str].connect(self._fw_on_search_pick)
         search_edit.returnPressed.connect(lambda: self._fw_on_search_pick(search_edit.text()))
@@ -651,12 +717,16 @@ class FeaturesPage(_FeatureCardMixin, HOTSPage):
         add_btn.fit_to_content(min_width=150)
         add_btn.clicked.connect(self._fw_browse_and_add)
         search_row.addWidget(add_btn)
+        self._fw_add_btn = add_btn
 
         v.addLayout(search_row)
 
-        list_container = QVBoxLayout()
+        list_widget = QWidget()
+        list_container = QVBoxLayout(list_widget)
+        list_container.setContentsMargins(0, 0, 0, 0)
         list_container.setSpacing(4)
-        v.addLayout(list_container)
+        v.addWidget(list_widget)
+        self._fw_list_widget = list_widget
         self._fw_list_container = list_container
 
         status_lbl = QLabel("")
@@ -664,7 +734,6 @@ class FeaturesPage(_FeatureCardMixin, HOTSPage):
         v.addWidget(status_lbl)
         self._fw_status_lbl = status_lbl
 
-        self._fw_op_active = 0
         return outer
 
 
@@ -717,6 +786,8 @@ class FeaturesPage(_FeatureCardMixin, HOTSPage):
                 label = f'{a["name"]} ({folder})'
             else:
                 label = a["name"]
+            if label in label_map:
+                label = f'{a["name"]} ({a["path"]})'
             label_map[label] = a["path"]
 
         self._fw_installed_map = label_map
@@ -728,6 +799,7 @@ class FeaturesPage(_FeatureCardMixin, HOTSPage):
         new_completer.setCaseSensitivity(Qt.CaseInsensitive)
         new_completer.setFilterMode(Qt.MatchContains)
         new_completer.setCompletionMode(QCompleter.PopupCompletion)
+        style_completer_popup(new_completer)
         new_completer.activated[str].connect(self._fw_on_search_pick)
         self._fw_search_edit.setCompleter(new_completer)
         self._fw_completer = new_completer
@@ -746,10 +818,11 @@ class FeaturesPage(_FeatureCardMixin, HOTSPage):
 
 
     def _fw_browse_and_add(self):
-        path, _ = QFileDialog.getOpenFileName(
-            self, T("fw_pick_dialog_title"), "",
-            f"{T('fw_filetypes_exe')} (*.exe);;{T('import_filetypes_all')} (*.*)",
-        )
+        with quiet_faulthandler():
+            path, _ = QFileDialog.getOpenFileName(
+                self, T("fw_pick_dialog_title"), "",
+                f"{T('fw_filetypes_exe')} (*.exe);;{T('import_filetypes_all')} (*.*)",
+            )
         if not path:
             return
         self._fw_add_path(path)
@@ -779,17 +852,31 @@ class FeaturesPage(_FeatureCardMixin, HOTSPage):
 
         apps = FirewallAppBlocker.list_apps()
 
+        enabled = FirewallAppBlocker.is_enabled()
+        banner = getattr(self, "_fw_banner", None)
+        if banner is not None and shiboken6.isValid(banner):
+            banner.setVisible(not enabled)
+        self._fw_apply_enabled(enabled)
+
         if not apps:
             empty = QLabel(T("fw_empty_list"))
             empty.setAlignment(Qt.AlignCenter)
             empty.setStyleSheet(f"color: {DARK['fg2']}; font-size: 9pt; background: transparent; padding: 12px;")
             container.addWidget(empty)
         else:
+            name_counts = {}
+            for e in apps:
+                k = e["name"].lower()
+                name_counts[k] = name_counts.get(k, 0) + 1
             for i, entry in enumerate(apps):
                 if i > 0:
                     container.addWidget(_fw_row_separator())
+                display = entry["name"]
+                if name_counts[display.lower()] > 1:
+                    parts = os.path.normpath(os.path.dirname(entry["path"])).split(os.sep)
+                    display = f"{display}  ({os.sep.join(parts[-2:])})"
                 row = _FirewallRow(
-                    entry["path"], entry["name"], entry["blocked_out"], entry["blocked_in"],
+                    entry["path"], display, entry["blocked_out"], entry["blocked_in"],
                     entry["missing"], entry["removable"],
                     on_toggle=self._fw_on_row_toggle,
                     on_toggle_all=self._fw_on_row_toggle_all,
@@ -801,6 +888,19 @@ class FeaturesPage(_FeatureCardMixin, HOTSPage):
             self._fw_status_lbl.setText(T("fw_status_count", n=len(apps)))
         self._refresh_firewall_card()
         self._fw_check_missing_once(apps)
+
+    def _fw_apply_enabled(self, enabled: bool):
+        for name in ("_fw_search_edit", "_fw_add_btn", "_fw_list_widget"):
+            w = getattr(self, name, None)
+            if w is None or not shiboken6.isValid(w):
+                continue
+            w.setEnabled(enabled)
+            if enabled:
+                w.setGraphicsEffect(None)
+            else:
+                effect = QGraphicsOpacityEffect(w)
+                effect.setOpacity(0.4)
+                w.setGraphicsEffect(effect)
 
     def _fw_check_missing_once(self, apps):
         if self._fw_missing_prompted:
@@ -863,6 +963,11 @@ class FeaturesPage(_FeatureCardMixin, HOTSPage):
 
         start_bg_thread(worker)
 
+    def _fw_enable_firewall(self):
+        if not HOTSDialog.ask(self, T("fw_btn_enable"), T("fw_enable_confirm")):
+            return
+        self._fw_run_op(lambda _p: FirewallAppBlocker.enable_firewall(), "", T("fw_btn_enable"))
+
     def _fw_on_row_toggle(self, path: str, direction: str, blocked: bool):
         if blocked:
             self._fw_run_op(FirewallAppBlocker.unblock, path, T("fw_err_unblock_title"), direction)
@@ -876,7 +981,6 @@ class FeaturesPage(_FeatureCardMixin, HOTSPage):
             self._fw_run_op(FirewallAppBlocker.block_all, path, T("fw_err_block_title"))
 
     def _fw_run_op(self, func, path: str, on_fail_title: str, *extra_args):
-        self._fw_op_active = getattr(self, "_fw_op_active", 0) + 1
         panel = getattr(self, "_firewall_panel", None)
         if panel is not None and shiboken6.isValid(panel):
             panel.setEnabled(False)
@@ -912,11 +1016,11 @@ class FeaturesPage(_FeatureCardMixin, HOTSPage):
         self._mark_op_end()
         if is_shutting_down() or not shiboken6.isValid(self):
             return
-        self._fw_op_active = max(0, getattr(self, "_fw_op_active", 1) - 1)
         panel = getattr(self, "_firewall_panel", None)
         if panel is not None and shiboken6.isValid(panel):
             panel.setEnabled(True)
         self._fw_refresh_list()
         if not ok:
             err = err_msg or T("fw_err_generic")
-            HOTSDialog.error(self, on_fail_title, f"{os.path.basename(path)}\n\n{err}")
+            name = os.path.basename(path)
+            HOTSDialog.error(self, on_fail_title, f"{name}\n\n{err}" if name else err)

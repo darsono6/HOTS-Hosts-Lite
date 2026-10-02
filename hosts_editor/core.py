@@ -559,6 +559,52 @@ def _hosts_lock_tags(tag_suffix: str):
         f"# === HOSTS_EDITOR_PARENTAL_{key}_END ===",
     )
 
+_PARENTAL_BLOCK_RE = re.compile(
+    r"^# === HOSTS_EDITOR_PARENTAL_(?P<key>.+?)_START ===[ \t]*\r?\n"
+    r".*?"
+    r"^# === HOSTS_EDITOR_PARENTAL_(?P=key)_END ===[ \t]*\r?\n?",
+    re.MULTILINE | re.DOTALL,
+)
+
+def strip_all_parental_blocks(path=HOSTS_PATH) -> bool:
+    # Caller must call HostsLockManager.disable() first - otherwise the write
+    # below silently fails because of the ACL deny rule.
+    if not os.path.exists(path):
+        return True
+    with _HOSTS_FILE_LOCK:
+        _wait_for_write_gap()
+        with open(path, "r", encoding="utf-8", errors="replace") as f:
+            content = f.read()
+
+        new_content = _PARENTAL_BLOCK_RE.sub("", content)
+        if new_content == content:
+            return True
+
+        try:
+            create_backup(path, profile=1)
+        except Exception:
+            pass
+
+        dir_path = os.path.dirname(os.path.abspath(path))
+        fd, tmp_path = tempfile.mkstemp(dir=dir_path, prefix=".hosts_tmp_")
+        try:
+            with os.fdopen(fd, "w", encoding="utf-8") as f:
+                f.write(new_content)
+            if os.path.exists(path):
+                try:
+                    os.chmod(path, stat.S_IWRITE)
+                except OSError:
+                    pass
+            os.replace(tmp_path, path)
+        except Exception:
+            try:
+                os.remove(tmp_path)
+            except OSError:
+                pass
+            raise
+        _mark_write_done()
+        return True
+
 def is_hosts_lock_active(tag_suffix: str = "xxx.txt") -> bool:
     if not os.path.exists(HOSTS_PATH):
         return False
