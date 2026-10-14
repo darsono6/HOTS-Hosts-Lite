@@ -23,7 +23,6 @@ from .ui_parts import IconWidget, IndeterminateProgressRing, TransparentToolButt
 
 
 def colored_svg_icon(fif_icon, color, theme=None, sizes=None) -> QIcon:
-    # `theme` kept for backward compatibility with old call sites; unused now.
     return make_qicon(fif_icon, color, sizes)
 
 
@@ -183,17 +182,11 @@ class _FluentTipFilter(QObject):
         self._show_timer.timeout.connect(self._show)
         target.installEventFilter(self)
 
-        # IMPORTANT: connect via a weakref-guarded plain function, not a bound
-        # method of `self`. `target.destroyed` can fire (or, for popups below,
-        # fire *later* via a deferred WA_DeleteOnClose/deleteLater() delete
-        # processed during event-loop cleanup) after `self` has already been
-        # torn down as part of the same widget-tree destruction. Connecting
-        # straight to a bound method in that situation makes PySide try to
-        # dispatch to an already-dead Python object, which crashes with an
-        # access violation deep inside PySide's signal machinery instead of
-        # raising a catchable Python exception. Routing through a weakref
-        # keeps the connected slot itself always alive and simply turns into
-        # a safe no-op if the target object is already gone.
+        # IMPORTANT: connect via a weakref-guarded plain function, not a bound method of
+        # `self`. `target.destroyed` can fire (also later, via a deferred WA_DeleteOnClose /
+        # deleteLater()) after `self` is already torn down; a bound-method slot then crashes
+        # with an access violation inside PySide's dispatch instead of raising. The weakref
+        # turns that into a safe no-op.
         self_ref = weakref.ref(self)
 
         def _on_target_destroyed(*_args, _ref=self_ref):
@@ -335,10 +328,13 @@ def attach_fluent_tip(widget: QWidget, text: str, width: Optional[int] = None,
 class _FluentTableTipFilter(QObject):
     _SHOW_DELAY_MS = 400
 
-    def __init__(self, table):
+    def __init__(self, table, resolver=None):
         super().__init__(table)
         self._table = table
-        self._viewport = table.viewport()
+        # `resolver(QPoint) -> (key, text)` lets a custom-painted widget (not a table) show the
+        # same tip: it is shown again whenever the key under the cursor changes.
+        self._resolver = resolver
+        self._viewport = table if resolver is not None else table.viewport()
         self._viewport.setMouseTracking(True)
         table.setMouseTracking(True)
         self._viewport.installEventFilter(self)
@@ -371,12 +367,17 @@ class _FluentTableTipFilter(QObject):
                 return True
             if et == QEvent.MouseMove:
                 pos = event.position().toPoint() if hasattr(event, "position") else event.pos()
-                item = self._table.itemAt(pos)
-                if item is not self._current_item:
+                if self._resolver is not None:
+                    item, text = self._resolver(pos)
+                    changed = item != self._current_item
+                else:
+                    item = self._table.itemAt(pos)
+                    text = item.toolTip() if item is not None else ""
+                    changed = item is not self._current_item
+                if changed:
                     self._current_item = item
                     self._show_timer.stop()
                     self._hide()
-                    text = item.toolTip() if item is not None else ""
                     if text:
                         self._pending_text = text
                         self._show_timer.start(self._SHOW_DELAY_MS)
@@ -475,6 +476,14 @@ def attach_fluent_table_tip(table) -> _FluentTableTipFilter:
         return existing
     filt = _FluentTableTipFilter(table)
     table._fluent_table_tip_filter = filt
+    return filt
+
+def attach_fluent_point_tip(widget, resolver) -> _FluentTableTipFilter:
+    existing = getattr(widget, "_fluent_point_tip_filter", None)
+    if isinstance(existing, _FluentTableTipFilter):
+        return existing
+    filt = _FluentTableTipFilter(widget, resolver)
+    widget._fluent_point_tip_filter = filt
     return filt
 
 def apply_global_style(app: QApplication):
@@ -775,10 +784,47 @@ class HOTSDialog(QDialog):
             screen = QApplication.primaryScreen().geometry()
             self.move(screen.center() - self.rect().center())
 
+    def _fit_to_content(self):
+        lay = self.layout()
+        if lay is None:
+            return
+        self.ensurePolished()
+        for ch in self.findChildren(QWidget):
+            ch.updateGeometry()
+        lay.invalidate()
+        lay.activate()
+        w = self.width()
+        need = lay.totalHeightForWidth(w) if lay.hasHeightForWidth() else lay.totalSizeHint().height()
+        need = max(need, lay.totalMinimumSize().height())
+        cur = self.height()
+        if need <= cur:
+            return
+        scr = self.screen()
+        if scr is not None:
+            need = min(need, scr.availableGeometry().height() - 40)
+        self.resize(w, need)
+        if scr is not None:
+            avail = scr.availableGeometry()
+            y = max(avail.top(), min(self.y() - (need - cur) // 2, avail.bottom() - need))
+            self.move(self.x(), y)
+
     def showEvent(self, event):
         super().showEvent(event)
         try:
+            self._fit_to_content()
+            QTimer.singleShot(0, self._fit_to_content)
+            QTimer.singleShot(150, self._fit_to_content)
+            wh = self.windowHandle()
+            if wh is not None and not getattr(self, "_fit_hooked", False):
+                self._fit_hooked = True
+                wh.screenChanged.connect(lambda *_: QTimer.singleShot(0, self._fit_to_content))
+        except Exception:
+            pass
+        try:
             hwnd = int(self.winId())
+            from . import win_icon
+            win_icon.apply(hwnd)
+            QTimer.singleShot(300, lambda: win_icon.apply(int(self.winId())))
             _dwm_dark_titlebar(hwnd, dark=not IS_LIGHT_THEME)
             enable_rounded_corners(hwnd)
             _dwm_mica_dialog(hwnd, dark=not IS_LIGHT_THEME)
@@ -815,6 +861,11 @@ class HOTSDialog(QDialog):
     def ask(parent, title: str, message: str) -> bool:
         d = _MsgDialog(parent, title, message, "ask")
         return d.exec() == QDialog.Accepted
+
+    @staticmethod
+    def choose(parent, title: str, message: str, labels: list):
+        d = _MsgDialog(parent, title, message, "choice", labels)
+        return d.picked if d.exec() == QDialog.Accepted else None
 
     @staticmethod
     def restart_prompt(parent, title: str, message: str) -> bool:
@@ -929,11 +980,13 @@ class _MsgDialog(HOTSDialog):
         "info":    (FIF.INFO,   "#60c8ff"),
         "error":   (FIF.INFO,   DARK["red"]),
         "ask":     (FIF.HELP,   DARK["accent"]),
+        "choice":  (FIF.HELP,   DARK["accent"]),
         "restart": (FIF.SYNC,   DARK["accent"]),
     }
 
-    def __init__(self, parent, title, message, kind):
+    def __init__(self, parent, title, message, kind, labels=None):
         super().__init__(parent, title, min_width=360, min_height=160)
+        self.picked = None
         icon_fif, icon_color = self.ICONS.get(kind, (FIF.INFO, "#60c8ff"))
 
         content = QWidget()
@@ -967,6 +1020,25 @@ class _MsgDialog(HOTSDialog):
             no.fit_to_content(min_width=90)
             no.clicked.connect(self.reject)
             btn_row.addWidget(no)
+        elif kind == "choice":
+            from .i18n import T
+            col = QVBoxLayout()
+            col.setSpacing(8)
+            buttons = []
+            for i, label in enumerate(labels or []):
+                b = HOTSButton(FIF.ACCEPT if i == 0 else FIF.SYNC, DARK["accent"], label, accent=(i == 0))
+                b.clicked.connect(lambda _=False, i=i: self._pick(i))
+                buttons.append(b)
+            cancel = HOTSButton(FIF.CLOSE, DARK["red"], T("btn_cancel"))
+            cancel.clicked.connect(self.reject)
+            buttons.append(cancel)
+            for b in buttons:
+                b.fit_to_content(min_width=280)
+            width = max(b.width() for b in buttons)
+            for b in buttons:
+                b.setFixedWidth(width)
+                col.addWidget(b, 0, Qt.AlignHCenter)
+            btn_row.addLayout(col)
         elif kind == "restart":
             from .i18n import T
             later = HOTSButton(FIF.CLOSE, DARK["fg2"], T("btn_later"))
@@ -990,6 +1062,10 @@ class _MsgDialog(HOTSDialog):
         self.body_layout.addWidget(content)
         self.adjustSize()
         self.center_on_parent()
+
+    def _pick(self, index: int):
+        self.picked = index
+        self.accept()
 
 class HOTSContextMenu(QWidget):
     _ITEM_H   = 36

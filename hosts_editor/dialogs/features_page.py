@@ -25,6 +25,8 @@ from ..i18n import T
 from ..bg_tasks import start_bg_thread, is_shutting_down
 
 from ._features_shared import _InfoButton, _FeatureCardMixin, CUSTOM_CATEGORY, any_info_popup_open, info_popup_bus
+from ._speedtest_card import _SpeedtestCardMixin
+from ._dnstest_card import _DnsTestCardMixin
 
 logger = logging.getLogger("HOTS.firewall")
 
@@ -180,10 +182,6 @@ def _fw_card_status_text() -> str:
     return T("fw_card_count", n=sum(1 for a in FirewallAppBlocker.list_apps() if a["blocked_out"] or a["blocked_in"]))
 
 
-class _HostsLockToggleSignals(QObject):
-    done = Signal(bool)
-
-
 class _FirewallOpSignals(QObject):
     done = Signal(bool, str, str)
 
@@ -207,9 +205,10 @@ def _clear_layout(layout):
 
 class _EqualHeight(QObject):
 
-    def __init__(self, source: QWidget, targets):
+    def __init__(self, source: QWidget, targets, grow_targets=()):
         super().__init__(source)
         self._targets = targets
+        self._grow_targets = grow_targets  # only get a minimum height, so longer text can still grow them
         source.installEventFilter(self)
 
     def eventFilter(self, obj, event):
@@ -218,6 +217,9 @@ class _EqualHeight(QObject):
             for w in self._targets:
                 if shiboken6.isValid(w) and (w.minimumHeight() != h or w.maximumHeight() != h):
                     w.setFixedHeight(h)
+            for w in self._grow_targets:
+                if shiboken6.isValid(w) and w.minimumHeight() != h:
+                    w.setMinimumHeight(h)
         return False
 
 
@@ -229,7 +231,7 @@ def _file_stamp(path: str):
         return None
 
 
-class FeaturesPage(_FeatureCardMixin, HOTSPage):
+class FeaturesPage(_FeatureCardMixin, _SpeedtestCardMixin, _DnsTestCardMixin, HOTSPage):
 
     busy_changed = Signal(bool)
 
@@ -247,6 +249,8 @@ class FeaturesPage(_FeatureCardMixin, HOTSPage):
         self._fw_installed_cache = None
         self._fw_installed_map = {}
         self._built_signature = None
+        self._speedtest_init()
+        self._dnstest_init()
         info_popup_bus.popup_closed.connect(self._retry_pending_refresh)
         self._build()
 
@@ -263,15 +267,19 @@ class FeaturesPage(_FeatureCardMixin, HOTSPage):
         )
 
     def refresh_content(self):
-        if self._manual_ops_active > 0 or any_info_popup_open():
+        if self._manual_ops_active > 0 or any_info_popup_open() or self._speed_running or self._dns_running:
             self._pending_refresh = True
             return
         self._pending_refresh = False
         if self._content_signature() == self._built_signature:
             return
         self._states = {}
-        _clear_layout(self.content_layout)
-        self._build()
+        self.setUpdatesEnabled(False)
+        try:
+            _clear_layout(self.content_layout)
+            self._build()
+        finally:
+            self.setUpdatesEnabled(True)
 
     def _mark_op_start(self):
         was_idle = self._manual_ops_active == 0
@@ -319,9 +327,9 @@ class FeaturesPage(_FeatureCardMixin, HOTSPage):
         inner_lay.setContentsMargins(12, 10, 12, 10)
         inner_lay.setSpacing(6)
 
-        hosts_lock_card = self._make_hosts_lock_card()
-        self._hosts_lock_card = hosts_lock_card
-        inner_lay.addWidget(hosts_lock_card)
+        profiles_card = self._make_profiles_card()
+        self._profiles_card = profiles_card
+        inner_lay.addWidget(profiles_card)
         inner_lay.addSpacing(6)
 
         custom_domains_module = self._make_custom_domains_module()
@@ -329,9 +337,14 @@ class FeaturesPage(_FeatureCardMixin, HOTSPage):
         inner_lay.addWidget(custom_domains_module)
         inner_lay.addSpacing(6)
 
-        profiles_card = self._make_profiles_card()
-        self._profiles_card = profiles_card
-        inner_lay.addWidget(profiles_card)
+        speedtest_card = self._make_speedtest_card()
+        self._speedtest_card = speedtest_card
+        inner_lay.addWidget(speedtest_card)
+        inner_lay.addSpacing(6)
+
+        dnstest_card = self._make_dnstest_card()
+        self._dnstest_card = dnstest_card
+        inner_lay.addWidget(dnstest_card)
         inner_lay.addSpacing(6)
 
         firewall_card = self._make_firewall_card()
@@ -343,7 +356,9 @@ class FeaturesPage(_FeatureCardMixin, HOTSPage):
             self._fw_ensure_installed_apps_loaded()
 
         self._height_sync = _EqualHeight(
-            hosts_lock_card, (custom_domains_module, profiles_card, self._firewall_header)
+            self._firewall_header,
+            (custom_domains_module, profiles_card),
+            (self._speedtest_header, self._dnstest_header),
         )
 
         inner_lay.addStretch()
@@ -351,145 +366,6 @@ class FeaturesPage(_FeatureCardMixin, HOTSPage):
         rl.addWidget(scroll, 1)
         self._built_signature = signature
 
-
-    def _make_hosts_lock_card(self) -> QWidget:
-        active = HostsLockManager.is_active()
-        outer = QWidget()
-        outer.setStyleSheet(
-            f"background: {DARK['panel_bg']}; border: 1px solid {DARK['border_faint']}; border-radius: 6px;"
-        )
-        h = QHBoxLayout(outer)
-        h.setContentsMargins(16, 14, 16, 14)
-        h.setSpacing(10)
-
-        icon = IconWidget(FIF.CERTIFICATE)
-        icon.setFixedSize(20, 20)
-        icon.setIcon(colored_svg_icon(FIF.CERTIFICATE, QColor(DARK["accent"]), sizes=(20,)))
-        h.addWidget(icon, 0, Qt.AlignTop)
-
-        text_col = QVBoxLayout()
-        text_col.setSpacing(2)
-
-        title_row = QHBoxLayout()
-        title_row.setSpacing(6)
-        title = QLabel(T("hosts_lock_title"))
-        title.setStyleSheet(f"color: {DARK['fg']}; font-size: 12pt; background: transparent; border: none;")
-        title_row.addWidget(title)
-        title_row.addWidget(_InfoButton(T("hosts_lock_tooltip")))
-        title_row.addStretch()
-        text_col.addLayout(title_row)
-
-        desc = QLabel(T("hosts_lock_desc"))
-        desc.setWordWrap(True)
-        desc.setStyleSheet(f"color: {DARK['fg2']}; font-size: 8pt; background: transparent; border: none;")
-        text_col.addWidget(desc)
-
-        status_lbl = QLabel(T("hosts_lock_status_locked") if active else T("hosts_lock_status_unlocked"))
-        status_lbl.setStyleSheet(
-            f"color: {DARK['green'] if active else DARK['fg2']}; font-size: 8.5pt; background: transparent; border: none;"
-        )
-        text_col.addWidget(status_lbl)
-        h.addLayout(text_col, 1)
-
-        side_col = QVBoxLayout()
-        side_col.setSpacing(4)
-        side_col.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
-
-        btn_color = DARK["green"] if active else DARK["gray"]
-        btn_label = T("hosts_lock_btn_disable") if active else T("hosts_lock_btn_enable")
-        btn_icon = FIF.ACCEPT if active else FIF.CLOSE
-        btn = HOTSButton(btn_icon, btn_color, "", accent=False)
-        btn.setFixedWidth(44)
-        attach_fluent_tip(btn, btn_label)
-        side_col.addWidget(btn, 0, Qt.AlignRight)
-
-        h.addLayout(side_col)
-
-        state = {
-            "active": active, "btn": btn, "status_lbl": status_lbl,
-            "busy": False,
-        }
-        self._hosts_lock_state = state
-        btn.clicked.connect(lambda _c=False, s=state: self._toggle_hosts_lock(s))
-
-        return outer
-
-    def _toggle_hosts_lock(self, state: dict):
-        if state["busy"]:
-            return
-        target = not state["active"]
-        state["busy"] = True
-
-        btn = state["btn"]
-        btn.setEnabled(False)
-        self.begin_busy()
-
-        signals = _HostsLockToggleSignals(self)
-        signals.done.connect(lambda ok, s=state, t=target: self._on_hosts_lock_toggle_done(s, t, ok))
-        self._hosts_lock_signals = signals
-
-        def worker(t=target):
-            try:
-                ok = HostsLockManager.enable() if t else HostsLockManager.disable()
-            except Exception as e:
-                ok = False
-                HostsLockManager.last_error = str(e)
-            signals.done.emit(ok)
-
-        start_bg_thread(worker)
-
-    def _on_hosts_lock_toggle_done(self, state: dict, target: bool, ok: bool):
-        if not shiboken6.isValid(self) or is_shutting_down():
-            return
-        state["busy"] = False
-        btn = state["btn"]
-        btn.setEnabled(True)
-        self.end_busy()
-
-        if ok:
-            state["active"] = target
-            self._refresh_hosts_lock_card(state)
-            if self._parent_win and hasattr(self._parent_win, "_refresh_toolbar_status_ui"):
-                self._parent_win._refresh_toolbar_status_ui()
-            msg_key = "hosts_lock_on_ok" if target else "hosts_lock_off_ok"
-            HOTSDialog.info(self, T("hosts_lock_title"), T(msg_key))
-        else:
-            self._refresh_hosts_lock_card(state)
-            err_msg = T("hosts_lock_on_fail") if target else T("hosts_lock_off_fail")
-            if HostsLockManager.last_error:
-                err_msg += f"\n\n{HostsLockManager.last_error}"
-            HOTSDialog.error(self, T("hosts_lock_title"), err_msg)
-
-    def _refresh_hosts_lock_card(self, state: dict):
-        active = state["active"]
-        btn = state["btn"]
-        attach_fluent_tip(btn, T("hosts_lock_btn_disable") if active else T("hosts_lock_btn_enable"))
-        btn.set_icon(FIF.ACCEPT if active else FIF.CLOSE, DARK["green"] if active else DARK["gray"])
-        btn.set_accent(False)
-
-        status_lbl = state["status_lbl"]
-        status_lbl.setText(T("hosts_lock_status_locked") if active else T("hosts_lock_status_unlocked"))
-        status_lbl.setStyleSheet(
-            f"color: {DARK['green'] if active else DARK['fg2']}; font-size: 8.5pt; background: transparent; border: none;"
-        )
-
-    def apply_hosts_lock_watchdog_result(self, result):
-        if not shiboken6.isValid(self) or is_shutting_down():
-            return
-        state = getattr(self, "_hosts_lock_state", None)
-        if not state or result is None:
-            return
-        state["active"] = HostsLockManager.is_active()
-        self._refresh_hosts_lock_card(state)
-
-        if result == "regressed":
-            status_lbl = state["status_lbl"]
-            status_lbl.setText(T("hosts_lock_drift_regressed"))
-            status_lbl.setStyleSheet(f"color: {DARK['red']}; font-size: 8.5pt; background: transparent; border: none;")
-        elif result == "restored":
-            status_lbl = state["status_lbl"]
-            status_lbl.setText(T("hosts_lock_drift_restored"))
-            status_lbl.setStyleSheet(f"color: {DARK['green']}; font-size: 8.5pt; background: transparent; border: none;")
 
     def apply_firewall_watchdog_result(self, result):
         if not shiboken6.isValid(self) or is_shutting_down():

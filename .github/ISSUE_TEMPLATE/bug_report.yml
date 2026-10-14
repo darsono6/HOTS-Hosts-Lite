@@ -7,7 +7,7 @@ body:
     attributes:
       label: HOTS Hosts Lite version
       description: Shown in Options → About
-      placeholder: "1.1"
+      placeholder: "1.2"
     validations:
       required: true
   - type: input

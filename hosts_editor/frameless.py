@@ -4,13 +4,13 @@ import sys
 from typing import Optional
 
 from PySide6.QtCore import (
-    Qt, QEvent, QPoint, QPointF, QSize, QAbstractAnimation, QEasingCurve,
+    Qt, QCoreApplication, QEvent, QPoint, QPointF, QSize, QAbstractAnimation, QEasingCurve,
     QPropertyAnimation, QTimer, Signal,
 )
 from PySide6.QtGui import QColor, QKeySequence, QPainter, QPainterPath, QPen, QPixmap, QShortcut
 from PySide6.QtWidgets import (
-    QAbstractButton, QAbstractScrollArea, QFrame, QHBoxLayout, QLabel, QLayout,
-    QStackedWidget, QWidget,
+    QAbstractButton, QAbstractScrollArea, QFrame, QGraphicsOpacityEffect, QHBoxLayout, QLabel,
+    QLayout, QStackedWidget, QWidget,
 )
 
 from .constants import IS_LIGHT_THEME
@@ -304,10 +304,10 @@ class _Native:
         margin on top hands the whole top area to the system, which draws its
         own caption buttons there (removing this caused doubled buttons)."""
         if initial or not mica:
-            self._extend_frame(hwnd, -1, -1, -1, -1)         # shadow
+            self._extend_frame(hwnd, -1, -1, -1, -1)
         if not mica:
             return
-        self._extend_frame(hwnd, 16777215, 16777215, 0, 0)   # Mica
+        self._extend_frame(hwnd, 16777215, 16777215, 0, 0)
 
         if self._set_comp_attr is not None:
             accent = _ACCENT_POLICY(5, 0, 0, 0)               # ACCENT_ENABLE_HOSTBACKDROP
@@ -356,7 +356,6 @@ if IS_WIN:
 
 
 class _PopUpStack(QStackedWidget):
-
     DELTA_Y = 76
     DURATION_MS = 300
 
@@ -364,6 +363,8 @@ class _PopUpStack(QStackedWidget):
         super().__init__(parent)
         self._animated = True
         self._ani: Optional[QPropertyAnimation] = None
+        self._shot: Optional[QLabel] = None
+        self._shot_page: Optional[QWidget] = None
 
     def setAnimationEnabled(self, enabled: bool):
         self._animated = bool(enabled)
@@ -380,24 +381,44 @@ class _PopUpStack(QStackedWidget):
         if not self._animated:
             return
 
-        ani = QPropertyAnimation(widget, b"pos", self)
+        QCoreApplication.sendPostedEvents(None, QEvent.DeferredDelete)
+        for _ in range(2):
+            QCoreApplication.sendPostedEvents(None, QEvent.MetaCall)
+            QCoreApplication.sendPostedEvents(None, QEvent.LayoutRequest)
+        shot = QLabel(self)
+        shot.setPixmap(widget.grab())
+        shot.setGeometry(widget.geometry().translated(0, self.DELTA_Y))
+        shot.show()
+        self._hide_page(widget)
+
+        ani = QPropertyAnimation(shot, b"pos", self)
         ani.setDuration(self.DURATION_MS)
         ani.setEasingCurve(QEasingCurve.OutQuad)
-        ani.setStartValue(QPoint(widget.x(), self.DELTA_Y))
-        ani.setEndValue(QPoint(widget.x(), 0))
-        ani.finished.connect(self._on_ani_finished)
-        self._ani = ani
+        ani.setStartValue(shot.pos())
+        ani.setEndValue(widget.pos())
+        ani.finished.connect(self._finish_animation)
+        self._ani, self._shot, self._shot_page = ani, shot, widget
         ani.start()
 
     def _finish_animation(self):
         ani = self._ani
-        if ani is not None and ani.state() == QAbstractAnimation.Running:
-            ani.stop()
-            ani.finished.disconnect(self._on_ani_finished)
+        if ani is None:
+            return
         self._ani = None
+        ani.stop()
+        ani.deleteLater()
+        self._shot.deleteLater()
+        self._show_page(self._shot_page)
 
-    def _on_ani_finished(self):
-        self._ani = None
+    @staticmethod
+    def _hide_page(widget: QWidget):
+        effect = QGraphicsOpacityEffect(widget)
+        effect.setOpacity(0.0)
+        widget.setGraphicsEffect(effect)
+
+    @staticmethod
+    def _show_page(widget: QWidget):
+        widget.setGraphicsEffect(None)
 
 
 class PageStack(QFrame):
@@ -526,7 +547,7 @@ class CaptionButton(QAbstractButton):
                 path.lineTo(x0 + px(8), y0 - dw + px(8))
                 path.lineTo(x0 + px(8) - dw, y0 - dw + px(8))
                 p.drawPath(path)
-        else:  # close
+        else:
             # No antialiasing, to match the native Windows X: with AA a 1px
             # diagonal line blurs across two pixels.
             p.setRenderHint(QPainter.Antialiasing, False)
@@ -601,7 +622,7 @@ class TitleBar(QWidget):
         if not (e.buttons() & Qt.LeftButton):
             return
         if getattr(self.window(), "_fullscreen_mode", False):
-            return                      # don't drag a fullscreen window
+            return
         handle = self.window().windowHandle()
         if handle is not None:
             handle.startSystemMove()
@@ -756,6 +777,8 @@ class FramelessWindow(QWidget):
             return
         try:
             hwnd = int(self.winId())
+            from . import win_icon
+            win_icon.apply(hwnd)
             if not self._fullscreen_mode:
                 _native.enforce_style(hwnd)
             _native.apply_effects(hwnd, dark=not IS_LIGHT_THEME, mica=self._mica,

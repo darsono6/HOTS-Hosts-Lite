@@ -8,7 +8,7 @@
 
 [![License: GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010%2F11%20%2864--bit%29-0078D4?logo=windows)](https://github.com/)
-[![Language](https://img.shields.io/badge/Language-EN%20%7C%20PL%20%7C%20FR%20%7C%20DE%20%7C%20ES%20%7C%20PT%20%7C%20RU-brightgreen)](#language-support)
+[![Language](https://img.shields.io/badge/Language-EN%20%7C%20PL%20%7C%20FR%20%7C%20DE%20%7C%20ES%20%7C%20PT%20%7C%20RU%20%7C%20IT-brightgreen)](#language-support)
 
 ### 📥 [⬇️ Download for Windows — free](https://github.com/darsono6/HOTS-Hosts-Lite/releases/latest/download/HOTS_Hosts_Lite_setup.exe)
 
@@ -54,6 +54,15 @@ If you'd rather double-check the app yourself first, the full source code is rig
 
 ---
 
+## What's new in 1.2
+
+- **Internet speed test** — measures download speed, upload speed and ping with one click, keeps a history of your results, and rates how well your connection suits web browsing, gaming, streaming and live video calls
+- **DNS speed test** — checks how fast your DNS server answers compared with popular public ones (Cloudflare, Google, Quad9, OpenDNS), tells you whether switching would help, and can set a public DNS for you with one click. You can go back to your previous DNS (or to automatic DNS from your router or provider) at any time, and the uninstaller can restore it too
+- **Italian language added** — the interface is now available in 8 languages, and the app now starts in your Windows language when it is supported
+- Minor improvements throughout the application's code
+
+---
+
 ## What's new in 1.1
 
 - **Significantly lower resource usage** — the app no longer depends on PySide6-Fluent-Widgets and runs on its own lightweight window and widgets
@@ -85,6 +94,21 @@ If you'd rather double-check the app yourself first, the full source code is rig
 </details>
 
 <details>
+<summary><strong>🌐 Network Tools</strong> — click to expand</summary>
+
+- **Internet speed test** — download, upload and ping (with jitter), a history of past results, and a quick rating for web browsing, gaming, streaming and live video calls. It uses your full connection for a few seconds and transfers a fair amount of data, so avoid it on a metered connection
+- **DNS speed test** — asks your DNS server and Cloudflare, Google, Quad9 and OpenDNS for eight very popular sites (bypassing the hosts file and the system cache) and shows how fast each one answers, with a plain-language verdict
+- **One-click DNS switch** — set any of the tested public DNS servers as your DNS; the app remembers what you had before, so you can restore your previous DNS or go back to automatic DNS whenever you like
+
+<div align="center">
+<img src="assets/screenshot_speedtest.png" alt="Internet Speed Test" width="650"/>
+
+<img src="assets/screenshot_dnstest.png" alt="DNS Speed Test" width="650"/>
+</div>
+
+</details>
+
+<details>
 <summary><strong>✏️ Hosts File Editor</strong> — click to expand</summary>
 
 - Table view of all entries, live search, bulk paste, sorting
@@ -110,9 +134,9 @@ If you'd rather double-check the app yourself first, the full source code is rig
 <summary><strong>🎨 Other features</strong> — click to expand</summary>
 
 - Light and dark themes, 5 accent colors, custom window with Mica backdrop on Windows 11
-- 7 languages: English, Polski, Français, Deutsch, Español, Português, Русский
+- 8 languages: English, Polski, Français, Deutsch, Español, Português, Русский, Italiano
 - Optional password protection
-- Uninstall wizard — choose exactly what to undo (domain and app blocks, saved configuration, custom domain list, hosts backups) instead of an all-or-nothing removal; no password needed to uninstall
+- Uninstall wizard — choose exactly what to undo (domain and app blocks, original DNS servers, saved configuration, custom domain list, hosts backups) instead of an all-or-nothing removal; no password needed to uninstall
 - Built-in update checker (checks GitHub Releases on startup — can be switched off in **Options → About**)
 - Auto-elevation, single-instance guard, window geometry memory
 
@@ -154,6 +178,8 @@ hosts_editor/
 ├── core_firewall.py        # Application firewall blocking (netsh rules)
 ├── core_profiles.py        # 3-slot hosts profile switching
 ├── core_installed_apps.py  # Installed-app lookup (registry) for the firewall block picker
+├── core_speedtest.py       # Internet speed test (download / upload / ping)
+├── core_dnstest.py         # DNS speed test, DNS switching and restoring the previous DNS
 ├── uninstall_flow.py       # Uninstall cleanup logic — mandatory system-lock teardown + optional, wizard-driven reverts
 ├── bg_tasks.py             # Background worker thread registry — joined on app quit
 ├── constants.py            # Theme colors, accent presets, paths, settings load/save
@@ -161,7 +187,8 @@ hosts_editor/
 ├── ui_parts.py              # Small widgets — icon widget, toolbar button, progress ring, info banner
 ├── icons.py                 # Built-in SVG icon set
 ├── resource_utils.py        # Base-path resolution (dev / frozen / Nuitka builds)
-├── i18n.py                  # Multilingual string system (EN / PL / FR / DE / ES / PT / RU)
+├── win_icon.py             # Sets the window/taskbar icon explicitly via WinAPI (no default icon)
+├── i18n.py                  # Multilingual string system (EN / PL / FR / DE / ES / PT / RU / IT)
 ├── graphic/
 │   ├── logo.png             # About page logo
 │   ├── logo.ico             # Window/taskbar icon
@@ -174,7 +201,7 @@ hosts_editor/
     ├── diff_dialog.py          # Diff preview before save
     ├── backup_page.py          # Backup Manager
     ├── diagnostics_page.py     # Domain check & malware scan
-    ├── features_page.py        # Domain blocking + hosts lock + firewall + profiles panel
+    ├── features_page.py        # Domain blocking + hosts lock + firewall + profiles + speed/DNS tests
     ├── custom_domains_dialog.py  # Editor for the "Block your own domains" list
     ├── export_dialog.py        # Export to .txt / .csv
     ├── language_dialog.py      # Language selection
@@ -203,6 +230,7 @@ The interface language can be changed in **Options → Language**. All UI string
 | `es` | Español |
 | `pt` | Português |
 | `ru` | Русский |
+| `it` | Italiano |
 
 ---
 

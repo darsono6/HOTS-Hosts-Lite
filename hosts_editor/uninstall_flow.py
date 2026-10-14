@@ -3,10 +3,11 @@ import shutil
 import stat
 import winreg
 
-from .constants import HOSTS_PATH, CUSTOM_DOMAINS_PATH, PROFILES_DIR
+from .constants import HOSTS_PATH, CUSTOM_DOMAINS_PATH, PROFILES_DIR, BACKUPS_ROOT_DIR, backup_dir_for_profile
 from .core import list_backups, strip_all_parental_blocks
 from .core_hosts_lock import HostsLockManager
 from .core_firewall import FirewallAppBlocker
+from .core_dnstest import dns_backup_exists, restore_original_dns
 
 REG_KEY = r"Software\HOTS Hosts Lite"
 
@@ -55,6 +56,11 @@ def _delete_hosts_backups() -> int:
                 deleted += 1
             except Exception:
                 pass
+    for folder in (backup_dir_for_profile(2), backup_dir_for_profile(3), BACKUPS_ROOT_DIR):
+        try:
+            os.rmdir(folder)
+        except OSError:
+            pass
     return deleted
 
 
@@ -129,7 +135,8 @@ def apply_uninstall_choices(choices: dict) -> dict:
     report = {"errors": []}
 
     try:
-        HostsLockManager.disable()
+        if not HostsLockManager.disable():
+            report["errors"].append(f"hosts_lock: {HostsLockManager.last_error}")
     except Exception as e:
         report["errors"].append(f"hosts_lock: {e}")
 
@@ -146,6 +153,20 @@ def apply_uninstall_choices(choices: dict) -> dict:
         failed_fw = _remove_all_firewall_blocks()
         if failed_fw:
             report["errors"].append(f"firewall: {failed_fw}")
+        try:
+            failed_orphans = FirewallAppBlocker.remove_orphan_rules()
+        except Exception as e:
+            failed_orphans = [str(e)]
+        if failed_orphans:
+            report["errors"].append(f"firewall_orphans: {failed_orphans}")
+
+    if choices.get("restore_dns"):
+        try:
+            dns_err = restore_original_dns()
+        except Exception as e:
+            dns_err = str(e)
+        if dns_err:
+            report["errors"].append(f"dns: {dns_err}")
 
     if choices.get("delete_custom_domains"):
         _delete_file(str(CUSTOM_DOMAINS_PATH))

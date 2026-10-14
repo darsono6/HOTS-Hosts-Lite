@@ -31,10 +31,15 @@ def _clean_icon_path(raw: str) -> str:
     return raw.strip().strip('"')
 
 
-_JUNK_EXE_HINTS = ("unins", "uninstall", "setup", "updater")
+_JUNK_EXE_HINTS = ("unins", "install", "setup", "update", "crash", "repair")
 
 
-def _find_exe_in_folder(folder: str, hint_name: str) -> str:
+def _is_junk_exe(path: str) -> bool:
+    name = os.path.basename(path).lower()
+    return any(j in name for j in _JUNK_EXE_HINTS)
+
+
+def _find_exe_in_folder(folder: str, hint_name: str, require_match: bool = False) -> str:
     try:
         entries = sorted(f for f in os.listdir(folder) if f.lower().endswith(".exe"))
     except OSError:
@@ -47,20 +52,26 @@ def _find_exe_in_folder(folder: str, hint_name: str) -> str:
         if stem and (stem in hint or hint.startswith(stem)):
             return os.path.join(folder, f)
     non_junk = [f for f in entries if not any(j in f.lower() for j in _JUNK_EXE_HINTS)]
-    if len(non_junk) == 1:
+    if not require_match and len(non_junk) == 1:
         return os.path.join(folder, non_junk[0])
     return ""
 
 
 def _resolve_exe(display_name: str, icon_raw: str, install_location: str) -> str:
-    if icon_raw:
-        candidate = _clean_icon_path(icon_raw)
-        if candidate.lower().endswith(".exe") and os.path.isfile(candidate):
-            return candidate
+    icon_path = _clean_icon_path(icon_raw) if icon_raw else ""
+    if icon_path.lower().endswith(".exe") and os.path.isfile(icon_path) and not _is_junk_exe(icon_path):
+        return icon_path
     if install_location and os.path.isdir(install_location):
         found = _find_exe_in_folder(install_location, display_name)
         if found and os.path.isfile(found):
             return found
+    if icon_path:
+        icon_dir = os.path.dirname(icon_path)
+        for folder, require_match in ((icon_dir, False), (os.path.dirname(icon_dir), True)):
+            if folder and os.path.isdir(folder):
+                found = _find_exe_in_folder(folder, display_name, require_match)
+                if found and os.path.isfile(found):
+                    return found
     return ""
 
 

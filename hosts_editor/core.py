@@ -189,25 +189,28 @@ def _parse_line(raw_line: str) -> dict:
     return {"enabled": True, "ip": ip, "hostname": hostname,
             "comment": comment, "raw": raw_line}
 
+def _decode_hosts_bytes(raw: bytes) -> str:
+    if raw.startswith(b"\xff\xfe") or raw.startswith(b"\xfe\xff"):
+        return raw.decode("utf-16", errors="replace")
+    if raw.startswith(b"\xef\xbb\xbf"):
+        return raw.decode("utf-8-sig", errors="replace")
+    try:
+        return raw.decode("utf-8")
+    except UnicodeDecodeError:
+        try:
+            return raw.decode("cp1250")
+        except UnicodeDecodeError:
+            return raw.decode("utf-8", errors="replace")
+
+def _read_hosts_text(path) -> str:
+    with open(path, "rb") as f:
+        raw = f.read()
+    return _decode_hosts_bytes(raw).replace("\r\n", "\n").replace("\r", "\n")
+
 def _read_text_smart(path) -> list:
     with open(path, "rb") as f:
         raw = f.read()
-
-    if raw.startswith(b"\xff\xfe") or raw.startswith(b"\xfe\xff"):
-        text = raw.decode("utf-16", errors="replace")
-    elif raw.startswith(b"\xef\xbb\xbf"):
-        text = raw.decode("utf-8-sig", errors="replace")
-    else:
-
-        try:
-            text = raw.decode("utf-8")
-        except UnicodeDecodeError:
-            try:
-                text = raw.decode("cp1250")
-            except UnicodeDecodeError:
-                text = raw.decode("utf-8", errors="replace")
-
-    return text.splitlines()
+    return _decode_hosts_bytes(raw).splitlines()
 
 def parse_hosts(path) -> list:
     entries = []
@@ -315,6 +318,8 @@ def create_backup(path, profile: int) -> str | None:
 def restore_from_backup(path, backup_path, profile: int) -> None:
     if HostsLockManager.is_active():
         raise HostsLockError(T("hosts_lock_blocks_write"))
+    with open(backup_path, "rb") as f:
+        data = f.read()
     with _HOSTS_FILE_LOCK:
         _wait_for_write_gap()
         try:
@@ -326,7 +331,8 @@ def restore_from_backup(path, backup_path, profile: int) -> None:
         fd, tmp_path = tempfile.mkstemp(dir=dir_path, prefix=".hosts_tmp_")
         os.close(fd)
         try:
-            shutil.copy2(str(backup_path), tmp_path)
+            with open(tmp_path, "wb") as f:
+                f.write(data)
 
             last_err = None
             for attempt in range(10):
@@ -573,8 +579,7 @@ def strip_all_parental_blocks(path=HOSTS_PATH) -> bool:
         return True
     with _HOSTS_FILE_LOCK:
         _wait_for_write_gap()
-        with open(path, "r", encoding="utf-8", errors="replace") as f:
-            content = f.read()
+        content = _read_hosts_text(path)
 
         new_content = _PARENTAL_BLOCK_RE.sub("", content)
         if new_content == content:
@@ -610,8 +615,7 @@ def is_hosts_lock_active(tag_suffix: str = "xxx.txt") -> bool:
         return False
     start_tag, end_tag = _hosts_lock_tags(tag_suffix)
     try:
-        with open(HOSTS_PATH, "r", encoding="utf-8", errors="replace") as f:
-            lines = f.readlines()
+        lines = _read_hosts_text(HOSTS_PATH).splitlines()
     except Exception:
         return False
 
@@ -645,8 +649,7 @@ def toggle_hosts_lock(enable: bool, list_path: str = None,
             read_err = None
             for attempt in range(15):
                 try:
-                    with open(HOSTS_PATH, "r", encoding="utf-8", errors="replace") as f:
-                        lines = f.readlines()
+                    lines = _read_hosts_text(HOSTS_PATH).splitlines(keepends=True)
                     read_err = None
                     break
                 except PermissionError as ex:
@@ -657,9 +660,10 @@ def toggle_hosts_lock(enable: bool, list_path: str = None,
 
             new_lines = []
             inside = False
-            for line in lines:
+            for i, line in enumerate(lines):
                 if start_tag in line:
-                    inside = True
+                    if any(end_tag in later for later in lines[i + 1:]):
+                        inside = True
                     continue
                 if end_tag in line:
                     inside = False

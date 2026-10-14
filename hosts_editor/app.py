@@ -23,12 +23,12 @@ from PySide6.QtGui import (
 )
 
 from .icons import FIF
-from .ui_parts import InfoBanner
+from .ui_parts import InfoBanner, TransparentToolButton
 from .nav_rail import NavRail
 from .frameless import FramelessWindow
 
 from .constants import DARK, DEFAULT_ACCENT, HOSTS_PATH, accent_rgba, load_settings, save_settings
-from .i18n import T, set_lang, current_lang
+from .i18n import T, set_lang, current_lang, pick_lang
 from .core import (
     parse_hosts, save_hosts, entries_to_text,
     import_from_path, export_to_path, is_valid_ip, MAX_ACTIVE_ENTRIES,
@@ -131,7 +131,7 @@ class ClickableLabel(QLabel):
         super().mousePressEvent(event)
 
 class SaveWorker(QThread):
-    finished  = Signal(bool)
+    done      = Signal(bool)
     error_msg = Signal(str)
 
     def __init__(self, hosts_path, entries, parent=None, profile=None):
@@ -144,13 +144,13 @@ class SaveWorker(QThread):
 
         try:
             save_hosts(self._path, self._entries, profile=self._profile)
-            self.finished.emit(True)
+            self.done.emit(True)
         except HostsBusyError:
             self.error_msg.emit(T("save_perm_msg"))
-            self.finished.emit(False)
+            self.done.emit(False)
         except Exception as ex:
             self.error_msg.emit(str(ex))
-            self.finished.emit(False)
+            self.done.emit(False)
 
 class _HostsHighlighter(QSyntaxHighlighter):
     def __init__(self, doc):
@@ -281,6 +281,9 @@ class _HostsTableModel(QAbstractTableModel):
 class _HostsLockWatchdogSignals(QObject):
     done = Signal(object)
 
+class _HostsLockToggleSignals(QObject):
+    done = Signal(bool, bool)  # (target state, success)
+
 class _FirewallWatchdogSignals(QObject):
     done = Signal(object)
 
@@ -345,7 +348,7 @@ class HostsEditor(FramelessWindow):
         super().__init__()
 
         self._settings = load_settings()
-        set_lang(self._settings.get("language", "en"))
+        set_lang(pick_lang(self._settings))
         self.entries: list = []
         self._dirty  = False
         self._saved_text = ""
@@ -453,15 +456,9 @@ class HostsEditor(FramelessWindow):
                     p_sd = None
                 if not handle:
                     return
-                # Use a bounded wait instead of INFINITE and re-check is_shutting_down()
-                # periodically. This thread does a raw ctypes call into kernel32 while
-                # blocked, so if it's ever still blocked at interpreter/process teardown
-                # (e.g. the shutdown-event signal races with shutdown, or shutdown never
-                # runs at all — killed via Task Manager, OS logoff, crash elsewhere in the
-                # process, etc.), an INFINITE wait keeps this thread stuck inside native
-                # code indefinitely. A short poll interval bounds how long it can ever be
-                # blocked in that call, which is a safer pattern for a daemon thread doing
-                # native syscalls than waiting forever.
+                # Bounded wait + periodic is_shutting_down() check: an INFINITE wait inside a raw
+                # ctypes call can leave this daemon thread stuck in native code at process teardown
+                # (killed via Task Manager, logoff, crash elsewhere).
                 POLL_MS = 500
                 WAIT_OBJECT_0 = 0x0
                 WAIT_TIMEOUT = 0x102
@@ -551,8 +548,8 @@ class HostsEditor(FramelessWindow):
         self._startup_update_worker = worker
         worker.finished_ok.connect(self._on_startup_update_check_ok)
         worker.failed.connect(lambda err: None)
-        worker.finished.connect(worker.deleteLater)
         register_qthread(worker)
+        worker.finished.connect(worker.deleteLater)
         worker.start()
 
     def _on_startup_update_check_ok(self, tag: str, url: str):
@@ -604,15 +601,13 @@ class HostsEditor(FramelessWindow):
             return
         try:
             self._refresh_toolbar_status_ui()
+            if result == "regressed":
+                self._lock_note = T("hosts_lock_drift_regressed")
+            elif result == "restored":
+                self._lock_note = T("hosts_lock_drift_restored")
+            self._refresh_lock_icon()
         except Exception as e:
             print(f"Hosts lock watchdog warning: {e}")
-
-        features_page = getattr(self, "_features_page", None)
-        if features_page is not None and shiboken6.isValid(features_page):
-            try:
-                features_page.apply_hosts_lock_watchdog_result(result)
-            except Exception as e:
-                print(f"Hosts lock watchdog warning: {e}")
 
         try:
             if result == "regressed":
@@ -733,10 +728,6 @@ class HostsEditor(FramelessWindow):
 
     def _nav(self, fn, route_key=None):
         def _wrapper():
-
-            sel_model_before = hasattr(self, "table") and self.table.selectionModel()
-            had_selection = bool(sel_model_before and sel_model_before.hasSelection())
-
             def _deferred():
                 fn()
                 if route_key:
@@ -744,10 +735,6 @@ class HostsEditor(FramelessWindow):
                     if current is not None and current is not self._main_widget:
                         self._page_route_map[current.objectName()] = route_key
                     self._sync_rail()
-                if had_selection and hasattr(self, "table"):
-                    sel_model = self.table.selectionModel()
-                    if sel_model is not None and not sel_model.hasSelection():
-                        pass
 
             QTimer.singleShot(0, _deferred)
 
@@ -1493,6 +1480,16 @@ class HostsEditor(FramelessWindow):
         )
         lay.addWidget(self.status_bar, 1)
 
+        self._lock_busy = False
+        self._lock_note = ""
+        self._lock_btn = TransparentToolButton(FIF.LOCK, bar)
+        self._lock_btn.setFixedSize(28, 28)
+        self._lock_btn.setIconSize(QSize(16, 16))
+        self._lock_btn.setCursor(Qt.PointingHandCursor)
+        self._lock_btn.clicked.connect(self._toggle_hosts_lock)
+        lay.addWidget(self._lock_btn)
+        self._refresh_lock_icon()
+
         search_frame = QFrame()
         search_frame.setObjectName("statusSearch")
         search_frame.setFixedHeight(34)
@@ -1568,6 +1565,64 @@ class HostsEditor(FramelessWindow):
 
         lay.addWidget(search_frame)
         return bar
+
+    def _refresh_lock_icon(self):
+        btn = getattr(self, "_lock_btn", None)
+        if btn is None or not shiboken6.isValid(btn):
+            return
+        active = HostsLockManager.is_active()
+        btn.setIcon(colored_svg_icon(FIF.LOCK if active else FIF.UNLOCK,
+                                     QColor(DARK["green"] if active else DARK["fg2"]), sizes=(16,)))
+        btn.setEnabled(not self._lock_busy)
+        lines = [
+            T("hosts_lock_title"),
+            T("hosts_lock_status_locked" if active else "hosts_lock_status_unlocked"),
+            "",
+            T("hosts_lock_tooltip"),
+            "",
+            T("hosts_lock_click", a=T("hosts_lock_btn_disable" if active else "hosts_lock_btn_enable")),
+        ]
+        if self._lock_note:
+            lines += ["", self._lock_note]
+        attach_fluent_tip(btn, "\n".join(lines), width=280)
+
+    def _toggle_hosts_lock(self):
+        if self._lock_busy:
+            return
+        target = not HostsLockManager.is_active()
+        self._lock_busy = True
+        self._lock_note = ""
+        self._refresh_lock_icon()
+
+        signals = _HostsLockToggleSignals(self)
+        signals.done.connect(self._on_hosts_lock_toggled)
+        self._track_bg_signal(signals)
+
+        def worker(t=target):
+            try:
+                ok = HostsLockManager.enable() if t else HostsLockManager.disable()
+            except Exception as e:
+                ok = False
+                HostsLockManager.last_error = str(e)
+            signals.done.emit(t, ok)
+
+        if start_bg_thread(worker) is None:
+            self._lock_busy = False
+            self._refresh_lock_icon()
+
+    def _on_hosts_lock_toggled(self, target: bool, ok: bool):
+        if is_shutting_down():
+            return
+        self._lock_busy = False
+        self._refresh_lock_icon()
+        self._refresh_toolbar_status_ui()
+        if ok:
+            HOTSDialog.info(self, T("hosts_lock_title"), T("hosts_lock_on_ok" if target else "hosts_lock_off_ok"))
+        else:
+            msg = T("hosts_lock_on_fail" if target else "hosts_lock_off_fail")
+            if HostsLockManager.last_error:
+                msg += f"\n\n{HostsLockManager.last_error}"
+            HOTSDialog.error(self, T("hosts_lock_title"), msg)
 
     def _open_hosts_folder(self):
         import subprocess
@@ -1826,8 +1881,8 @@ class HostsEditor(FramelessWindow):
             return
 
         try:
-            with open(HOSTS_PATH, "r", encoding="utf-8", errors="replace") as f:
-                old_text = f.read()
+            from .core import _read_hosts_text
+            old_text = _read_hosts_text(HOSTS_PATH)
         except Exception:
             old_text = ""
         new_text = entries_to_text(self.entries)
@@ -1845,7 +1900,7 @@ class HostsEditor(FramelessWindow):
 
         self.status_bar.setText(T("status_saving"))
         self._worker = SaveWorker(HOSTS_PATH, self.entries, self, profile=self._active_profile)
-        self._worker.finished.connect(self._on_save_finished)
+        self._worker.done.connect(self._on_save_finished)
         self._worker.error_msg.connect(self._on_save_error)
 
         register_qthread(self._worker)
@@ -1982,7 +2037,7 @@ class HostsEditor(FramelessWindow):
             if then:
                 then()
 
-        worker.finished.connect(_finished)
+        worker.done.connect(_finished)
         worker.error_msg.connect(self._on_save_error)
         register_qthread(worker)
         worker.finished.connect(worker.deleteLater)

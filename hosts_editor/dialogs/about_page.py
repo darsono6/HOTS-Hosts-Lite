@@ -137,6 +137,8 @@ class AboutPage(HOTSPage):
             (FIF.EDIT,          T("about_feat_customdomains")),
             (FIF.VPN,           T("about_feat_firewall")),
             (FIF.SEARCH,        T("about_feat_malware")),
+            (FIF.WIFI,          T("about_feat_speedtest")),
+            (FIF.GLOBE,         T("about_feat_dnstest")),
         ]
         for i, (icon, label) in enumerate(features):
             row, col = divmod(i, 2)

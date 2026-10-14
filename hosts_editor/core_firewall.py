@@ -559,6 +559,20 @@ class FirewallAppBlocker:
 
 
     @staticmethod
+    def remove_orphan_rules() -> List[str]:
+        with FirewallAppBlocker._op_lock:
+            rules = _read_hots_rules()
+            if not rules or not _is_admin():
+                return []
+            failed = []
+            for rule, direction in rules:
+                r = _run_netsh(["advfirewall", "firewall", "delete", "rule",
+                                f"name={rule}", f"dir={direction}"])
+                if r is None or _rule_still_exists(rule, direction):
+                    failed.append(rule)
+            return failed
+
+    @staticmethod
     def block_all(path: str) -> bool:
         with FirewallAppBlocker._op_lock:
             for direction in DIRECTIONS:

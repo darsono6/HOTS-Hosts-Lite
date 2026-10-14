@@ -2,8 +2,8 @@ import ctypes
 import json
 import logging
 import os
-import shutil
 import subprocess
+import sys
 import tempfile
 import threading
 from typing import Optional
@@ -56,12 +56,6 @@ def _resolve_powershell_exe() -> Optional[str]:
         _ps_exe_cache = candidate
         return _ps_exe_cache
 
-    which_candidate = shutil.which("powershell") or shutil.which("pwsh")
-    if which_candidate:
-        logger.warning("powershell.exe/pwsh.exe not at default paths — found via PATH: %s", which_candidate)
-        _ps_exe_cache = which_candidate
-        return _ps_exe_cache
-
     logger.error("No PowerShell interpreter found (neither powershell.exe nor pwsh.exe).")
     _ps_exe_cache = None
     return _ps_exe_cache
@@ -78,9 +72,29 @@ def _console_encoding() -> str:
     except Exception:
         return "utf-8"
 
+_secured_dirs = set()
+
+def _secure_dir(path: str) -> None:
+    # Our state files are written by an elevated process, so the folder must not be
+    # controllable by a standard user: refuse junctions, take ownership, drop inherited ACEs.
+    os.makedirs(path, exist_ok=True)
+    if sys.platform != "win32" or path in _secured_dirs:
+        return
+    attrs = ctypes.windll.kernel32.GetFileAttributesW(path)
+    if attrs == 0xFFFFFFFF or attrs & 0x400:
+        raise OSError(f"refusing to use {path}: not a plain directory")
+    icacls = os.path.join(_SYSTEM32, "icacls.exe")
+    for args in (["/setowner", "*S-1-5-32-544"],
+                 ["/inheritance:r", "/grant:r", "*S-1-5-18:(OI)(CI)F", "*S-1-5-32-544:(OI)(CI)F"]):
+        r = subprocess.run([icacls, path, *args], capture_output=True, check=False,
+                           creationflags=CREATE_NO_WINDOW, timeout=20)
+        if r.returncode != 0:
+            logger.warning("_secure_dir: icacls %s failed (code %s)", args[0], r.returncode)
+    _secured_dirs.add(path)
+
 def _atomic_write_json(path: str, data: dict) -> None:
     directory = os.path.dirname(path)
-    os.makedirs(directory, exist_ok=True)
+    _secure_dir(directory)
     fd, tmp_path = tempfile.mkstemp(dir=directory, prefix=".antispy_", suffix=".tmp")
     try:
         with os.fdopen(fd, "w", encoding="utf-8") as f:
@@ -172,8 +186,8 @@ class HostsLockManager:
                 return False
             exe = _resolve_powershell_exe()
             if exe is None:
-                HostsLockManager.last_error = T("antispy_err_no_admin")
-                logger.error("HostsLockManager.enable: brak interpretera PowerShell")
+                HostsLockManager.last_error = "PowerShell not found"
+                logger.error("HostsLockManager.enable: no PowerShell interpreter")
                 return False
             safe_path = hosts_path.replace("'", "''")
 
@@ -214,8 +228,8 @@ class HostsLockManager:
                 return False
             exe = _resolve_powershell_exe()
             if exe is None:
-                HostsLockManager.last_error = T("antispy_err_no_admin")
-                logger.error("HostsLockManager.disable: brak interpretera PowerShell")
+                HostsLockManager.last_error = "PowerShell not found"
+                logger.error("HostsLockManager.disable: no PowerShell interpreter")
                 return False
             safe_path = hosts_path.replace("'", "''")
             ps_command = (

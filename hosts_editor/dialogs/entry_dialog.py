@@ -40,10 +40,17 @@ def _parse_bulk(text: str) -> list:
             except Exception:
                 pass
         if is_ip and len(parts) >= 2:
-            results.append({"enabled": True, "ip": parts[0], "hostname": parts[1],
-                            "comment": comment, "raw": ""})
+            hosts = [EntryDialog._sanitize_hostname(h) for h in parts[1:]]
+            if not all(hosts):
+                return []
+            for h in hosts:
+                results.append({"enabled": True, "ip": parts[0], "hostname": h,
+                                "comment": comment, "raw": ""})
         elif not is_ip and len(parts) == 1:
-            results.append({"enabled": True, "ip": "0.0.0.0", "hostname": parts[0],
+            host = EntryDialog._sanitize_hostname(parts[0])
+            if not host:
+                return []
+            results.append({"enabled": True, "ip": "0.0.0.0", "hostname": host,
                             "comment": comment, "raw": ""})
         else:
             return []

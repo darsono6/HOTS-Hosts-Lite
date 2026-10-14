@@ -1,4 +1,4 @@
-HOTS Hosts Lite v1.1
+HOTS Hosts Lite v1.2
 ====================
 
 A desktop application for managing the Windows hosts file.
@@ -40,14 +40,37 @@ MAIN FEATURES
   network at all
 - 3 switchable hosts profiles: keep separate configurations and swap
   between them instantly
+- Internet speed test: download, upload and ping, a history of results
+  and a quick rating for web browsing, gaming, streaming and live video
+  calls (uses your full connection for a few seconds - avoid it on a
+  metered connection)
+- DNS speed test: compares how fast your DNS server answers against
+  Cloudflare, Google, Quad9 and OpenDNS, with a plain-language verdict;
+  one click sets a public DNS, and you can restore your previous DNS or
+  automatic DNS at any time
 - Light and dark themes with 5 accent colors
 - Built-in update checker (via GitHub Releases); checks on startup by
   default, can be switched off in Options > About
-- Optional password protection (SHA-256 hash stored machine-wide in the
+- Optional password protection (salted hash stored machine-wide in the
   Registry)
 - Raw hosts file editor with syntax highlighting
-- Available in 7 languages: English, Polish, French, German, Spanish,
-  Portuguese, Russian
+- Available in 8 languages: English, Polish, French, German, Spanish,
+  Portuguese, Russian, Italian
+
+
+WHAT'S NEW IN 1.2
+-----------------
+- Internet speed test: download, upload and ping, with a history of
+  results and a rating for web browsing, gaming, streaming and live
+  video calls
+- DNS speed test: compares your DNS server with popular public ones
+  (Cloudflare, Google, Quad9, OpenDNS) and tells you whether switching
+  would help; one click sets a public DNS, and you can restore your
+  previous DNS (or automatic DNS) at any time - the uninstaller can
+  restore it too
+- Italian language added: the interface is now available in 8 languages,
+  and the app starts in your Windows language when it is supported
+- Minor improvements throughout the application's code
 
 
 WHAT'S NEW IN 1.1
