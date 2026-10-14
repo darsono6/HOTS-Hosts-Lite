@@ -69,17 +69,6 @@ begin
   Result := CompareText(ExtractFileName(RemoveBackslash(ExpandConstant('{app}'))), '{#MyAppName}') = 0;
 end;
 
-// Stricter check for the install-time wipe: the folder must also contain our own files.
-function IsOwnInstallFolder(): Boolean;
-var
-  Dir: String;
-begin
-  Dir := RemoveBackslash(ExpandConstant('{app}'));
-  Result := IsOwnFolderName() and
-            FileExists(Dir + '\{#MyAppExeName}') and
-            FileExists(Dir + '\hots_uninstall_cleanup.cmd');
-end;
-
 function NextButtonClick(CurPageID: Integer): Boolean;
 var
   Dir: String;
@@ -98,7 +87,7 @@ begin
   if CurStep = ssInstall then
   begin
     // User data lives outside {app}, so wiping a previous install is safe (removes stale files on update).
-    if IsOwnInstallFolder() then
+    if IsOwnFolderName() and DirExists(ExpandConstant('{app}')) then
       DelTree(ExpandConstant('{app}'), True, True, True);
   end;
 end;
