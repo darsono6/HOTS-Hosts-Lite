@@ -14,6 +14,8 @@
 
 *No account, no subscription, no ads. Just download and run.*
 
+<img src="assets/speedtest_demo.gif" alt="Built-in internet speed test in action" width="650"/>
+
 </div>
 
 ---
@@ -28,11 +30,10 @@ Three things, in plain terms:
 
 You don't need to understand *how* any of this works to use it — the app walks you through it.
 
-<div align="center">
-<img src="assets/screenshot_main.png" alt="Main Window" width="650"/>
-
-<img src="assets/screenshot_features.png" alt="Features Panel" width="650"/>
-</div>
+<p align="center">
+<img src="assets/screenshot_main.png" alt="Main Window" width="48%"/>
+<img src="assets/screenshot_features.png" alt="Features Panel" width="48%"/>
+</p>
 
 ---
 
@@ -44,7 +45,8 @@ You don't need to understand *how* any of this works to use it — the app walks
 
 **Requires:** Windows 10 or 11, 64-bit.
 
-### About the Windows warning you might see
+<details>
+<summary><strong>Windows shows a “protected your PC” warning?</strong> — click to expand</summary>
 
 Since this is a small independent project without a paid certificate, Windows may show a **"Windows protected your PC"** warning the first time you run it. This is normal for any new app that hasn't built up a download history yet — it does **not** mean anything is wrong with the file.
 
@@ -52,64 +54,53 @@ To continue: click **More info** → **Run anyway**.
 
 If you'd rather double-check the app yourself first, the full source code is right here in this repository — see [Running from source](#running-from-source) below.
 
----
-
-## What's new in 1.2
-
-- **Internet speed test** — measures download speed, upload speed and ping with one click, keeps a history of your results, and rates how well your connection suits web browsing, gaming, streaming and live video calls
-- **DNS speed test** — checks how fast your DNS server answers compared with popular public ones (Cloudflare, Google, Quad9, OpenDNS), tells you whether switching would help, and can set a public DNS for you with one click. You can go back to your previous DNS (or to automatic DNS from your router or provider) at any time, and the uninstaller can restore it too
-- **Italian language added** — the interface is now available in 8 languages, and the app now starts in your Windows language when it is supported
-- Minor improvements throughout the application's code
-
----
-
-## What's new in 1.1
-
-- **Significantly lower resource usage** — the app no longer depends on PySide6-Fluent-Widgets and runs on its own lightweight window and widgets
-- **Code optimization** throughout the application
-- **A fifth accent color**
-- **Refreshed look** and a number of small UI fixes
-- **Firewall rules follow program updates** — programs installed in version-numbered folders (e.g. Edge, Discord) are blocked at their current version, and the rule moves automatically after an update (when the app starts or you open the Features page). Entries with the same file name are now shown with their folder, and the installed-programs picker no longer guesses an unrelated executable.
-- **Uninstall wizard** — instead of an all-or-nothing removal, the uninstaller now asks exactly what to undo: domain and app blocks, saved configuration, your custom domain list (kept by default), and hosts file backups (collected from all 3 profile locations). Anything left unchecked stays exactly as it was.
-- **Uninstalling no longer requires the startup password** — this edition has no parental-control feature to protect from a child bypassing it, so that friction is gone. The password still protects opening the app itself.
-- A heads-up before uninstalling: if you're only trying to install a newer version, you don't need to uninstall first — the installer now reminds you of that and lets you back out.
-- Reinstalling or updating over an existing install now starts from a clean installation folder, so files removed or renamed between versions no longer pile up on your system.
+</details>
 
 ---
 
 ## Everything it can do
 
+### 🚫 Domain & App Blocking
+
+<div align="center">
+<img src="assets/screenshot_firewall.png" alt="Firewall Blocking" width="650"/>
+</div>
+
 <details>
-<summary><strong>🚫 Domain & App Blocking</strong> — click to expand</summary>
+<summary><strong>Details</strong> — click to expand</summary>
 
 - **Block your own domains** — a free-text list, applied directly to the hosts file
 - **Hosts file lock** — ACL deny-write protection so your blocklist can't be edited or removed from outside the app; the app notices if the lock gets removed behind its back
 - **Application firewall blocking** — stop specific programs from reaching the network, outbound and inbound independently. For programs that live in version-numbered folders (browsers such as Edge, Discord and similar), the rule automatically follows the program to its current version after an update — when HOTS Hosts Lite starts or you open the Features page. A program updated while HOTS Hosts Lite is closed stays unblocked until you start the app
 - **3 switchable profiles** — keep separate block configurations and swap between them instantly
 
-<div align="center">
-<img src="assets/screenshot_firewall.png" alt="Firewall Blocking" width="650"/>
-</div>
-
 </details>
 
+### 🌐 Network Tools
+
+<p align="center">
+<img src="assets/screenshot_speedtest.png" alt="Internet Speed Test" width="48%"/>
+<img src="assets/screenshot_dnstest.png" alt="DNS Speed Test" width="48%"/>
+</p>
+
 <details>
-<summary><strong>🌐 Network Tools</strong> — click to expand</summary>
+<summary><strong>Details</strong> — click to expand</summary>
 
 - **Internet speed test** — download, upload and ping (with jitter), a history of past results, and a quick rating for web browsing, gaming, streaming and live video calls. It uses your full connection for a few seconds and transfers a fair amount of data, so avoid it on a metered connection
 - **DNS speed test** — asks your DNS server and Cloudflare, Google, Quad9 and OpenDNS for eight very popular sites (bypassing the hosts file and the system cache) and shows how fast each one answers, with a plain-language verdict
 - **One-click DNS switch** — set any of the tested public DNS servers as your DNS; the app remembers what you had before, so you can restore your previous DNS or go back to automatic DNS whenever you like
 
-<div align="center">
-<img src="assets/screenshot_speedtest.png" alt="Internet Speed Test" width="650"/>
-
-<img src="assets/screenshot_dnstest.png" alt="DNS Speed Test" width="650"/>
-</div>
-
 </details>
 
+### ✏️ Hosts File Editor
+
+<p align="center">
+<img src="assets/screenshot_domain_check.png" alt="Domain Existence Check" width="48%"/>
+<img src="assets/screenshot_malware_scan.png" alt="Malware Scan" width="48%"/>
+</p>
+
 <details>
-<summary><strong>✏️ Hosts File Editor</strong> — click to expand</summary>
+<summary><strong>Details</strong> — click to expand</summary>
 
 - Table view of all entries, live search, bulk paste, sorting
 - Add / edit / delete / enable-disable entries without touching Notepad
@@ -121,12 +112,6 @@ If you'd rather double-check the app yourself first, the full source code is rig
 - Domain checker — flags entries pointing at domains that no longer exist
 - Malware scanner — heuristics for hijacked/suspicious entries (homoglyphs, zero-width characters, punycode, typosquatting, DGA-style entropy, and more), with an ignore list for false positives
 - Raw text view with syntax highlighting for anyone who wants to edit the file directly
-
-<div align="center">
-<img src="assets/screenshot_domain_check.png" alt="Domain Existence Check" width="650"/>
-
-<img src="assets/screenshot_malware_scan.png" alt="Malware Scan" width="650"/>
-</div>
 
 </details>
 
@@ -141,6 +126,25 @@ If you'd rather double-check the app yourself first, the full source code is rig
 - Auto-elevation, single-instance guard, window geometry memory
 
 </details>
+
+---
+
+## What's new in 1.2
+
+- **Internet speed test** — measures download speed, upload speed and ping with one click, keeps a history of your results, and rates how well your connection suits web browsing, gaming, streaming and live video calls
+- **DNS speed test** — checks how fast your DNS server answers compared with popular public ones (Cloudflare, Google, Quad9, OpenDNS), tells you whether switching would help, and can set a public DNS for you with one click. You can go back to your previous DNS (or to automatic DNS from your router or provider) at any time, and the uninstaller can restore it too
+- **Italian language added** — the interface is now available in 8 languages, and the app now starts in your Windows language when it is supported
+- Minor improvements throughout the application's code
+
+---
+
+<div align="center">
+
+### 📥 [⬇️ Download for Windows — free](https://github.com/darsono6/HOTS-Hosts-Lite/releases/latest/download/HOTS_Hosts_Lite_setup.exe)
+
+*No account, no subscription, no ads.*
+
+</div>
 
 ---
 
