@@ -1,3 +1,5 @@
+import ctypes
+import functools
 import logging
 import os
 from typing import Dict, List
@@ -13,6 +15,27 @@ _UNINSTALL_KEYS = [
 ]
 
 _SKIP_RELEASE_TYPES = {"Update", "Hotfix", "Security Update", "Update Rollup", "Driver Update"}
+
+
+_DRIVE_UNKNOWN = 0
+_DRIVE_NO_ROOT = 1
+_DRIVE_REMOTE = 4
+
+
+@functools.lru_cache(maxsize=32)
+def _drive_is_local(drive: str) -> bool:
+    try:
+        kind = ctypes.windll.kernel32.GetDriveTypeW(drive + "\\")
+    except Exception:
+        return False
+    return kind not in (_DRIVE_UNKNOWN, _DRIVE_NO_ROOT, _DRIVE_REMOTE)
+
+
+def _is_local_path(path: str) -> bool:
+    drive, _ = os.path.splitdrive(path)
+    if len(drive) != 2 or drive[1] != ":":
+        return False
+    return _drive_is_local(drive.upper())
 
 
 def _reg_value(key, name: str):
@@ -59,6 +82,10 @@ def _find_exe_in_folder(folder: str, hint_name: str, require_match: bool = False
 
 def _resolve_exe(display_name: str, icon_raw: str, install_location: str) -> str:
     icon_path = _clean_icon_path(icon_raw) if icon_raw else ""
+    if icon_path and not _is_local_path(icon_path):
+        icon_path = ""
+    if install_location and not _is_local_path(install_location):
+        install_location = ""
     if icon_path.lower().endswith(".exe") and os.path.isfile(icon_path) and not _is_junk_exe(icon_path):
         return icon_path
     if install_location and os.path.isdir(install_location):
@@ -76,6 +103,7 @@ def _resolve_exe(display_name: str, icon_raw: str, install_location: str) -> str
 
 
 def scan_installed_apps() -> List[Dict[str, str]]:
+    _drive_is_local.cache_clear()
     seen_paths = set()
     results: List[Dict[str, str]] = []
 

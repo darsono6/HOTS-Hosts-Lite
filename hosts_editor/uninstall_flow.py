@@ -7,7 +7,7 @@ from .constants import HOSTS_PATH, CUSTOM_DOMAINS_PATH, PROFILES_DIR, BACKUPS_RO
 from .core import list_backups, strip_all_parental_blocks
 from .core_hosts_lock import HostsLockManager
 from .core_firewall import FirewallAppBlocker
-from .core_dnstest import dns_backup_exists, restore_original_dns
+from .core_dnstest import restore_original_dns, dns_backup_exists
 
 REG_KEY = r"Software\HOTS Hosts Lite"
 

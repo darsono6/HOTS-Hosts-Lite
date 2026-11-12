@@ -13,6 +13,16 @@ def hash_password(password: str) -> str:
     return f"{_PREFIX}${_ITERATIONS}${salt.hex()}${dk.hex()}"
 
 
+def needs_rehash(stored_hash: str) -> bool:
+    parts = stored_hash.split("$")
+    if len(parts) != 4 or parts[0] != _PREFIX:
+        return True
+    try:
+        return int(parts[1]) < _ITERATIONS
+    except ValueError:
+        return False
+
+
 def verify_password(password: str, stored_hash: str) -> bool:
     try:
         if not stored_hash:

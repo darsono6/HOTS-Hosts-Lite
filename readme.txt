@@ -1,4 +1,4 @@
-HOTS Hosts Lite v1.2
+HOTS Hosts Lite v1.3
 ====================
 
 A desktop application for managing the Windows hosts file.
@@ -48,7 +48,7 @@ MAIN FEATURES
   Cloudflare, Google, Quad9 and OpenDNS, with a plain-language verdict;
   one click sets a public DNS, and you can restore your previous DNS or
   automatic DNS at any time
-- Light and dark themes with 5 accent colors
+- Light and dark themes with 6 accent colors, Mica or Acrylic backdrop
 - Built-in update checker (via GitHub Releases); checks on startup by
   default, can be switched off in Options > About
 - Optional password protection (salted hash stored machine-wide in the
@@ -58,42 +58,26 @@ MAIN FEATURES
   Portuguese, Russian, Italian
 
 
-WHAT'S NEW IN 1.2
+WHAT'S NEW IN 1.3
 -----------------
-- Internet speed test: download, upload and ping, with a history of
-  results and a rating for web browsing, gaming, streaming and live
-  video calls
-- DNS speed test: compares your DNS server with popular public ones
-  (Cloudflare, Google, Quad9, OpenDNS) and tells you whether switching
-  would help; one click sets a public DNS, and you can restore your
-  previous DNS (or automatic DNS) at any time - the uninstaller can
-  restore it too
-- Italian language added: the interface is now available in 8 languages,
-  and the app starts in your Windows language when it is supported
-- Minor improvements throughout the application's code
-
-
-WHAT'S NEW IN 1.1
------------------
-- Significantly lower resource usage: the app no longer depends on
-  PySide6-Fluent-Widgets and runs on its own lightweight window and widgets
-- Code optimization throughout the application
-- A fifth accent color
-- Refreshed look and a number of small UI fixes
-- Uninstall wizard: instead of an all-or-nothing removal, the uninstaller
-  asks exactly what to undo (domain and app blocks, saved configuration,
-  your custom domain list - kept by default - and hosts file backups)
-- Uninstalling no longer requires the startup password; the password still
-  protects opening the app itself
-- Firewall rules follow program updates: programs installed in
-  version-numbered folders (e.g. Edge, Discord) are blocked at their
-  current version, and the rule moves automatically after an update (when
-  the app starts or you open the Features page)
-- Entries with the same file name in the firewall list are shown with
-  their folder, and the installed-programs picker no longer guesses an
-  unrelated executable
-- Reinstalling or updating over an existing install starts from a clean
-  installation folder
+- New visual effects: Acrylic material next to Mica, a glow effect with
+  adjustable strength (transparency in Acrylic mode), and a switch to turn
+  window effects off
+- New Graphite accent color (6 accent colors in total)
+- Rebuilt Options page: expandable cards for Language and Appearance, plus
+  Updates (check on startup, manual check), About and Support
+- License information: the About page opens the full license and the
+  third-party notices
+- Updates: clicking an available update now downloads the installer
+  directly, instead of only opening the repository page
+- Copy diagnostics: a new button on the About page copies anonymized
+  system and program information to the clipboard, ready to paste into
+  a bug report
+- Improved blocking of your own domains: the feature has been reworked
+  to work better
+- Improved Internet speed test and Firewall: both features have been
+  reworked to work better
+- Several smaller fixes and improvements throughout the application
 
 
 DISCLAIMER
@@ -103,6 +87,16 @@ author is not responsible for any damage, data loss, system issues, or
 other consequences resulting from the use of this application. Modifying
 the hosts file affects system-level network resolution - use with care.
 You use this software at your own risk.
+
+
+BUG REPORTS
+-----------
+Found a bug? In the app open About -> Copy diagnostics and paste the
+result into your report (github.com/darsono6/HOTS-Hosts-Lite/issues or
+email). It contains the app and Windows version and the end of the error
+log; your user name and computer name are replaced. The log may include
+names of programs or domains mentioned in error messages - you can review
+it before pasting.
 
 
 SUPPORT

@@ -146,7 +146,7 @@ class DiagnosticsPage(HOTSPage):
 
     def _card_style(self) -> str:
         return (f"background: {DARK['panel_bg']}; "
-                f"border: 1px solid {DARK['border_faint']}; border-radius: 6px;")
+                f"border: 1px solid {DARK['border_faint']}; border-radius: 8px;")
 
     def _build(self):
         cl = self.content_layout

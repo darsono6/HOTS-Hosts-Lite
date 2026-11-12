@@ -29,7 +29,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "An/Aus",
         "es": "Act/Desact",
         "ru": "Вкл/Выкл",
-        "pt": "Ativ/Desativ",
+        "pt": "Ativ/Desat",
         "it": "On/Off",
     },
     "btn_delete": {
@@ -39,7 +39,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Löschen",
         "es": "Eliminar",
         "ru": "Удалить",
-        "pt": "Excluir",
+        "pt": "Eliminar",
         "it": "Elimina",
     },
     "btn_save": {
@@ -49,7 +49,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Speichern",
         "es": "Guardar",
         "ru": "Сохранить",
-        "pt": "Salvar",
+        "pt": "Guardar",
         "it": "Salva",
     },
     "btn_import": {
@@ -99,7 +99,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Standard-Hosts",
         "es": "Hosts predeterminado",
         "ru": "Hosts по умолчанию",
-        "pt": "Hosts padrão",
+        "pt": "Hosts predefinido",
         "it": "Hosts predefinito",
     },
     "btn_check_dom": {
@@ -119,7 +119,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Malware scannen",
         "es": "Escanear malware",
         "ru": "Поиск malware",
-        "pt": "Buscar malware",
+        "pt": "Procurar malware",
         "it": "Scansiona malware",
     },
     "btn_features": {
@@ -192,6 +192,146 @@ _STRINGS: dict[str, dict[str, str]] = {
         "pt": "Aparência",
         "it": "Aspetto",
     },
+    "opt_updates": {
+        "en": "Updates",
+        "pl": "Aktualizacje",
+        "fr": "Mises à jour",
+        "de": "Updates",
+        "es": "Actualizaciones",
+        "ru": "Обновления",
+        "pt": "Atualizações",
+        "it": "Aggiornamenti",
+    },
+    "opt_about_desc": {
+        "en": "Version, license and project information",
+        "pl": "Wersja, licencja i informacje o projekcie",
+        "fr": "Version, licence et informations sur le projet",
+        "de": "Version, Lizenz und Projektinformationen",
+        "es": "Versión, licencia e información del proyecto",
+        "ru": "Версия, лицензия и информация о проекте",
+        "pt": "Versão, licença e informações do projeto",
+        "it": "Versione, licenza e informazioni sul progetto",
+    },
+    "opt_support_desc": {
+        "en": "Support the development of the program",
+        "pl": "Wesprzyj rozwój programu",
+        "fr": "Soutenez le développement du programme",
+        "de": "Unterstützen Sie die Entwicklung des Programms",
+        "es": "Apoya el desarrollo del programa",
+        "ru": "Поддержите развитие программы",
+        "pt": "Apoie o desenvolvimento do programa",
+        "it": "Sostieni lo sviluppo del programma",
+    },
+    "opt_password_desc": {
+        "en": "Ask for a password when the program starts",
+        "pl": "Wymagaj hasła przy uruchomieniu programu",
+        "fr": "Demander un mot de passe au démarrage du programme",
+        "de": "Beim Start des Programms ein Passwort verlangen",
+        "es": "Pedir una contraseña al iniciar el programa",
+        "ru": "Запрашивать пароль при запуске программы",
+        "pt": "Pedir uma palavra-passe ao iniciar o programa",
+        "it": "Richiedi una password all'avvio del programma",
+    },
+    "opt_language_desc": {
+        "en": "Change the interface language",
+        "pl": "Zmień język interfejsu",
+        "fr": "Changer la langue de l'interface",
+        "de": "Sprache der Oberfläche ändern",
+        "es": "Cambiar el idioma de la interfaz",
+        "ru": "Изменить язык интерфейса",
+        "pt": "Alterar o idioma da interface",
+        "it": "Cambia la lingua dell'interfaccia",
+    },
+    "opt_appearance_desc": {
+        "en": "Theme, accent color and window effects",
+        "pl": "Motyw, kolor akcentu i efekty okna",
+        "fr": "Thème, couleur d'accentuation et effets de fenêtre",
+        "de": "Design, Akzentfarbe und Fenstereffekte",
+        "es": "Tema, color de acento y efectos de ventana",
+        "ru": "Тема, цвет акцента и эффекты окна",
+        "pt": "Tema, cor de destaque e efeitos da janela",
+        "it": "Tema, colore di accento ed effetti della finestra",
+    },
+    "pwd_err_save_failed": {
+        "en": "Could not save the password to the registry.",
+        "pl": "Nie udało się zapisać hasła w rejestrze.",
+        "fr": "Impossible d'enregistrer le mot de passe dans le registre.",
+        "de": "Das Passwort konnte nicht in der Registrierung gespeichert werden.",
+        "es": "No se pudo guardar la contraseña en el registro.",
+        "ru": "Не удалось сохранить пароль в реестре.",
+        "pt": "Não foi possível guardar a palavra-passe no registo.",
+        "it": "Impossibile salvare la password nel registro.",
+    },
+    "about_update_available_dl_msg": {
+        "en": "Version {version} is available (you have {current}).\n\nDownload the installer now?",
+        "pl": "Dostępna jest wersja {version} (Twoja: {current}).\n\nPobrać instalator teraz?",
+        "fr": "La version {version} est disponible (vous avez {current}).\n\nTélécharger l'installateur maintenant ?",
+        "de": "Version {version} ist verfügbar (Sie haben {current}).\n\nInstallationsprogramm jetzt herunterladen?",
+        "es": "La versión {version} está disponible (tienes {current}).\n\n¿Descargar el instalador ahora?",
+        "ru": "Доступна версия {version} (у вас {current}).\n\nСкачать установщик сейчас?",
+        "pt": "Está disponível a versão {version} (tem a {current}).\n\nTransferir o instalador agora?",
+        "it": "È disponibile la versione {version} (hai la {current}).\n\nScaricare il programma di installazione ora?",
+    },
+    "about_dl_progress": {
+        "en": "Downloading… {pct}%",
+        "pl": "Pobieranie… {pct}%",
+        "fr": "Téléchargement… {pct} %",
+        "de": "Wird heruntergeladen… {pct} %",
+        "es": "Descargando… {pct} %",
+        "ru": "Загрузка… {pct}%",
+        "pt": "A transferir… {pct}%",
+        "it": "Download… {pct}%",
+    },
+    "about_dl_done_title": {
+        "en": "Update downloaded",
+        "pl": "Aktualizacja pobrana",
+        "fr": "Mise à jour téléchargée",
+        "de": "Update heruntergeladen",
+        "es": "Actualización descargada",
+        "ru": "Обновление загружено",
+        "pt": "Atualização transferida",
+        "it": "Aggiornamento scaricato",
+    },
+    "about_dl_done_msg": {
+        "en": "The installer was saved to:\n{path}\n\nRun it when you are ready to install the update. Open the folder now?",
+        "pl": "Instalator zapisano w:\n{path}\n\nUruchom go, gdy będziesz gotowy zainstalować aktualizację. Otworzyć folder teraz?",
+        "fr": "L'installateur a été enregistré dans :\n{path}\n\nLancez-le quand vous serez prêt à installer la mise à jour. Ouvrir le dossier maintenant ?",
+        "de": "Das Installationsprogramm wurde gespeichert unter:\n{path}\n\nStarten Sie es, wenn Sie das Update installieren möchten. Ordner jetzt öffnen?",
+        "es": "El instalador se guardó en:\n{path}\n\nEjecútalo cuando estés listo para instalar la actualización. ¿Abrir la carpeta ahora?",
+        "ru": "Установщик сохранён в:\n{path}\n\nЗапустите его, когда будете готовы установить обновление. Открыть папку сейчас?",
+        "pt": "O instalador foi guardado em:\n{path}\n\nExecute-o quando estiver pronto para instalar a atualização. Abrir a pasta agora?",
+        "it": "Il programma di installazione è stato salvato in:\n{path}\n\nAvvialo quando sei pronto a installare l'aggiornamento. Aprire la cartella ora?",
+    },
+    "about_dl_error_title": {
+        "en": "Download failed",
+        "pl": "Błąd pobierania",
+        "fr": "Échec du téléchargement",
+        "de": "Download fehlgeschlagen",
+        "es": "Error de descarga",
+        "ru": "Ошибка загрузки",
+        "pt": "Falha na transferência",
+        "it": "Download non riuscito",
+    },
+    "about_dl_err_hash": {
+        "en": "The downloaded file failed the integrity check and was deleted.",
+        "pl": "Pobrany plik nie przeszedł kontroli integralności i został usunięty.",
+        "fr": "Le fichier téléchargé n'a pas passé le contrôle d'intégrité et a été supprimé.",
+        "de": "Die heruntergeladene Datei hat die Integritätsprüfung nicht bestanden und wurde gelöscht.",
+        "es": "El archivo descargado no superó la comprobación de integridad y se eliminó.",
+        "ru": "Загруженный файл не прошёл проверку целостности и был удалён.",
+        "pt": "O ficheiro transferido não passou na verificação de integridade e foi eliminado.",
+        "it": "Il file scaricato non ha superato il controllo di integrità ed è stato eliminato.",
+    },
+    "about_dl_err_write": {
+        "en": "The file could not be saved to the Downloads folder.",
+        "pl": "Nie udało się zapisać pliku w folderze Pobrane.",
+        "fr": "Le fichier n'a pas pu être enregistré dans le dossier Téléchargements.",
+        "de": "Die Datei konnte nicht im Download-Ordner gespeichert werden.",
+        "es": "No se pudo guardar el archivo en la carpeta Descargas.",
+        "ru": "Не удалось сохранить файл в папку «Загрузки».",
+        "pt": "Não foi possível guardar o ficheiro na pasta Transferências.",
+        "it": "Non è stato possibile salvare il file nella cartella Download.",
+    },
     "opt_pass_on": {
         "en": "Password: ON",
         "pl": "Hasło: WŁ",
@@ -199,7 +339,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Passwort: AN",
         "es": "Contraseña: ACT",
         "ru": "Пароль: ВКЛ",
-        "pt": "Senha: ATIVADA",
+        "pt": "Palavra-passe: ATIVA",
         "it": "Password: ON",
     },
     "opt_pass_off": {
@@ -209,7 +349,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Passwort",
         "es": "Contraseña",
         "ru": "Пароль",
-        "pt": "Senha",
+        "pt": "Palavra-passe",
         "it": "Password",
     },
     "col_status": {
@@ -219,7 +359,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Status",
         "es": "Estado",
         "ru": "Статус",
-        "pt": "Status",
+        "pt": "Estado",
         "it": "Stato",
     },
     "col_ip": {
@@ -239,7 +379,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Hostname",
         "es": "Nombre de host",
         "ru": "Имя хоста",
-        "pt": "Nome de host",
+        "pt": "Nome de anfitrião",
         "it": "Hostname",
     },
     "col_comment": {
@@ -319,7 +459,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Löschen",
         "es": "Eliminar",
         "ru": "Удалить",
-        "pt": "Excluir",
+        "pt": "Eliminar",
         "it": "Elimina",
     },
     "ctx_toggle": {
@@ -349,7 +489,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Nicht gespeicherte Änderungen",
         "es": "Cambios sin guardar",
         "ru": "Несохранённые изменения",
-        "pt": "Alterações não salvas",
+        "pt": "Alterações não guardadas",
         "it": "Modifiche non salvate",
     },
     "dlg_unsaved_msg": {
@@ -359,7 +499,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Sie haben nicht gespeicherte Änderungen in der Hosts-Datei.\n\nOhne Speichern beenden?",
         "es": "Tienes cambios sin guardar en el archivo hosts.\n\n¿Salir sin guardar?",
         "ru": "У вас есть несохранённые изменения в файле hosts.\n\nВыйти без сохранения?",
-        "pt": "Você tem alterações não salvas no arquivo hosts.\n\nSair sem salvar?",
+        "pt": "Tem alterações não guardadas no ficheiro hosts.\n\nSair sem guardar?",
         "it": "Ci sono modifiche non salvate nel file hosts.\n\nUscire senza salvare?",
     },
     "dlg_profile_switch_busy_title": {
@@ -369,7 +509,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Profilwechsel läuft",
         "es": "Cambio de perfil en curso",
         "ru": "Идёт переключение профиля",
-        "pt": "Troca de perfil em andamento",
+        "pt": "Troca de perfil em curso",
         "it": "Cambio profilo in corso",
     },
     "dlg_profile_switch_busy_msg": {
@@ -379,7 +519,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Profilwechsel läuft — bitte einen Moment warten und dann erneut schließen.",
         "es": "Cambiando de perfil — espera un momento y vuelve a intentar cerrar.",
         "ru": "Идёт переключение профиля — подождите немного и попробуйте закрыть снова.",
-        "pt": "Trocando de perfil — aguarde um momento e tente fechar novamente.",
+        "pt": "A trocar de perfil — aguarde um momento e tente fechar novamente.",
         "it": "Cambio del profilo in corso — attendi un momento e riprova a chiudere.",
     },
     "about_title": {
@@ -419,7 +559,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "HOTS Hosts Lite ist ein schlankes Windows-Tool, das Ihnen die Kontrolle über Ihr Netzwerk zurückgibt.\nSchützen Sie Ihren PC, halten Sie Ihre Verbindungen in Ordnung und surfen Sie sicherer – einfach, schnell und ohne unnötigen Ballast.",
         "es": "HOTS Hosts Lite es una herramienta ligera para Windows que te devuelve el control de lo que ocurre en tu red.\nProtege tu PC, mantén tus conexiones en orden y navega con más seguridad: simple, rápido y sin complicaciones.",
         "ru": "HOTS Hosts Lite — лёгкий инструмент для Windows, который возвращает вам контроль над тем, что происходит в вашей сети.\nЗащищайте компьютер, наводите порядок в соединениях и пользуйтесь интернетом увереннее — просто, быстро и без лишних сложностей.",
-        "pt": "O HOTS Hosts Lite é uma ferramenta leve para Windows que devolve a você o controle do que acontece na sua rede.\nProteja o seu PC, mantenha as suas conexões em ordem e navegue com mais segurança — de forma simples, rápida e sem complicações.",
+        "pt": "O HOTS Hosts Lite é uma ferramenta leve para Windows que lhe devolve o controlo do que acontece na sua rede.\nProteja o seu PC, mantenha as suas ligações em ordem e navegue com mais segurança — de forma simples, rápida e sem complicações.",
         "it": "HOTS Hosts Lite è uno strumento leggero per Windows che ti dà il controllo su ciò che accade nella tua rete.\nProteggi il tuo PC, tieni in ordine le connessioni e naviga con più sicurezza — in modo semplice, veloce e senza fronzoli.",
     },
     "about_feat_diag": {
@@ -439,7 +579,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Sicherungen mit Rotation",
         "es": "Copias de seguridad con rotación",
         "ru": "Резервные копии с ротацией",
-        "pt": "Backups com rotação",
+        "pt": "Cópias de segurança com rotação",
         "it": "Backup con rotazione",
     },
     "about_feat_raw": {
@@ -449,7 +589,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Rohansicht & Bearbeitung",
         "es": "Vista y edición en bruto",
         "ru": "Просмотр и редактирование в raw-режиме",
-        "pt": "Visualização e edição bruta",
+        "pt": "Vista e edição em modo bruto",
         "it": "Visualizzazione e modifica raw",
     },
     "about_feat_password": {
@@ -459,7 +599,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Passwortsperre",
         "es": "Bloqueo por contraseña",
         "ru": "Блокировка паролем",
-        "pt": "Bloqueio por senha",
+        "pt": "Bloqueio por palavra-passe",
         "it": "Blocco con password",
     },
     "about_feat_lang": {
@@ -509,7 +649,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Firewall — Anwendungsblockierung",
         "es": "Firewall — bloqueo de aplicaciones",
         "ru": "Брандмауэр — блокировка приложений",
-        "pt": "Firewall — bloqueio de aplicativos",
+        "pt": "Firewall — bloqueio de aplicações",
         "it": "Firewall — blocco delle applicazioni",
     },
     "about_feat_malware": {
@@ -519,7 +659,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Scanner für verdächtige Hosts-Einträge",
         "es": "Escáner de entradas sospechosas en hosts",
         "ru": "Сканер подозрительных записей в hosts",
-        "pt": "Scanner de entradas suspeitas no hosts",
+        "pt": "Verificador de entradas suspeitas no hosts",
         "it": "Scanner delle voci sospette nel file hosts",
     },
     "about_feat_speedtest": {
@@ -549,7 +689,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Hosts-Datei sperren",
         "es": "Bloqueo del archivo hosts",
         "ru": "Блокировка файла hosts",
-        "pt": "Bloqueio do arquivo hosts",
+        "pt": "Bloqueio do ficheiro hosts",
         "it": "Blocco del file hosts",
     },
     "about_feat_customdomains": {
@@ -559,18 +699,47 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Eigene Domains blockieren",
         "es": "Bloquear tus propios dominios",
         "ru": "Блокировка собственных доменов",
-        "pt": "Bloquear seus próprios domínios",
+        "pt": "Bloquear os seus próprios domínios",
         "it": "Blocca i tuoi domini",
     },
     "about_footer": {
-        "en": "© 2026 Darsono  •  All rights reserved",
-        "pl": "© 2026 Darsono  •  Wszelkie prawa zastrzeżone",
-        "fr": "© 2026 Darsono  •  Tous droits réservés",
-        "de": "© 2026 Darsono  •  Alle Rechte vorbehalten",
-        "es": "© 2026 Darsono  •  Todos los derechos reservados",
-        "ru": "© 2026 Darsono  •  Все права защищены",
-        "pt": "© 2026 Darsono  •  Todos os direitos reservados",
-        "it": "© 2026 Darsono  •  Tutti i diritti riservati",
+        "en": "© 2026 Darsono  •  GNU GPLv3  •  No warranty",
+        "pl": "© 2026 Darsono  •  GNU GPLv3  •  Bez gwarancji",
+        "fr": "© 2026 Darsono  •  GNU GPLv3  •  Sans garantie",
+        "de": "© 2026 Darsono  •  GNU GPLv3  •  Keine Gewährleistung",
+        "es": "© 2026 Darsono  •  GNU GPLv3  •  Sin garantía",
+        "ru": "© 2026 Darsono  •  GNU GPLv3  •  Без гарантий",
+        "pt": "© 2026 Darsono  •  GNU GPLv3  •  Sem garantia",
+        "it": "© 2026 Darsono  •  GNU GPLv3  •  Nessuna garanzia",
+    },
+    "about_diag_btn": {
+        "en": "Copy diagnostics",
+        "pl": "Skopiuj dane diagnostyczne",
+        "fr": "Copier les diagnostics",
+        "de": "Diagnose kopieren",
+        "es": "Copiar diagnóstico",
+        "ru": "Копировать диагностику",
+        "pt": "Copiar diagnóstico",
+        "it": "Copia diagnostica",
+    },
+    "about_diag_copied": {
+        "en": "Copied ✓",
+        "pl": "Skopiowano ✓",
+        "fr": "Copié ✓",
+        "de": "Kopiert ✓",
+        "es": "Copiado ✓",
+        "ru": "Скопировано ✓",
+        "pt": "Copiado ✓",
+        "it": "Copiato ✓",
+    },
+    "about_license_btn": {
+        "en": "License", "pl": "Licencja", "fr": "Licence", "de": "Lizenz",
+        "es": "Licencia", "ru": "Лицензия", "pt": "Licença", "it": "Licenza",
+    },
+    "about_notices_btn": {
+        "en": "Third-party notices", "pl": "Licencje zewnętrzne", "fr": "Licences tierces",
+        "de": "Drittanbieter-Hinweise", "es": "Avisos de terceros", "ru": "Лицензии сторонних компонентов",
+        "pt": "Avisos de terceiros", "it": "Avvisi di terze parti",
     },
     "about_website_btn": {
         "en": "hotstools.com",
@@ -609,7 +778,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Update herunterladen",
         "es": "Descargar actualización",
         "ru": "Скачать обновление",
-        "pt": "Baixar atualização",
+        "pt": "Transferir atualização",
         "it": "Scarica l'aggiornamento",
     },
     "update_hud_title": {
@@ -623,14 +792,14 @@ _STRINGS: dict[str, dict[str, str]] = {
         "it": "Aggiornamento disponibile",
     },
     "update_hud_msg": {
-        "en": "Version {version} is available.",
-        "pl": "Dostępna wersja {version}.",
-        "fr": "La version {version} est disponible.",
-        "de": "Version {version} ist verfügbar.",
-        "es": "La versión {version} está disponible.",
-        "ru": "Доступна версия {version}.",
-        "pt": "A versão {version} está disponível.",
-        "it": "È disponibile la versione {version}.",
+        "en": "Version {version} is available. Click here to download it.",
+        "pl": "Dostępna wersja {version}. Kliknij, aby ją pobrać.",
+        "fr": "La version {version} est disponible. Cliquez ici pour la télécharger.",
+        "de": "Version {version} ist verfügbar. Hier klicken zum Herunterladen.",
+        "es": "La versión {version} está disponible. Haz clic aquí para descargarla.",
+        "ru": "Доступна версия {version}. Нажмите здесь, чтобы скачать.",
+        "pt": "A versão {version} está disponível. Clique aqui para a transferir.",
+        "it": "È disponibile la versione {version}. Fai clic qui per scaricarla.",
     },
     "about_checking_update": {
         "en": "Checking…",
@@ -639,7 +808,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Wird geprüft…",
         "es": "Comprobando…",
         "ru": "Проверка…",
-        "pt": "Verificando…",
+        "pt": "A verificar…",
         "it": "Controllo in corso…",
     },
     "about_update_available_title": {
@@ -653,14 +822,14 @@ _STRINGS: dict[str, dict[str, str]] = {
         "it": "Aggiornamento disponibile",
     },
     "about_update_available_msg": {
-        "en": "A newer version is available: {version}\n(you have {current}).\n\nOpen the GitHub page to download it?",
-        "pl": "Dostępna jest nowsza wersja: {version}\n(Twoja: {current}).\n\nOtworzyć stronę GitHub, aby ją pobrać?",
-        "fr": "Une nouvelle version est disponible : {version}\n(vous avez {current}).\n\nOuvrir la page GitHub pour la télécharger ?",
-        "de": "Eine neuere Version ist verfügbar: {version}\n(Sie haben {current}).\n\nGitHub-Seite zum Herunterladen öffnen?",
-        "es": "Hay una versión más reciente disponible: {version}\n(tienes {current}).\n\n¿Abrir la página de GitHub para descargarla?",
-        "ru": "Доступна новая версия: {version}\n(у вас установлена {current}).\n\nОткрыть страницу GitHub, чтобы скачать её?",
-        "pt": "Uma nova versão está disponível: {version}\n(você tem {current}).\n\nAbrir a página do GitHub para baixá-la?",
-        "it": "È disponibile una versione più recente: {version}\n(hai la {current}).\n\nAprire la pagina GitHub per scaricarla?",
+        "en": "A newer version is available: {version}\n(you have {current}).\n\nOpen the download page?",
+        "pl": "Dostępna jest nowsza wersja: {version}\n(Twoja: {current}).\n\nOtworzyć stronę pobierania?",
+        "fr": "Une nouvelle version est disponible : {version}\n(vous avez {current}).\n\nOuvrir la page de téléchargement ?",
+        "de": "Eine neuere Version ist verfügbar: {version}\n(Sie haben {current}).\n\nDownload-Seite öffnen?",
+        "es": "Hay una versión más reciente disponible: {version}\n(tienes {current}).\n\n¿Abrir la página de descarga?",
+        "ru": "Доступна более новая версия: {version}\n(у вас {current}).\n\nОткрыть страницу загрузки?",
+        "pt": "Está disponível uma versão mais recente: {version}\n(tem a {current}).\n\nAbrir a página de transferência?",
+        "it": "È disponibile una versione più recente: {version}\n(hai la {current}).\n\nAprire la pagina di download?",
     },
     "about_update_uptodate_title": {
         "en": "No updates",
@@ -679,7 +848,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Sie haben bereits die neueste Version ({current}).",
         "es": "Ya tienes la última versión ({current}).",
         "ru": "У вас уже установлена последняя версия ({current}).",
-        "pt": "Você já tem a versão mais recente ({current}).",
+        "pt": "Já tem a versão mais recente instalada ({current}).",
         "it": "Hai già l'ultima versione ({current}).",
     },
     "about_update_error_title": {
@@ -709,7 +878,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Keine Internetverbindung oder ein DNS-Problem. Überprüfen Sie Ihre Netzwerkverbindung und versuchen Sie es erneut.",
         "es": "Sin conexión a internet o un problema de DNS. Comprueba tu conexión de red e inténtalo de nuevo.",
         "ru": "Нет подключения к интернету или проблема с DNS. Проверьте сетевое подключение и повторите попытку.",
-        "pt": "Sem conexão com a internet ou problema de DNS. Verifique sua conexão de rede e tente novamente.",
+        "pt": "Sem ligação à Internet ou problema de DNS. Verifique a sua ligação de rede e tente novamente.",
         "it": "Nessuna connessione a Internet o problema DNS. Controlla la connessione di rete e riprova.",
     },
     "about_update_err_firewall": {
@@ -719,7 +888,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Die Verbindung wurde von einer Firewall oder einem Antivirenprogramm blockiert. Erlauben Sie HOTS Hosts Lite den Internetzugriff und versuchen Sie es erneut.",
         "es": "La conexión fue bloqueada por un firewall o antivirus. Permite que HOTS Hosts Lite acceda a internet e inténtalo de nuevo.",
         "ru": "Соединение заблокировано брандмауэром или антивирусом. Разрешите HOTS Hosts Lite доступ в интернет и попробуйте снова.",
-        "pt": "A conexão foi bloqueada por um firewall ou antivírus. Permita que o HOTS Hosts Lite acesse a internet e tente novamente.",
+        "pt": "A ligação foi bloqueada por uma firewall ou antivírus. Permita que o HOTS Hosts Lite aceda à internet e tente novamente.",
         "it": "La connessione è stata bloccata da un firewall o da un antivirus. Consenti a HOTS Hosts Lite di accedere a Internet e riprova.",
     },
     "about_update_err_rate_limit": {
@@ -729,7 +898,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "GitHub hat die Anzahl der Anfragen vorübergehend begrenzt (API-Limit). Bitte versuchen Sie es in einigen Minuten erneut.",
         "es": "GitHub ha limitado temporalmente el número de solicitudes (límite de la API). Inténtalo de nuevo en unos minutos.",
         "ru": "GitHub временно ограничил количество запросов (лимит API). Повторите попытку через несколько минут.",
-        "pt": "O GitHub limitou temporariamente o número de solicitações (limite de taxa da API). Tente novamente em alguns minutos.",
+        "pt": "O GitHub limitou temporariamente o número de pedidos (limite da API). Tente novamente dentro de alguns minutos.",
         "it": "GitHub ha limitato temporaneamente il numero di richieste (rate limit dell'API). Riprova tra qualche minuto.",
     },
     "about_update_err_not_found": {
@@ -739,7 +908,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Auf GitHub konnten keine Versionsinformationen für dieses Programm gefunden werden.",
         "es": "No se encontró información de versiones del programa en GitHub.",
         "ru": "Не удалось найти информацию о релизе этого приложения на GitHub.",
-        "pt": "Não foi possível encontrar informações de lançamento deste aplicativo no GitHub.",
+        "pt": "Não foi possível encontrar informação sobre lançamentos desta aplicação no GitHub.",
         "it": "Su GitHub non sono state trovate informazioni sulle release di questa applicazione.",
     },
     "about_update_err_timeout": {
@@ -749,7 +918,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Der Server hat zu lange für eine Antwort gebraucht. Überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.",
         "es": "El servidor tardó demasiado en responder. Comprueba tu conexión a internet e inténtalo de nuevo.",
         "ru": "Сервер слишком долго не отвечал. Проверьте подключение к интернету и повторите попытку.",
-        "pt": "O servidor demorou demais para responder. Verifique sua conexão com a internet e tente novamente.",
+        "pt": "O servidor demorou demasiado tempo a responder. Verifique a sua ligação à Internet e tente novamente.",
         "it": "Il server ha impiegato troppo tempo a rispondere. Controlla la connessione a Internet e riprova.",
     },
     "about_update_err_ssl": {
@@ -759,7 +928,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Es konnte keine sichere Verbindung hergestellt werden (SSL-Zertifikatfehler). Überprüfen Sie Datum und Uhrzeit Ihres Systems und versuchen Sie es erneut.",
         "es": "No se pudo establecer una conexión segura (error de certificado SSL). Comprueba la fecha y hora del sistema e inténtalo de nuevo.",
         "ru": "Не удалось установить безопасное соединение (ошибка SSL-сертификата). Проверьте дату и время системы и повторите попытку.",
-        "pt": "Não foi possível estabelecer uma conexão segura (erro de certificado SSL). Verifique a data e hora do sistema e tente novamente.",
+        "pt": "Não foi possível estabelecer uma ligação segura (erro de certificado SSL). Verifique a data e hora do sistema e tente novamente.",
         "it": "Impossibile stabilire una connessione sicura (errore del certificato SSL). Controlla data e ora del sistema e riprova.",
     },
     "about_update_err_empty": {
@@ -769,7 +938,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Der Server hat eine leere Antwort zurückgegeben. Bitte versuchen Sie es später erneut.",
         "es": "El servidor devolvió una respuesta vacía. Inténtalo de nuevo más tarde.",
         "ru": "Сервер вернул пустой ответ. Повторите попытку позже.",
-        "pt": "O servidor retornou uma resposta vazia. Tente novamente mais tarde.",
+        "pt": "O servidor devolveu uma resposta vazia. Tente novamente mais tarde.",
         "it": "Il server ha restituito una risposta vuota. Riprova più tardi.",
     },
     "about_update_err_generic": {
@@ -799,7 +968,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Hosts-Datei erfolgreich gespeichert!\nSicherung automatisch erstellt.",
         "es": "¡Archivo hosts guardado correctamente!\nCopia de seguridad creada automáticamente.",
         "ru": "Файл hosts успешно сохранён!\nРезервная копия создана автоматически.",
-        "pt": "Arquivo hosts salvo com sucesso!\nBackup criado automaticamente.",
+        "pt": "Ficheiro hosts guardado com sucesso!\nCópia de segurança criada automaticamente.",
         "it": "File hosts salvato correttamente!\nBackup creato automaticamente.",
     },
     "save_err_title": {
@@ -809,7 +978,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Schreibfehler",
         "es": "Error de escritura",
         "ru": "Ошибка записи",
-        "pt": "Erro de gravação",
+        "pt": "Erro de escrita",
         "it": "Errore di scrittura",
     },
     "save_perm_msg": {
@@ -819,7 +988,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "FEHLER: Datei durch Windows-Netzwerkdienst gesperrt!\n\nDer Windows-Dienst „DNS-Client\" (dnscache) oder Ihr Antivirenprogramm hat eine exklusive Sperre für die Hosts-Datei gesetzt.\n\nDies passiert, wenn das System im Hintergrund noch vorherige Einträge analysiert oder die Netzwerkschleife hängt.\n\nSo beheben Sie das Problem:\n1. Warten Sie einen Moment, bis der DNS-Dienst die Analyse beendet und die Datei freigibt.\n2. Wenn die Sperre bestehen bleibt, starten Sie den Computer neu, um den RAM des DNS-Dienstes zurückzusetzen.",
         "es": "ERROR: ¡Archivo bloqueado por el servicio de red de Windows!\n\nEl servicio 'Cliente DNS' (dnscache) de Windows o tu antivirus ha impuesto un bloqueo exclusivo sobre el archivo hosts.\n\nEsto ocurre cuando el sistema todavía está analizando registros anteriores en segundo plano o el bucle de red se ha detenido.\n\nCómo solucionarlo:\n1. Espera un momento a que el servicio DNS termine el análisis y libere el archivo.\n2. Si el bloqueo persiste, reinicia el equipo para reiniciar la memoria RAM del servicio DNS.",
         "ru": "ОШИБКА: файл заблокирован сетевой службой Windows!\n\nСлужба Windows «DNS-клиент» (dnscache) или ваш антивирус наложили эксклюзивную блокировку на файл hosts.\n\nЭто происходит, когда система всё ещё анализирует предыдущие записи в фоновом режиме или сетевой цикл завис.\n\nЧто делать:\n1. Подождите немного, пока служба DNS завершит анализ и освободит файл.\n2. Если блокировка не исчезает, перезагрузите компьютер, чтобы сбросить память службы DNS.",
-        "pt": "ERRO: Arquivo bloqueado por um serviço de rede do Windows!\n\nO serviço 'Cliente DNS' (dnscache) do Windows ou seu antivírus impôs um bloqueio exclusivo no arquivo hosts.\n\nIsso acontece quando o sistema ainda está analisando registros anteriores em segundo plano ou o loop de rede travou.\n\nComo corrigir:\n1. Aguarde um momento para o serviço DNS concluir a análise e liberar o arquivo.\n2. Se o bloqueio persistir, reinicie o computador para redefinir a memória do serviço DNS.",
+        "pt": "ERRO: ficheiro bloqueado por um serviço de rede do Windows!\n\nO serviço 'Cliente DNS' do Windows (dnscache) ou o seu antivírus impôs um bloqueio exclusivo ao ficheiro hosts.\n\nIsto acontece quando o sistema ainda está a analisar registos anteriores em segundo plano ou o ciclo de rede encravou.\n\nComo resolver:\n1. Aguarde um momento até o serviço DNS terminar a análise e libertar o ficheiro.\n2. Se o bloqueio persistir, reinicie o computador para reiniciar a memória do serviço DNS.",
         "it": "ERRORE: file bloccato da un servizio di rete di Windows!\n\nIl servizio «Client DNS» (dnscache) di Windows o il tuo antivirus ha applicato un blocco esclusivo al file hosts.\n\nSuccede quando il sistema sta ancora analizzando in background i record precedenti oppure il ciclo di rete si è bloccato.\n\nCome risolvere:\n1. Attendi un momento che il servizio DNS termini l'analisi e rilasci il file.\n2. Se il blocco persiste, riavvia il computer per reimpostare la RAM del servizio DNS.",
     },
     "save_limit_title": {
@@ -829,7 +998,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Speichern pausiert — Leistungslimit",
         "es": "Guardado pausado — límite de rendimiento",
         "ru": "Сохранение приостановлено — предел производительности",
-        "pt": "Salvamento pausado — limite de desempenho",
+        "pt": "Gravação em pausa — limite de desempenho",
         "it": "Salvataggio sospeso — limite di prestazioni",
     },
     "save_limit_msg": {
@@ -839,7 +1008,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "{n} aktive Einträge erkannt — über dem empfohlenen Limit von {max}.\n\nSehr große Hosts-Dateien können den Windows-Dienst „DNS-Client\" spürbar belasten, was zu Systemverlangsamungen und in Extremfällen zu Verbindungsproblemen führen kann. Um dies zu vermeiden, hat HOTS Hosts Lite diesen Speichervorgang pausiert.\n\nWas Sie tun können:\n• Deaktivieren oder löschen Sie einige Einträge, um wieder unter {max} zu kommen\n• Oder verlagern Sie die Filterung auf einen lokalen DNS-Server (z. B. AdGuard Home oder Acrylic DNS), der für deutlich größere Listen ausgelegt ist.",
         "es": "Se detectaron {n} entradas activas — por encima del límite recomendado de {max}.\n\nLos archivos hosts muy grandes pueden sobrecargar de forma notable el servicio 'Cliente DNS' de Windows, provocando ralentizaciones del sistema y, en casos extremos, problemas de conectividad. Para evitarlo, HOTS Hosts Lite ha pausado este guardado.\n\nQué puedes hacer:\n• Desactiva o elimina algunas entradas para volver a estar por debajo de {max}\n• O traslada el filtrado a un servidor DNS local (por ejemplo AdGuard Home o Acrylic DNS), diseñado para manejar listas mucho más grandes.",
         "ru": "Обнаружено активных записей: {n} — выше рекомендуемого предела в {max}.\n\nОчень большие файлы hosts могут заметно нагружать службу «DNS-клиент» Windows, что приводит к замедлению системы, а в крайних случаях — к проблемам с подключением. Чтобы этого избежать, HOTS Hosts Lite приостановил сохранение.\n\nЧто можно сделать:\n• Отключить или удалить часть записей, чтобы вернуться ниже {max}\n• Или перенести фильтрацию на локальный DNS-сервер (например, AdGuard Home или Acrylic DNS), рассчитанный на гораздо большие списки.",
-        "pt": "Entradas ativas detectadas: {n} — acima do limite recomendado de {max}.\n\nArquivos hosts muito grandes podem sobrecarregar de forma perceptível o serviço 'Cliente DNS' do Windows, causando lentidão do sistema e, em casos extremos, problemas de conectividade. Para evitar isso, o HOTS Hosts Lite pausou este salvamento.\n\nO que você pode fazer:\n• Desativar ou excluir algumas entradas para ficar abaixo de {max}\n• Ou mover a filtragem para um servidor DNS local (por exemplo, AdGuard Home ou Acrylic DNS), feito para lidar com listas muito maiores.",
+        "pt": "Entradas ativas detetadas: {n} — acima do limite recomendado de {max}.\n\nFicheiros hosts muito grandes podem sobrecarregar de forma percetível o serviço 'Cliente DNS' do Windows, causando lentidão do sistema e, em casos extremos, problemas de conetividade. Para evitar isso, o HOTS Hosts Lite pausou esta operação de guardar.\n\nO que pode fazer:\n• Desativar ou eliminar algumas entradas para ficar abaixo de {max}\n• Ou mover a filtragem para um servidor DNS local (por exemplo, AdGuard Home ou Acrylic DNS), concebido para lidar com listas muito maiores.",
         "it": "Voci attive rilevate: {n} — oltre il limite consigliato di {max}.\n\nFile hosts molto grandi possono gravare in modo evidente sul servizio «Client DNS» di Windows, causando rallentamenti del sistema e, in casi estremi, problemi di connettività. Per evitarlo, HOTS Hosts Lite ha sospeso questo salvataggio.\n\nCosa puoi fare:\n• Disattiva o elimina alcune voci per tornare sotto {max}\n• Oppure sposta il filtraggio su un server DNS locale (ad es. AdGuard Home o Acrylic DNS), progettato per gestire liste molto più grandi.",
     },
     "repair_no_changes_title": {
@@ -859,7 +1028,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Die Hosts-Datei benötigte keine Syntaxreparaturen.",
         "es": "El archivo hosts no requirió ninguna reparación de sintaxis.",
         "ru": "Файл hosts не требовал исправления синтаксиса.",
-        "pt": "O arquivo hosts não precisou de reparos de sintaxe.",
+        "pt": "O ficheiro hosts não precisou de reparações de sintaxe.",
         "it": "Il file hosts non richiedeva correzioni di sintassi.",
     },
     "repair_done_title": {
@@ -879,7 +1048,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Hosts-Datei bereinigt. Speichern Sie die Änderungen, um sie anzuwenden.",
         "es": "Archivo hosts limpiado. Guarda los cambios para aplicarlos.",
         "ru": "Файл hosts очищен. Сохраните изменения, чтобы применить их.",
-        "pt": "Arquivo hosts limpo. Salve as alterações para aplicar.",
+        "pt": "Ficheiro hosts limpo. Guarde as alterações para aplicar.",
         "it": "File hosts ripulito. Salva le modifiche per applicarle.",
     },
     "repair_wildcards": {
@@ -889,7 +1058,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "• Korrigierte Wildcard-Einträge: {n}.",
         "es": "• Entradas con comodín corregidas: {n}.",
         "ru": "• Исправлено записей с подстановочными знаками: {n}.",
-        "pt": "• Entradas curinga corrigidas: {n}.",
+        "pt": "• Entradas com carateres universais corrigidas: {n}.",
         "it": "• Voci con caratteri jolly corrette: {n}.",
     },
     "repair_dups": {
@@ -919,7 +1088,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "• Auf Kleinbuchstaben normalisierte Hostnamen: {n}.",
         "es": "• Nombres de host normalizados a minúsculas: {n}.",
         "ru": "• Имена хостов приведены к нижнему регистру: {n}.",
-        "pt": "• Nomes de host normalizados para minúsculas: {n}.",
+        "pt": "• Nomes de anfitrião normalizados para minúsculas: {n}.",
         "it": "• Hostname convertiti in minuscolo: {n}.",
     },
     "restore_ask_title": {
@@ -929,7 +1098,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Standard-Hosts wiederherstellen?",
         "es": "¿Restaurar hosts predeterminado?",
         "ru": "Восстановить hosts по умолчанию?",
-        "pt": "Restaurar hosts padrão?",
+        "pt": "Restaurar o hosts predefinido?",
         "it": "Ripristinare l'hosts predefinito?",
     },
     "restore_ask_msg": {
@@ -939,7 +1108,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Die aktuelle Hosts-Datei wird durch die Standardversion von Microsoft ersetzt.\nEs wird eine Sicherung erstellt.",
         "es": "El archivo hosts actual será reemplazado por la versión predeterminada de Microsoft.\nSe creará una copia de seguridad.",
         "ru": "Текущий файл hosts будет заменён стандартной версией Microsoft.\nБудет создана резервная копия.",
-        "pt": "O arquivo hosts atual será substituído pela versão padrão da Microsoft.\nUm backup será criado.",
+        "pt": "O ficheiro hosts atual será substituído pela versão predefinida da Microsoft.\nSerá criada uma cópia de segurança.",
         "it": "Il file hosts attuale verrà sostituito con la versione predefinita di Microsoft.\nVerrà creato un backup.",
     },
     "restore_done_title": {
@@ -959,7 +1128,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Hosts-Datei auf die Standardversion von Microsoft zurückgesetzt.",
         "es": "Archivo hosts restaurado a la versión predeterminada de Microsoft.",
         "ru": "Файл hosts восстановлен до стандартной версии Microsoft.",
-        "pt": "Arquivo hosts restaurado para a versão padrão da Microsoft.",
+        "pt": "Ficheiro hosts restaurado para a versão predefinida da Microsoft.",
         "it": "File hosts ripristinato alla versione predefinita di Microsoft.",
     },
     "no_sel_title": {
@@ -969,7 +1138,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Keine Auswahl",
         "es": "Sin selección",
         "ru": "Нет выделения",
-        "pt": "Nenhuma seleção",
+        "pt": "Sem seleção",
         "it": "Nessuna selezione",
     },
     "no_sel_edit": {
@@ -999,7 +1168,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Wählen Sie einen oder mehrere Einträge zum Löschen aus.",
         "es": "Selecciona una o más entradas para eliminar.",
         "ru": "Выберите одну или несколько записей для удаления.",
-        "pt": "Selecione uma ou mais entradas para excluir.",
+        "pt": "Selecione uma ou mais entradas para eliminar.",
         "it": "Seleziona una o più voci da eliminare.",
     },
     "no_sel_check": {
@@ -1029,7 +1198,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Eintrag löschen:\n{ip}  {hostname}?",
         "es": "¿Eliminar entrada:\n{ip}  {hostname}?",
         "ru": "Удалить запись:\n{ip}  {hostname}?",
-        "pt": "Excluir entrada:\n{ip}  {hostname}?",
+        "pt": "Eliminar entrada:\n{ip}  {hostname}?",
         "it": "Eliminare la voce:\n{ip}  {hostname}?",
     },
     "del_confirm_many": {
@@ -1039,7 +1208,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "{n} ausgewählte Einträge löschen?\n\n{preview}{suffix}",
         "es": "¿Eliminar {n} entradas seleccionadas?\n\n{preview}{suffix}",
         "ru": "Удалить {n} выбранных записей?\n\n{preview}{suffix}",
-        "pt": "Excluir {n} entradas selecionadas?\n\n{preview}{suffix}",
+        "pt": "Eliminar {n} entradas selecionadas?\n\n{preview}{suffix}",
         "it": "Eliminare le {n} voci selezionate?\n\n{preview}{suffix}",
     },
     "del_more": {
@@ -1069,7 +1238,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Sie bearbeiten den rohen Inhalt der Hosts-Datei direkt, wie im Editor. Denken Sie daran, Ihre Änderungen im HOTS-Hauptfenster zu speichern.",
         "es": "Estás editando directamente el contenido en bruto del archivo hosts, como en el Bloc de notas. Recuerda guardar los cambios en la ventana principal de HOTS.",
         "ru": "Вы редактируете исходное содержимое файла hosts напрямую, как в Блокноте. Не забудьте сохранить изменения в главном окне HOTS.",
-        "pt": "Você está editando o conteúdo bruto do arquivo hosts diretamente, como no Bloco de Notas. Lembre-se de salvar as alterações na janela principal do HOTS.",
+        "pt": "Está a editar diretamente o conteúdo em bruto do ficheiro hosts, como no Bloco de Notas. Lembre-se de guardar as alterações na janela principal do HOTS.",
         "it": "Stai modificando direttamente il contenuto grezzo del file hosts, come nel Blocco note. Ricordati di salvare le modifiche nella finestra principale di HOTS.",
     },
     "parse_err_title": {
@@ -1089,7 +1258,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Der Text im Rohmodus konnte nicht analysiert werden, daher wurden diese Änderungen verworfen (die letzten gültigen Einträge bleiben erhalten): {error}",
         "es": "No se pudo analizar el texto del modo bruto, por lo que esos cambios se descartaron (se conservan las últimas entradas válidas): {error}",
         "ru": "Не удалось разобрать текст в режиме raw, поэтому эти изменения были отменены (последние допустимые записи сохранены): {error}",
-        "pt": "Não foi possível analisar o texto do modo bruto, então essas edições foram descartadas (as últimas entradas válidas foram mantidas): {error}",
+        "pt": "Não foi possível interpretar o texto do modo bruto, pelo que essas alterações foram descartadas (as últimas entradas válidas foram mantidas): {error}",
         "it": "Impossibile analizzare il testo della modalità raw, quindi le modifiche sono state scartate (vengono mantenute le ultime voci valide): {error}",
     },
     "lang_title": {
@@ -1109,7 +1278,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Sprache geändert. Starten Sie die Anwendung neu, um die Änderung zu übernehmen.",
         "es": "Idioma cambiado. Reinicia la aplicación para aplicarlo.",
         "ru": "Язык изменён. Перезапустите приложение, чтобы применить изменения.",
-        "pt": "Idioma alterado. Reinicie o aplicativo para aplicar.",
+        "pt": "Idioma alterado. Reinicie a aplicação para aplicar.",
         "it": "Lingua cambiata. Riavvia l'applicazione per applicarla.",
     },
     "app_title": {
@@ -1159,7 +1328,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Erscheinungsbild geändert. Anwendung jetzt neu starten, um es anzuwenden?",
         "es": "Apariencia cambiada. ¿Reiniciar la aplicación ahora para aplicarla?",
         "ru": "Оформление изменено. Перезапустить приложение сейчас, чтобы применить изменения?",
-        "pt": "Aparência alterada. Reiniciar o aplicativo agora para aplicar?",
+        "pt": "Aparência alterada. Reiniciar a aplicação agora para aplicar?",
         "it": "Aspetto modificato. Riavviare ora l'applicazione per applicarlo?",
     },
     "btn_restart_now": {
@@ -1189,18 +1358,8 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Die Anwendung konnte nicht automatisch neu gestartet werden. Bitte schließen Sie sie und starten Sie sie manuell erneut.",
         "es": "No se pudo reiniciar la aplicación automáticamente. Ciérrala e inícia­la manualmente de nuevo.",
         "ru": "Не удалось перезапустить приложение автоматически. Закройте его и запустите снова вручную.",
-        "pt": "Não foi possível reiniciar o aplicativo automaticamente. Feche-o e inicie-o novamente manualmente.",
+        "pt": "Não foi possível reiniciar a aplicação automaticamente. Feche-a e inicie-a novamente manualmente.",
         "it": "Impossibile riavviare automaticamente l'applicazione. Chiudila e riavviala manualmente.",
-    },
-    "acc_desc": {
-        "en": "Choose the accent color used throughout the app.",
-        "pl": "Wybierz kolor akcentu używany w całej aplikacji.",
-        "fr": "Choisissez la couleur d'accent utilisée dans l'application.",
-        "de": "Wählen Sie die in der gesamten App verwendete Akzentfarbe.",
-        "es": "Elige el color de acento utilizado en toda la aplicación.",
-        "ru": "Выберите цвет акцента, используемый во всём приложении.",
-        "pt": "Escolha a cor de destaque usada em todo o aplicativo.",
-        "it": "Scegli il colore di risalto usato in tutta l'app.",
     },
     "acc_gold": {
         "en": "Yellow",
@@ -1252,6 +1411,106 @@ _STRINGS: dict[str, dict[str, str]] = {
         "pt": "Turquesa",
         "it": "Verde acqua",
     },
+    "acc_graphite": {
+        "en": "Graphite",
+        "pl": "Grafitowy",
+        "fr": "Graphite",
+        "de": "Graphit",
+        "es": "Grafito",
+        "ru": "Графитовый",
+        "pt": "Grafite",
+        "it": "Grafite",
+    },
+    "app_material_label": {
+        "en": "Material",
+        "pl": "Materiał",
+        "fr": "Matériau",
+        "de": "Material",
+        "es": "Material",
+        "ru": "Материал",
+        "pt": "Material",
+        "it": "Materiale",
+    },
+    "app_material_mica": {
+        "en": "Mica",
+        "pl": "Mica",
+        "fr": "Mica",
+        "de": "Mica",
+        "es": "Mica",
+        "ru": "Mica",
+        "pt": "Mica",
+        "it": "Mica",
+    },
+    "app_material_acrylic": {
+        "en": "Acrylic",
+        "pl": "Akryl",
+        "fr": "Acrylique",
+        "de": "Acryl",
+        "es": "Acrílico",
+        "ru": "Акрил",
+        "pt": "Acrílico",
+        "it": "Acrilico",
+    },
+    "app_transparency_label": {
+        "en": "Transparency",
+        "pl": "Przezroczystość",
+        "fr": "Transparence",
+        "de": "Transparenz",
+        "es": "Transparencia",
+        "ru": "Прозрачность",
+        "pt": "Transparência",
+        "it": "Trasparenza",
+    },
+    "app_glow_label": {
+        "en": "Glow",
+        "pl": "Poświata",
+        "fr": "Lueur",
+        "de": "Leuchteffekt",
+        "es": "Resplandor",
+        "ru": "Свечение",
+        "pt": "Brilho",
+        "it": "Bagliore",
+    },
+    "app_tip_need_effects": {
+        "en": "Turn on Window effects to use this setting.",
+        "pl": "Włącz efekty okna, aby użyć tego ustawienia.",
+        "fr": "Activez les effets de fenêtre pour utiliser ce réglage.",
+        "de": "Aktiviere die Fenstereffekte, um diese Einstellung zu nutzen.",
+        "es": "Activa los efectos de ventana para usar este ajuste.",
+        "ru": "Включите эффекты окна, чтобы использовать этот параметр.",
+        "pt": "Ative os efeitos da janela para usar esta configuração.",
+        "it": "Attiva gli effetti della finestra per usare questa impostazione.",
+    },
+    "app_tip_acrylic_only": {
+        "en": "Available only with the Acrylic material.",
+        "pl": "Dostępne tylko dla materiału Akryl.",
+        "fr": "Disponible uniquement avec le matériau Acrylique.",
+        "de": "Nur mit dem Material Acryl verfügbar.",
+        "es": "Disponible solo con el material Acrílico.",
+        "ru": "Доступно только для материала «Акрил».",
+        "pt": "Disponível apenas com o material Acrílico.",
+        "it": "Disponibile solo con il materiale Acrilico.",
+    },
+    "app_tip_restart": {
+        "en": "Takes effect after restarting the program.",
+        "pl": "Zadziała po ponownym uruchomieniu programu.",
+        "fr": "Prend effet après le redémarrage du programme.",
+        "de": "Wird nach einem Neustart des Programms wirksam.",
+        "es": "Se aplicará al reiniciar el programa.",
+        "ru": "Вступит в силу после перезапуска программы.",
+        "pt": "Terá efeito após reiniciar o programa.",
+        "it": "Avrà effetto dopo il riavvio del programma.",
+    },
+    "app_effects_label": {
+        "en": "Window effects",
+        "pl": "Efekty okna",
+        "fr": "Effets de fenêtre",
+        "de": "Fenstereffekte",
+        "es": "Efectos de ventana",
+        "ru": "Эффекты окна",
+        "pt": "Efeitos da janela",
+        "it": "Effetti della finestra",
+    },
     "acc_table_text_accent": {
         "en": "Use accent color for active entries in the table",
         "pl": "Użyj koloru akcentu dla aktywnych wpisów w tabeli",
@@ -1259,7 +1518,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Akzentfarbe für aktive Einträge in der Tabelle verwenden",
         "es": "Usar el color de acento para las entradas activas de la tabla",
         "ru": "Использовать цвет акцента для активных записей в таблице",
-        "pt": "Usar cor de destaque para entradas ativas na tabela",
+        "pt": "Usar a cor de destaque para entradas ativas na tabela",
         "it": "Usa il colore di risalto per le voci attive nella tabella",
     },
     "bak_title": {
@@ -1269,7 +1528,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Sicherungs-Manager",
         "es": "Gestor de copias de seguridad",
         "ru": "Менеджер резервных копий",
-        "pt": "Gerenciador de backups",
+        "pt": "Gestor de cópias de segurança",
         "it": "Gestione backup",
     },
     "bak_subheader": {
@@ -1279,7 +1538,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Jeder Speichervorgang erstellt eine neue Sicherung für das aktuell verwendete Profil. Sie können jede davon wiederherstellen oder den Standard-Hosts wiederherstellen.",
         "es": "Cada guardado crea una nueva copia de seguridad para el perfil que estás usando actualmente. Puedes restaurar cualquiera de ellas, o restaurar el hosts predeterminado.",
         "ru": "Каждое сохранение создаёт новую резервную копию для текущего профиля. Вы можете восстановить любую из них или восстановить hosts по умолчанию.",
-        "pt": "Cada salvamento cria um novo backup para o perfil em que você está atualmente. Você pode restaurar qualquer um deles ou restaurar o hosts padrão.",
+        "pt": "Cada vez que guarda, é criada uma nova cópia de segurança do perfil em que se encontra atualmente. Pode restaurar qualquer uma delas ou restaurar o hosts predefinido.",
         "it": "Ogni salvataggio crea un nuovo backup per il profilo in uso. Puoi ripristinarne uno qualsiasi oppure ripristinare l'hosts predefinito.",
     },
     "bak_btn_restore": {
@@ -1289,7 +1548,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Auswahl wiederherstellen",
         "es": "Restaurar selección",
         "ru": "Восстановить выбранное",
-        "pt": "Restaurar selecionado",
+        "pt": "Restaurar selecionada",
         "it": "Ripristina selezionato",
     },
     "bak_btn_delete": {
@@ -1299,7 +1558,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Auswahl löschen",
         "es": "Eliminar selección",
         "ru": "Удалить выбранное",
-        "pt": "Excluir selecionado",
+        "pt": "Eliminar selecionadas",
         "it": "Elimina selezionati",
     },
     "bak_col_date": {
@@ -1329,7 +1588,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Datei",
         "es": "Archivo",
         "ru": "Файл",
-        "pt": "Arquivo",
+        "pt": "Ficheiro",
         "it": "File",
     },
     "bak_empty": {
@@ -1339,7 +1598,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Keine Sicherungen",
         "es": "Sin copias de seguridad",
         "ru": "Нет резервных копий",
-        "pt": "Sem backups",
+        "pt": "Sem cópias de segurança",
         "it": "Nessun backup",
     },
     "bak_no_sel_msg": {
@@ -1349,7 +1608,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Wählen Sie mindestens eine Sicherung aus.",
         "es": "Selecciona al menos una copia de seguridad.",
         "ru": "Выберите хотя бы одну резервную копию.",
-        "pt": "Selecione pelo menos um backup.",
+        "pt": "Selecione pelo menos uma cópia de segurança.",
         "it": "Seleziona almeno un backup.",
     },
     "bak_too_many_title": {
@@ -1359,7 +1618,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Zu viele ausgewählt",
         "es": "Demasiadas seleccionadas",
         "ru": "Выбрано слишком много",
-        "pt": "Muitos selecionados",
+        "pt": "Demasiadas selecionadas",
         "it": "Troppe selezioni",
     },
     "bak_too_many_msg": {
@@ -1369,7 +1628,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Es kann jeweils nur eine Sicherung wiederhergestellt werden.\nWählen Sie genau eine aus.",
         "es": "Solo se puede restaurar una copia de seguridad a la vez.\nSelecciona exactamente una.",
         "ru": "За один раз можно восстановить только одну резервную копию.\nВыберите ровно одну.",
-        "pt": "Apenas um backup pode ser restaurado por vez.\nSelecione exatamente um.",
+        "pt": "Só é possível restaurar uma cópia de segurança de cada vez.\nSelecione exatamente uma.",
         "it": "È possibile ripristinare un solo backup alla volta.\nSeleziona esattamente un backup.",
     },
     "bak_restore_ask_title": {
@@ -1379,7 +1638,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Sicherung wiederherstellen",
         "es": "Restaurar copia de seguridad",
         "ru": "Восстановить резервную копию",
-        "pt": "Restaurar backup",
+        "pt": "Restaurar cópia de segurança",
         "it": "Ripristina backup",
     },
     "bak_restore_ask_msg": {
@@ -1389,7 +1648,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Hosts-Datei wiederherstellen aus:\n{name}\n\nDie aktuelle Hosts-Datei wird überschrieben (eine Sicherung wird erstellt).",
         "es": "Restaurar archivo hosts desde:\n{name}\n\nEl archivo hosts actual será sobrescrito (se creará una copia de seguridad).",
         "ru": "Восстановить файл hosts из:\n{name}\n\nТекущий файл hosts будет перезаписан (будет создана резервная копия).",
-        "pt": "Restaurar arquivo hosts a partir de:\n{name}\n\nO arquivo hosts atual será substituído (um backup será criado).",
+        "pt": "Restaurar o ficheiro hosts a partir de:\n{name}\n\nO ficheiro hosts atual será substituído (será criada uma cópia de segurança).",
         "it": "Ripristinare il file hosts da:\n{name}\n\nIl file hosts attuale verrà sovrascritto (verrà creato un backup).",
     },
     "bak_restore_ok": {
@@ -1399,7 +1658,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Hosts-Datei erfolgreich wiederhergestellt.",
         "es": "Archivo hosts restaurado correctamente.",
         "ru": "Файл hosts успешно восстановлен.",
-        "pt": "Arquivo hosts restaurado com sucesso.",
+        "pt": "Ficheiro hosts restaurado com sucesso.",
         "it": "File hosts ripristinato correttamente.",
     },
     "bak_del_ask_title": {
@@ -1409,7 +1668,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Sicherungen löschen",
         "es": "Eliminar copias de seguridad",
         "ru": "Удалить резервные копии",
-        "pt": "Excluir backups",
+        "pt": "Eliminar cópias de segurança",
         "it": "Elimina backup",
     },
     "bak_del_err_title": {
@@ -1419,7 +1678,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Löschfehler",
         "es": "Error al eliminar",
         "ru": "Ошибка удаления",
-        "pt": "Erro ao excluir",
+        "pt": "Erro ao eliminar",
         "it": "Errore di eliminazione",
     },
     "bak_del_ask_one": {
@@ -1429,7 +1688,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Endgültig löschen:\n{name}?",
         "es": "¿Eliminar permanentemente:\n{name}?",
         "ru": "Удалить безвозвратно:\n{name}?",
-        "pt": "Excluir permanentemente:\n{name}?",
+        "pt": "Eliminar permanentemente:\n{name}?",
         "it": "Eliminare definitivamente:\n{name}?",
     },
     "bak_del_ask_many": {
@@ -1439,7 +1698,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "{n} ausgewählte Sicherungen endgültig löschen?\n\n{names}",
         "es": "¿Eliminar permanentemente {n} copias de seguridad seleccionadas?\n\n{names}",
         "ru": "Удалить безвозвратно {n} выбранных резервных копий?\n\n{names}",
-        "pt": "Excluir permanentemente {n} backups selecionados?\n\n{names}",
+        "pt": "Eliminar permanentemente {n} cópias de segurança selecionadas?\n\n{names}",
         "it": "Eliminare definitivamente i {n} backup selezionati?\n\n{names}",
     },
     "bak_status_count": {
@@ -1449,7 +1708,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Gefundene Sicherungen: {n}.",
         "es": "Copias de seguridad encontradas: {n}.",
         "ru": "Найдено резервных копий: {n}.",
-        "pt": "Backups encontrados: {n}.",
+        "pt": "Cópias de segurança encontradas: {n}.",
         "it": "Backup trovati: {n}.",
     },
     "bak_status_restored": {
@@ -1459,7 +1718,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Sicherung wiederhergestellt: {name}",
         "es": "Copia de seguridad restaurada: {name}",
         "ru": "Восстановлена резервная копия: {name}",
-        "pt": "Backup restaurado: {name}",
+        "pt": "Cópia de segurança restaurada: {name}",
         "it": "Backup ripristinato: {name}",
     },
     "bak_status_deleted": {
@@ -1469,7 +1728,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Gelöschte Sicherungen: {n}.",
         "es": "Copias de seguridad eliminadas: {n}.",
         "ru": "Удалено резервных копий: {n}.",
-        "pt": "Backups excluídos: {n}.",
+        "pt": "Cópias de segurança eliminadas: {n}.",
         "it": "Backup eliminati: {n}.",
     },
     "diff_title": {
@@ -1479,7 +1738,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Änderungen vor dem Speichern anzeigen",
         "es": "Vista previa de cambios antes de guardar",
         "ru": "Предпросмотр изменений перед сохранением",
-        "pt": "Pré-visualizar alterações antes de salvar",
+        "pt": "Pré-visualizar alterações antes de guardar",
         "it": "Anteprima delle modifiche prima del salvataggio",
     },
     "diff_file_current": {
@@ -1489,7 +1748,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "aktuelle hosts-Datei",
         "es": "archivo hosts actual",
         "ru": "текущий файл hosts",
-        "pt": "arquivo hosts atual",
+        "pt": "ficheiro hosts atual",
         "it": "file hosts attuale",
     },
     "diff_file_new": {
@@ -1499,7 +1758,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "neue hosts-Datei",
         "es": "nuevo archivo hosts",
         "ru": "новый файл hosts",
-        "pt": "novo arquivo hosts",
+        "pt": "novo ficheiro hosts",
         "it": "nuovo file hosts",
     },
     "diff_legend": {
@@ -1509,7 +1768,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "− entfernte Zeile    + hinzugefügte Zeile    @@ Position der Änderung",
         "es": "− línea eliminada    + línea añadida    @@ ubicación del cambio",
         "ru": "− удалённая строка    + добавленная строка    @@ место изменения",
-        "pt": "− linha removida    + linha adicionada    @@ local da alteração",
+        "pt": "− linha removida    + linha adicionada    @@ localização da alteração",
         "it": "− riga rimossa    + riga aggiunta    @@ posizione della modifica",
     },
     "diff_stat": {
@@ -1519,7 +1778,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Hinzugefügt: {adds}   Entfernt: {dels}",
         "es": "Añadidas: {adds}   Eliminadas: {dels}",
         "ru": "Добавлено: {adds}   Удалено: {dels}",
-        "pt": "Adicionadas: {adds}   Removidas: {dels}",
+        "pt": "Adicionado: {adds}   Removido: {dels}",
         "it": "Aggiunte: {adds}   Rimosse: {dels}",
     },
     "diff_save_anyway": {
@@ -1529,7 +1788,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Trotzdem speichern",
         "es": "Guardar de todos modos",
         "ru": "Всё равно сохранить",
-        "pt": "Salvar mesmo assim",
+        "pt": "Guardar mesmo assim",
         "it": "Salva comunque",
     },
     "diff_save": {
@@ -1539,7 +1798,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Speichern",
         "es": "Guardar",
         "ru": "Сохранить",
-        "pt": "Salvar",
+        "pt": "Guardar",
         "it": "Salva",
     },
     "diff_cancel": {
@@ -1569,7 +1828,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "  (keine Änderungen — Datei ist identisch)\n",
         "es": "  (sin cambios — el archivo es idéntico)\n",
         "ru": "  (нет изменений — файл идентичен)\n",
-        "pt": "  (sem alterações — o arquivo é idêntico)\n",
+        "pt": "  (sem alterações — o ficheiro é idêntico)\n",
         "it": "  (nessuna modifica — il file è identico)\n",
     },
     "entry_title_add": {
@@ -1609,7 +1868,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Hostname:",
         "es": "Nombre de host:",
         "ru": "Имя хоста:",
-        "pt": "Nome de host:",
+        "pt": "Nome de anfitrião:",
         "it": "Hostname:",
     },
     "entry_lbl_comment": {
@@ -1629,7 +1888,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Aktiv",
         "es": "Activo",
         "ru": "Активна",
-        "pt": "Ativo",
+        "pt": "Ativa",
         "it": "Attiva",
     },
     "entry_btn_save": {
@@ -1639,7 +1898,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Speichern",
         "es": "Guardar",
         "ru": "Сохранить",
-        "pt": "Salvar",
+        "pt": "Guardar",
         "it": "Salva",
     },
     "entry_btn_cancel": {
@@ -1659,7 +1918,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "⚠ Mehrere Zeilen erkannt — klicken Sie auf Speichern, um alle auf einmal hinzuzufügen.",
         "es": "⚠ Se detectaron varias líneas — haz clic en Guardar para añadirlas todas a la vez.",
         "ru": "⚠ Обнаружено несколько строк — нажмите «Сохранить», чтобы добавить их все сразу.",
-        "pt": "⚠ Várias linhas detectadas — clique em Salvar para adicionar todas de uma vez.",
+        "pt": "⚠ Detetadas várias linhas — clique em Guardar para as adicionar todas de uma vez.",
         "it": "⚠ Rilevate più righe — fai clic su Salva per aggiungerle tutte insieme.",
     },
     "entry_hint_sanitize": {
@@ -1669,7 +1928,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "⚠ Wird beim Speichern automatisch korrigiert (Entfernen von Protokoll/Schrägstrichen).",
         "es": "⚠ Se corregirá automáticamente (eliminación de protocolo/barras) al guardar.",
         "ru": "⚠ Будет автоматически исправлено (удаление протокола/слеша) при сохранении.",
-        "pt": "⚠ Será corrigido automaticamente (remoção de protocolo/barra) ao salvar.",
+        "pt": "⚠ Será corrigido automaticamente (remoção de protocolo/barra) ao guardar.",
         "it": "⚠ Verrà corretto automaticamente (rimozione di protocollo/barre) al salvataggio.",
     },
     "entry_hint_dup": {
@@ -1679,7 +1938,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "✘ Dieser Hostname zeigt bereits auf {existing_ip}.",
         "es": "✘ Este nombre de host ya apunta a {existing_ip}.",
         "ru": "✘ Это имя хоста уже указывает на {existing_ip}.",
-        "pt": "✘ Este nome de host já aponta para {existing_ip}.",
+        "pt": "✘ Este nome de anfitrião já aponta para {existing_ip}.",
         "it": "✘ Questo hostname punta già a {existing_ip}.",
     },
     "entry_hint_bad_ip": {
@@ -1709,7 +1968,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Format konnte nicht analysiert werden.\nErwartetes Format pro Zeile: IP Hostname",
         "es": "No se pudo analizar el formato.\nFormato esperado por línea: IP hostname",
         "ru": "Не удалось разобрать формат.\nОжидаемый формат строки: IP имя_хоста",
-        "pt": "Não foi possível analisar o formato.\nFormato esperado por linha: IP nomedehost",
+        "pt": "Não foi possível interpretar o formato.\nFormato esperado por linha: IP nome_de_anfitrião",
         "it": "Impossibile analizzare il formato.\nFormato previsto per riga: IP hostname",
     },
     "entry_skip_title": {
@@ -1729,7 +1988,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Übersprungene Duplikate: {n}\n{list}",
         "es": "Duplicados omitidos: {n}\n{list}",
         "ru": "Пропущено дубликатов: {n}\n{list}",
-        "pt": "Duplicatas ignoradas: {n}\n{list}",
+        "pt": "Duplicados ignorados: {n}\n{list}",
         "it": "Duplicati ignorati: {n}\n{list}",
     },
     "entry_err_required": {
@@ -1739,7 +1998,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "IP und Hostname sind erforderlich.",
         "es": "Se requieren IP y nombre de host.",
         "ru": "IP и имя хоста обязательны.",
-        "pt": "IP e Nome de host são obrigatórios.",
+        "pt": "IP e Nome de anfitrião são obrigatórios.",
         "it": "IP e hostname sono obbligatori.",
     },
     "entry_bad_ip_title": {
@@ -1759,7 +2018,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "„{ip}\" sieht nicht wie eine gültige IPv4-/IPv6-Adresse aus.\n\nTrotzdem speichern?",
         "es": "\"{ip}\" no parece una dirección IPv4/IPv6 válida.\n\n¿Guardar de todos modos?",
         "ru": "«{ip}» не похож на действительный адрес IPv4/IPv6.\n\nВсё равно сохранить?",
-        "pt": "\"{ip}\" não parece ser um endereço IPv4/IPv6 válido.\n\nSalvar mesmo assim?",
+        "pt": "\"{ip}\" não parece ser um endereço IPv4/IPv6 válido.\n\nGuardar mesmo assim?",
         "it": "«{ip}» non sembra un indirizzo IPv4/IPv6 valido.\n\nSalvare comunque?",
     },
     "entry_dup_title": {
@@ -1769,7 +2028,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Hostname bereits verwendet",
         "es": "Nombre de host ya usado",
         "ru": "Имя хоста уже используется",
-        "pt": "Nome de host já em uso",
+        "pt": "Nome de anfitrião já utilizado",
         "it": "Hostname già utilizzato",
     },
     "entry_dup_ask": {
@@ -1779,7 +2038,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Der Hostname „{host}\" zeigt bereits auf {existing_ip} in der Hosts-Datei.\n\nFür einen Hostnamen wird tatsächlich nur der ERSTE passende Eintrag verwendet - das Hinzufügen mit einer anderen IP ({ip}) hat keine Wirkung, solange Sie den vorhandenen Eintrag nicht deaktivieren oder entfernen.\n\nTrotzdem hinzufügen?",
         "es": "El nombre \"{host}\" ya apunta a {existing_ip} en el archivo hosts.\n\nSolo se usa realmente la PRIMERA entrada coincidente para un nombre de host - añadir esta con una IP distinta ({ip}) no tendrá efecto a menos que desactives o elimines la existente.\n\n¿Añadir de todos modos?",
         "ru": "Имя хоста «{host}» уже указывает на {existing_ip} в файле hosts.\n\nФактически используется только ПЕРВАЯ подходящая запись для имени хоста - добавление этой записи с другим IP ({ip}) не будет иметь эффекта, если вы не отключите или не удалите существующую.\n\nВсё равно добавить?",
-        "pt": "O nome de host \"{host}\" já aponta para {existing_ip} no arquivo hosts.\n\nApenas a PRIMEIRA entrada correspondente a um nome de host é realmente usada - adicionar esta com um IP diferente ({ip}) não terá efeito, a menos que você desative ou remova a existente.\n\nAdicionar mesmo assim?",
+        "pt": "O nome de anfitrião \"{host}\" já aponta para {existing_ip} no ficheiro hosts.\n\nApenas a PRIMEIRA entrada correspondente para um nome de anfitrião é realmente utilizada — adicionar esta com um IP diferente ({ip}) não terá efeito, a menos que desative ou remova a existente.\n\nAdicionar mesmo assim?",
         "it": "L'hostname «{host}» punta già a {existing_ip} nel file hosts.\n\nViene effettivamente usata solo la PRIMA voce corrispondente a un hostname: aggiungerne un'altra con un IP diverso ({ip}) non avrà alcun effetto, a meno che tu non disattivi o rimuova quella esistente.\n\nAggiungere comunque?",
     },
     "diag_title_existence": {
@@ -1789,7 +2048,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Domain-Existenzprüfung",
         "es": "Comprobación de existencia de dominios",
         "ru": "Проверка существования домена",
-        "pt": "Verificação de existência de domínio",
+        "pt": "Verificação de existência do domínio",
         "it": "Verifica dell'esistenza dei domini",
     },
     "diag_title_malware": {
@@ -1799,7 +2058,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Erkennung verdächtiger Einträge",
         "es": "Detección de entradas sospechosas",
         "ru": "Обнаружение подозрительных записей",
-        "pt": "Detecção de entradas suspeitas",
+        "pt": "Deteção de entradas suspeitas",
         "it": "Rilevamento di voci sospette",
     },
     "diag_desc_existence": {
@@ -1809,7 +2068,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Prüft Einträge über externes DNS (8.8.8.8) — umgeht die Hosts-Datei.\nWenn eine Domain im Internet nicht existiert — ist die Blockierung überflüssig.",
         "es": "Comprueba las entradas mediante DNS externo (8.8.8.8) — evita el archivo hosts.\nSi un dominio no existe en internet, el bloqueo es innecesario.",
         "ru": "Проверяет записи через внешний DNS (8.8.8.8) — в обход файла hosts.\nЕсли домен не существует в интернете — блокировка не нужна.",
-        "pt": "Verifica entradas via DNS externo (8.8.8.8) — ignora o arquivo hosts.\nSe um domínio não existir na internet — o bloqueio é desnecessário.",
+        "pt": "Verifica entradas através de DNS externo (8.8.8.8) — ignorando o ficheiro hosts.\nSe um domínio não existir na Internet, o bloqueio é desnecessário.",
         "it": "Controlla le voci tramite un DNS esterno (8.8.8.8), ignorando il file hosts.\nSe un dominio non esiste su Internet, il blocco è superfluo.",
     },
     "diag_desc_malware": {
@@ -1829,7 +2088,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Zum Scannen ausgewählt: {n}",
         "es": "Seleccionadas para escanear: {n}",
         "ru": "Выбрано для проверки: {n}",
-        "pt": "Selecionadas para verificar: {n}",
+        "pt": "Selecionadas para verificação: {n}",
         "it": "Selezionate per la scansione: {n}",
     },
     "diag_scan_count_all": {
@@ -1869,7 +2128,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Wird gestoppt…",
         "es": "Deteniendo…",
         "ru": "Остановка…",
-        "pt": "Parando…",
+        "pt": "A parar…",
         "it": "Interruzione in corso…",
     },
     "diag_click_to_start": {
@@ -1899,7 +2158,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Hostname",
         "es": "Nombre de host",
         "ru": "Имя хоста",
-        "pt": "Nome de host",
+        "pt": "Nome de anfitrião",
         "it": "Hostname",
     },
     "diag_col_ip": {
@@ -1949,7 +2208,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Inaktive löschen",
         "es": "Eliminar inactivas",
         "ru": "Удалить неактивные",
-        "pt": "Excluir inativas",
+        "pt": "Eliminar inativas",
         "it": "Elimina inattive",
     },
     "diag_btn_del_sel": {
@@ -1959,7 +2218,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Auswahl löschen",
         "es": "Eliminar seleccionadas",
         "ru": "Удалить выбранные",
-        "pt": "Excluir selecionadas",
+        "pt": "Eliminar selecionadas",
         "it": "Elimina selezionate",
     },
     "diag_btn_del_sel_hosts": {
@@ -1969,7 +2228,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Auswahl aus Hosts löschen",
         "es": "Eliminar seleccionadas de hosts",
         "ru": "Удалить выбранные из hosts",
-        "pt": "Excluir selecionadas do hosts",
+        "pt": "Eliminar selecionadas do hosts",
         "it": "Elimina selezionate da hosts",
     },
     "diag_no_internet_title": {
@@ -1979,7 +2238,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Keine Internetverbindung",
         "es": "Sin conexión a internet",
         "ru": "Нет подключения к интернету",
-        "pt": "Sem conexão com a internet",
+        "pt": "Sem ligação à Internet",
         "it": "Nessuna connessione a Internet",
     },
     "diag_no_internet_msg": {
@@ -1989,7 +2248,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Es wurde kein Internetzugang erkannt. Die Domain-Existenzprüfung erfordert eine funktionierende Verbindung — andernfalls würde jeder Eintrag als Fehler gemeldet, selbst wenn die Domains eigentlich in Ordnung sind.",
         "es": "No se detectó acceso a internet. La comprobación de existencia de dominios requiere una conexión activa — de lo contrario, cada entrada se marcaría como error, aunque los dominios estén realmente bien.",
         "ru": "Доступ в интернет не обнаружен. Проверка существования домена требует рабочего подключения — иначе каждая запись будет отмечена как ошибка, даже если домены на самом деле в порядке.",
-        "pt": "Nenhum acesso à internet foi detectado. A verificação de existência de domínio requer uma conexão funcional — caso contrário, toda entrada seria reportada como erro, mesmo que os domínios estejam realmente corretos.",
+        "pt": "Não foi detetado acesso à Internet. A verificação de existência de domínio requer uma ligação funcional — caso contrário, todas as entradas seriam reportadas como erro, mesmo que os domínios estejam realmente corretos.",
         "it": "Non è stato rilevato alcun accesso a Internet. La verifica dell'esistenza dei domini richiede una connessione funzionante: altrimenti ogni voce verrebbe segnalata come errore, anche se i domini sono in realtà corretti.",
     },
     "diag_no_inactive_title": {
@@ -1999,7 +2258,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Keine Einträge",
         "es": "Sin entradas",
         "ru": "Нет записей",
-        "pt": "Nenhuma entrada",
+        "pt": "Sem entradas",
         "it": "Nessuna voce",
     },
     "diag_no_inactive_msg": {
@@ -2009,7 +2268,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Es wurden keine als nicht existent markierten Einträge gefunden.",
         "es": "No se encontraron entradas marcadas como inexistentes.",
         "ru": "Записей, отмеченных как несуществующие, не найдено.",
-        "pt": "Nenhuma entrada marcada como inexistente foi encontrada.",
+        "pt": "Não foram encontradas entradas marcadas como inexistentes.",
         "it": "Non sono state trovate voci contrassegnate come inesistenti.",
     },
     "diag_del_confirm_title": {
@@ -2019,7 +2278,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Löschung bestätigen",
         "es": "Confirmar eliminación",
         "ru": "Подтвердите удаление",
-        "pt": "Confirmar exclusão",
+        "pt": "Confirmar eliminação",
         "it": "Conferma eliminazione",
     },
     "diag_del_inactive_msg": {
@@ -2029,7 +2288,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Unnötige Einträge: {n}\n\n{preview}{suffix}\n\nLöschen?\n\nSpeichern Sie die Datei nach dem Schließen dieses Fensters im Hauptfenster.",
         "es": "Entradas innecesarias: {n}\n\n{preview}{suffix}\n\n¿Eliminarlas?\n\nGuarda el archivo en la ventana principal después de cerrar esta ventana.",
         "ru": "Ненужных записей: {n}\n\n{preview}{suffix}\n\nУдалить их?\n\nСохраните файл в главном окне после закрытия этого окна.",
-        "pt": "Entradas desnecessárias: {n}\n\n{preview}{suffix}\n\nExcluí-las?\n\nSalve o arquivo na janela principal depois de fechar esta janela.",
+        "pt": "Entradas desnecessárias: {n}\n\n{preview}{suffix}\n\nEliminá-las?\n\nGuarde o ficheiro na janela principal depois de fechar esta janela.",
         "it": "Voci superflue: {n}\n\n{preview}{suffix}\n\nEliminarle?\n\nDopo aver chiuso questa finestra, salva il file nella finestra principale.",
     },
     "diag_del_sel_msg": {
@@ -2039,7 +2298,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Aus der Hosts-Datei zu löschende Einträge: {n}\n\n{preview}{suffix}\n\nLöschen?\n\nÄnderungen werden im Hauptfenster sichtbar.\nDenken Sie daran, die Datei nach dem Schließen dieses Fensters zu speichern.",
         "es": "Entradas a eliminar del archivo hosts: {n}\n\n{preview}{suffix}\n\n¿Eliminarlas?\n\nLos cambios serán visibles en la ventana principal.\nRecuerda guardar el archivo después de cerrar esta ventana.",
         "ru": "Записей для удаления из файла hosts: {n}\n\n{preview}{suffix}\n\nУдалить их?\n\nИзменения будут видны в главном окне.\nНе забудьте сохранить файл после закрытия этого окна.",
-        "pt": "Entradas a excluir do arquivo hosts: {n}\n\n{preview}{suffix}\n\nExcluí-las?\n\nAs alterações serão visíveis na janela principal.\nLembre-se de salvar o arquivo depois de fechar esta janela.",
+        "pt": "Entradas a eliminar do ficheiro hosts: {n}\n\n{preview}{suffix}\n\nEliminá-las?\n\nAs alterações serão visíveis na janela principal.\nLembre-se de guardar o ficheiro depois de fechar esta janela.",
         "it": "Voci da eliminare dal file hosts: {n}\n\n{preview}{suffix}\n\nEliminarle?\n\nLe modifiche saranno visibili nella finestra principale.\nRicordati di salvare il file dopo aver chiuso questa finestra.",
     },
     "diag_more": {
@@ -2049,7 +2308,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "\n... und {n} weitere",
         "es": "\n... y {n} más",
         "ru": "\n... и ещё {n}",
-        "pt": "\n... e mais {n}",
+        "pt": "\n… e mais {n}",
         "it": "\n... e altre {n}",
     },
     "diag_no_sel_msg": {
@@ -2059,7 +2318,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Wählen Sie die Einträge aus, die Sie löschen möchten.",
         "es": "Selecciona las entradas que deseas eliminar.",
         "ru": "Выберите записи, которые хотите удалить.",
-        "pt": "Selecione as entradas que deseja excluir.",
+        "pt": "Selecione as entradas que pretende eliminar.",
         "it": "Seleziona le voci che vuoi eliminare.",
     },
     "diag_status_deleted_inactive": {
@@ -2069,7 +2328,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Gelöschte unnötige Einträge: {n}. Speichern Sie die Datei im Hauptfenster.",
         "es": "Entradas innecesarias eliminadas: {n}. Guarda el archivo en la ventana principal.",
         "ru": "Удалено ненужных записей: {n}. Сохраните файл в главном окне.",
-        "pt": "Entradas desnecessárias excluídas: {n}. Salve o arquivo na janela principal.",
+        "pt": "Entradas desnecessárias eliminadas: {n}. Guarde o ficheiro na janela principal.",
         "it": "Voci superflue eliminate: {n}. Salva il file nella finestra principale.",
     },
     "diag_status_deleted_sel": {
@@ -2079,7 +2338,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Gelöschte Einträge: {n}. Speichern Sie die Datei im Hauptfenster.",
         "es": "Entradas eliminadas: {n}. Guarda el archivo en la ventana principal.",
         "ru": "Удалено записей: {n}. Сохраните файл в главном окне.",
-        "pt": "Entradas excluídas: {n}. Salve o arquivo na janela principal.",
+        "pt": "Entradas eliminadas: {n}. Guarde o ficheiro na janela principal.",
         "it": "Voci eliminate: {n}. Salva il file nella finestra principale.",
     },
     "diag_ctx_ignore_one": {
@@ -2109,7 +2368,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Ignorierte Einträge: {n} — sie erscheinen in zukünftigen Scans nicht mehr.",
         "es": "Entradas ignoradas: {n} — no aparecerán en futuros escaneos.",
         "ru": "Проигнорировано записей: {n} — они не будут появляться в будущих проверках.",
-        "pt": "Entradas ignoradas: {n} — não aparecerão em verificações futuras.",
+        "pt": "Entradas ignoradas: {n} — não aparecerão em futuras verificações.",
         "it": "Voci ignorate: {n} — non compariranno nelle scansioni future.",
     },
     "diag_scanning": {
@@ -2119,7 +2378,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Scanne: ",
         "es": "Escaneando: ",
         "ru": "Проверка: ",
-        "pt": "Verificando: ",
+        "pt": "A verificar: ",
         "it": "Scansione: ",
     },
     "diag_scan_done": {
@@ -2279,7 +2538,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "System-/AV-Update-Blockierung: {host}",
         "es": "Bloqueo de actualización de sistema/AV: {host}",
         "ru": "Блокировка обновления системы/антивируса: {host}",
-        "pt": "Bloqueio de atualização de sistema/AV: {host}",
+        "pt": "Bloqueio de atualização do sistema/AV: {host}",
         "it": "Blocco di aggiornamenti di sistema/antivirus: {host}",
     },
     "diag_reason_public_ip": {
@@ -2309,7 +2568,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Verdächtige Zeichen im Hostname: {chars}",
         "es": "Caracteres sospechosos en el nombre de host: {chars}",
         "ru": "Подозрительные символы в имени хоста: {chars}",
-        "pt": "Caracteres suspeitos no nome de host: {chars}",
+        "pt": "Carateres suspeitos no nome de anfitrião: {chars}",
         "it": "Caratteri sospetti nell'hostname: {chars}",
     },
     "diag_reason_zero_width": {
@@ -2319,7 +2578,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Versteckte Zero-Width-Zeichen im Hostname: {chars}",
         "es": "Caracteres ocultos de ancho cero en el nombre de host: {chars}",
         "ru": "Скрытые символы нулевой ширины в имени хоста: {chars}",
-        "pt": "Caracteres ocultos de largura zero no nome de host: {chars}",
+        "pt": "Carateres ocultos de largura zero no nome de anfitrião: {chars}",
         "it": "Caratteri nascosti a larghezza zero nell'hostname: {chars}",
     },
     "diag_reason_ip_host": {
@@ -2329,7 +2588,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Hostname ist eine IP-Adresse — ungewöhnlich",
         "es": "El nombre de host es una dirección IP — inusual",
         "ru": "Имя хоста является IP-адресом — необычно",
-        "pt": "O nome de host é um endereço IP — incomum",
+        "pt": "O nome de anfitrião é um endereço IP — invulgar",
         "it": "L'hostname è un indirizzo IP — insolito",
     },
     "diag_reason_dga": {
@@ -2359,7 +2618,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Verdächtige Top-Level-Domain: .{tld}",
         "es": "Dominio de nivel superior sospechoso: .{tld}",
         "ru": "Подозрительный домен верхнего уровня: .{tld}",
-        "pt": "Domínio de nível superior suspeito: .{tld}",
+        "pt": "Domínio de topo suspeito: .{tld}",
         "it": "Dominio di primo livello sospetto: .{tld}",
     },
     "diag_reason_punycode": {
@@ -2369,7 +2628,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Punycode-Kodierung (xn--) — möglicher IDN-Homograph-Angriff",
         "es": "Codificación Punycode (xn--) — posible ataque de homógrafos IDN",
         "ru": "Кодировка Punycode (xn--) — возможна IDN-омоглиф-атака",
-        "pt": "Codificação Punycode (xn--) — possível ataque de homógrafo IDN",
+        "pt": "Codificação Punycode (xn--) — possível ataque de homógrafos IDN",
         "it": "Codifica Punycode (xn--) — possibile attacco omografico IDN",
     },
     "diag_reason_deep_sub": {
@@ -2379,7 +2638,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Übermäßige Subdomain-Tiefe (Ebenen: {n}) — mögliches DNS-Tunneling",
         "es": "Profundidad excesiva de subdominios (niveles: {n}) — posible DNS tunneling",
         "ru": "Чрезмерная глубина поддоменов (уровней: {n}) — возможен DNS-туннелинг",
-        "pt": "Profundidade excessiva de subdomínios (níveis: {n}) — possível DNS tunneling",
+        "pt": "Profundidade excessiva de subdomínios (níveis: {n}) — possível túnel DNS",
         "it": "Profondità eccessiva dei sottodomini (livelli: {n}) — possibile tunneling DNS",
     },
     "diag_reason_suspicious": {
@@ -2399,7 +2658,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Name sieht wie ein Phishing-Versuch aus, der {brand} imitiert",
         "es": "El nombre parece un intento de phishing suplantando a {brand}",
         "ru": "Имя похоже на фишинговую попытку, имитирующую {brand}",
-        "pt": "O nome parece uma tentativa de phishing imitando {brand}",
+        "pt": "O nome parece uma tentativa de phishing a imitar {brand}",
         "it": "Il nome sembra un tentativo di phishing che imita {brand}",
     },
     "diag_reason_suspicious_digits": {
@@ -2449,7 +2708,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Praktische Werkzeuge für ein sichereres und flüssigeres Surfen – an einem Ort vereint.",
         "es": "Herramientas prácticas para usar Internet de forma más segura y fluida, todo en un solo lugar.",
         "ru": "Практичные инструменты для более безопасного и комфортного пользования интернетом — всё в одном месте.",
-        "pt": "Ferramentas práticas para usar a internet com mais segurança e fluidez — tudo em um só lugar.",
+        "pt": "Ferramentas práticas para usar a internet com mais segurança e fluidez — tudo num só local.",
         "it": "Strumenti pratici per usare Internet in modo più sicuro e fluido — tutto in un unico posto.",
     },
     "par_categories_count": {
@@ -2469,7 +2728,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Scan läuft…",
         "es": "Escaneando…",
         "ru": "Проверка…",
-        "pt": "Verificando…",
+        "pt": "A verificar…",
         "it": "Scansione in corso…",
     },
     "priv_op_working": {
@@ -2479,7 +2738,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Änderungen werden angewendet…",
         "es": "Aplicando cambios…",
         "ru": "Применение изменений…",
-        "pt": "Aplicando alterações…",
+        "pt": "A aplicar alterações…",
         "it": "Applicazione delle modifiche…",
     },
     "hosts_lock_title": {
@@ -2489,7 +2748,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Hosts-Datei sperren",
         "es": "Bloqueo del archivo hosts",
         "ru": "Блокировка файла hosts",
-        "pt": "Bloqueio do arquivo hosts",
+        "pt": "Bloqueio do ficheiro hosts",
         "it": "Blocco del file hosts",
     },
     "hosts_lock_tooltip": {
@@ -2499,7 +2758,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Die Sperre erhöht den Schutz vor Malware erheblich und verhindert Änderungen an den Einträgen der Hosts-Datei. Entsperren Sie sie, wenn ein vertrauenswürdiges Programm dies erfordert.",
         "es": "El bloqueo aumenta considerablemente la protección frente a malware e impide cambios en las entradas del archivo hosts. Desbloquéalo si algún programa de confianza lo requiere.",
         "ru": "Блокировка значительно повышает защиту от вредоносного ПО и предотвращает изменение записей в файле hosts. Снимите блокировку, если это требуется доверенной программе.",
-        "pt": "O bloqueio aumenta significativamente a proteção contra malware e impede alterações nas entradas do arquivo hosts. Desbloqueie se um programa confiável precisar disso.",
+        "pt": "O bloqueio aumenta significativamente a proteção contra malware e impede alterações às entradas do ficheiro hosts. Desbloqueie-o se um programa de confiança precisar disso.",
         "it": "Il blocco aumenta in modo significativo la protezione dal malware e impedisce modifiche alle voci del file hosts. Sbloccalo se un programma attendibile lo richiede.",
     },
     "hosts_lock_status_locked": {
@@ -2509,7 +2768,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Status: gesperrt",
         "es": "Estado: bloqueado",
         "ru": "Статус: заблокировано",
-        "pt": "Status: bloqueado",
+        "pt": "Estado: bloqueado",
         "it": "Stato: bloccato",
     },
     "hosts_lock_status_unlocked": {
@@ -2519,7 +2778,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Status: nicht gesperrt",
         "es": "Estado: no bloqueado",
         "ru": "Статус: не заблокировано",
-        "pt": "Status: não bloqueado",
+        "pt": "Estado: não bloqueado",
         "it": "Stato: non bloccato",
     },
     "hosts_lock_btn_enable": {
@@ -2549,7 +2808,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Die Hosts-Datei ist jetzt gesperrt.",
         "es": "El archivo hosts ahora está bloqueado.",
         "ru": "Файл hosts теперь заблокирован.",
-        "pt": "O arquivo hosts agora está bloqueado.",
+        "pt": "O ficheiro hosts está agora bloqueado.",
         "it": "Il file hosts è ora bloccato.",
     },
     "hosts_lock_off_ok": {
@@ -2559,7 +2818,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Die Hosts-Datei ist jetzt entsperrt.",
         "es": "El archivo hosts ahora está desbloqueado.",
         "ru": "Файл hosts теперь разблокирован.",
-        "pt": "O arquivo hosts agora está desbloqueado.",
+        "pt": "O ficheiro hosts está agora desbloqueado.",
         "it": "Il file hosts è ora sbloccato.",
     },
     "hosts_lock_click": {
@@ -2579,7 +2838,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Sperren der Hosts-Datei fehlgeschlagen.",
         "es": "No se pudo bloquear el archivo hosts.",
         "ru": "Не удалось заблокировать файл hosts.",
-        "pt": "Falha ao bloquear o arquivo hosts.",
+        "pt": "Falha ao bloquear o ficheiro hosts.",
         "it": "Impossibile bloccare il file hosts.",
     },
     "hosts_lock_off_fail": {
@@ -2589,7 +2848,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Entsperren der Hosts-Datei fehlgeschlagen.",
         "es": "No se pudo desbloquear el archivo hosts.",
         "ru": "Не удалось разблокировать файл hosts.",
-        "pt": "Falha ao desbloquear o arquivo hosts.",
+        "pt": "Falha ao desbloquear o ficheiro hosts.",
         "it": "Impossibile sbloccare il file hosts.",
     },
     "hosts_lock_drift_regressed": {
@@ -2599,7 +2858,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "⚠ Die Sperre wurde außerhalb der App entfernt.",
         "es": "⚠ El bloqueo se eliminó fuera de la aplicación.",
         "ru": "⚠ Блокировка была снята вне приложения.",
-        "pt": "⚠ O bloqueio foi removido fora do aplicativo.",
+        "pt": "⚠ O bloqueio foi removido fora da aplicação.",
         "it": "⚠ Il blocco è stato rimosso al di fuori dell'app.",
     },
     "hosts_lock_drift_restored": {
@@ -2609,7 +2868,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Sperre auf der Festplatte erkannt — Status synchronisiert.",
         "es": "Bloqueo detectado en el disco — estado sincronizado.",
         "ru": "Обнаружена блокировка на диске — статус синхронизирован.",
-        "pt": "Bloqueio detectado no disco — status sincronizado.",
+        "pt": "Bloqueio detetado no disco — estado sincronizado.",
         "it": "Blocco rilevato sul disco — stato sincronizzato.",
     },
     "hosts_lock_watchdog_title": {
@@ -2619,7 +2878,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Schutz der Hosts-Datei geändert",
         "es": "La protección del archivo hosts ha cambiado",
         "ru": "Защита файла hosts изменена",
-        "pt": "A proteção do arquivo hosts foi alterada",
+        "pt": "A proteção do ficheiro hosts foi alterada",
         "it": "Protezione del file hosts modificata",
     },
     "hosts_lock_err_no_file": {
@@ -2629,7 +2888,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Die Hosts-Datei existiert nicht.",
         "es": "El archivo hosts no existe.",
         "ru": "Файл hosts не существует.",
-        "pt": "O arquivo hosts não existe.",
+        "pt": "O ficheiro hosts não existe.",
         "it": "Il file hosts non esiste.",
     },
     "hosts_lock_blocks_write": {
@@ -2639,7 +2898,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Die Hosts-Datei ist gesperrt. Entsperren Sie sie vor der Bearbeitung über das Schloss-Symbol in der unteren Leiste.",
         "es": "El archivo hosts está bloqueado. Desbloquéalo con el candado de la barra inferior antes de editar.",
         "ru": "Файл hosts заблокирован. Снимите блокировку значком замка в нижней панели перед редактированием.",
-        "pt": "O arquivo hosts está bloqueado. Desbloqueie-o com o cadeado da barra inferior antes de editar.",
+        "pt": "O ficheiro hosts está bloqueado. Desbloqueie-o com o cadeado da barra inferior antes de editar.",
         "it": "Il file hosts è bloccato. Sbloccalo con l'icona del lucchetto nella barra in basso prima di modificarlo.",
     },
     "priv_nav_locked_tooltip": {
@@ -2649,7 +2908,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Die Navigation ist gesperrt, während ein Vorgang auf der Seite Funktionen läuft.",
         "es": "La navegación está bloqueada mientras hay una operación en curso en Funciones.",
         "ru": "Навигация заблокирована, пока на странице «Функции» выполняется операция.",
-        "pt": "A navegação está bloqueada enquanto uma operação está em andamento na página Funções.",
+        "pt": "A navegação está bloqueada enquanto uma operação está em curso na página Funções.",
         "it": "La navigazione è bloccata mentre è in corso un'operazione nella pagina Funzionalità.",
     },
     "par_file_ok": {
@@ -2669,7 +2928,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "✘  Fehlende Datei: {file}",
         "es": "✘  Archivo faltante: {file}",
         "ru": "✘  Файл отсутствует: {file}",
-        "pt": "✘  Arquivo ausente: {file}",
+        "pt": "✘  Ficheiro em falta: {file}",
         "it": "✘  File mancante: {file}",
     },
     "par_btn_disable": {
@@ -2699,7 +2958,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Keine Datei",
         "es": "Sin archivo",
         "ru": "Нет файла",
-        "pt": "Sem arquivo",
+        "pt": "Sem ficheiro",
         "it": "Nessun file",
     },
     "par_err_no_file_title": {
@@ -2709,7 +2968,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Blockliste fehlt",
         "es": "Falta la lista de bloqueo",
         "ru": "Список блокировки отсутствует",
-        "pt": "Lista de bloqueio ausente",
+        "pt": "Lista de bloqueio em falta",
         "it": "Lista di blocco mancante",
     },
     "par_err_no_file_msg": {
@@ -2719,7 +2978,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Datei nicht gefunden:\n{path}\n\nErstellen Sie die Datei {file} im Ordner blocklists/.",
         "es": "Archivo no encontrado:\n{path}\n\nCrea el archivo {file} en la carpeta blocklists/.",
         "ru": "Файл не найден:\n{path}\n\nСоздайте файл {file} в папке blocklists/.",
-        "pt": "Arquivo não encontrado:\n{path}\n\nCrie o arquivo {file} na pasta blocklists/.",
+        "pt": "Ficheiro não encontrado:\n{path}\n\nCrie o ficheiro {file} na pasta blocklists/.",
         "it": "File non trovato:\n{path}\n\nCrea il file {file} nella cartella blocklists/.",
     },
     "par_err_no_custom_file_msg": {
@@ -2729,7 +2988,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Die Liste eigener Domains ist leer.\n\nKlicken Sie auf „Bearbeiten“, fügen Sie Domains hinzu und speichern Sie - die Datei wird automatisch neben der hosts-Datei erstellt.",
         "es": "La lista de dominios personalizados está vacía.\n\nHaz clic en «Editar», añade dominios y guarda - el archivo se creará automáticamente junto al archivo hosts.",
         "ru": "Список пользовательских доменов пуст.\n\nНажмите «Изменить», добавьте домены и сохраните - файл будет создан автоматически рядом с файлом hosts.",
-        "pt": "A lista de domínios personalizados está vazia.\n\nClique em \"Editar\", adicione domínios e salve - o arquivo será criado automaticamente ao lado do arquivo hosts.",
+        "pt": "A lista de domínios personalizados está vazia.\n\nClique em \"Editar\", adicione domínios e guarde - o ficheiro será criado automaticamente junto ao ficheiro hosts.",
         "it": "L'elenco dei domini personalizzati è vuoto.\n\nFai clic su «Modifica», aggiungi i domini e salva: il file verrà creato automaticamente accanto al file hosts.",
     },
     "par_dirty_warn_title": {
@@ -2739,7 +2998,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Nicht gespeicherte Änderungen in der Tabelle",
         "es": "Cambios sin guardar en la tabla",
         "ru": "Несохранённые изменения в таблице",
-        "pt": "Alterações não salvas na tabela",
+        "pt": "Alterações não guardadas na tabela",
         "it": "Modifiche non salvate nella tabella",
     },
     "par_dirty_warn_msg": {
@@ -2749,7 +3008,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Sie haben nicht gespeicherte Änderungen in der Haupttabelle. Diese Aktion schreibt direkt in die Hosts-Datei auf der Festplatte und lädt die Tabelle dann von der Festplatte neu — Ihre nicht gespeicherten Änderungen (alles, was noch nicht mit „Speichern\" gespeichert wurde) werden verworfen, nicht in die Datei geschrieben.\n\nFortfahren und sie verwerfen, oder zurückgehen und zuerst speichern?",
         "es": "Tienes cambios sin guardar en la tabla principal. Esta acción escribe directamente en el archivo hosts del disco y luego recarga la tabla desde el disco — tus cambios sin guardar (todo lo que aún no se haya guardado con 'Guardar') se descartarán, no se escribirán en el archivo.\n\n¿Continuar y descartarlos, o volver atrás y guardar primero?",
         "ru": "У вас есть несохранённые изменения в главной таблице. Это действие записывает изменения прямо в файл hosts на диске, а затем перезагружает таблицу с диска — ваши несохранённые изменения (всё, что ещё не сохранено кнопкой «Сохранить») будут отменены, а не записаны в файл.\n\nПродолжить и отменить их, или сначала вернуться и сохранить?",
-        "pt": "Você tem alterações não salvas na tabela principal. Esta ação grava diretamente no arquivo hosts em disco e depois recarrega a tabela a partir do disco — suas alterações não salvas (tudo que ainda não foi salvo com 'Salvar') serão descartadas, não gravadas no arquivo.\n\nContinuar e descartá-las, ou voltar e salvar primeiro?",
+        "pt": "Tem alterações não guardadas na tabela principal. Esta ação escreve diretamente no ficheiro hosts do disco e depois recarrega a tabela a partir do disco — as suas alterações não guardadas (tudo o que ainda não guardou com 'Guardar') serão descartadas, não escritas no ficheiro.\n\nContinuar e descartá-las, ou voltar atrás e guardar primeiro?",
         "it": "Nella tabella principale ci sono modifiche non salvate. Questa azione scrive direttamente nel file hosts su disco e poi ricarica la tabella dal disco: le modifiche non salvate (tutto ciò che non hai ancora salvato con «Salva») verranno scartate e non scritte nel file.\n\nContinuare scartandole, oppure tornare indietro e salvare prima?",
     },
     "par_err_hosts_title": {
@@ -2769,7 +3028,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Die Hosts-Datei konnte nicht geändert werden.\nÜberprüfen Sie die Administratorrechte.",
         "es": "No se pudo modificar el archivo hosts.\nComprueba los permisos de administrador.",
         "ru": "Не удалось изменить файл hosts.\nПроверьте права администратора.",
-        "pt": "Não foi possível modificar o arquivo hosts.\nVerifique as permissões de administrador.",
+        "pt": "Não foi possível modificar o ficheiro hosts.\nVerifique as permissões de administrador.",
         "it": "Impossibile modificare il file hosts.\nControlla i permessi di amministratore.",
     },
     "hosts_busy_msg": {
@@ -2779,7 +3038,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Die Hosts-Datei ist vorübergehend belegt — Windows verarbeitet noch vorherige Änderungen (DNS-Client-Dienst).\nWarten Sie etwa eine Minute und versuchen Sie es erneut. Dies ist kein Berechtigungsproblem.",
         "es": "El archivo hosts está temporalmente ocupado — Windows aún está procesando cambios anteriores (servicio de cliente DNS).\nEspera aproximadamente un minuto y vuelve a intentarlo. No es un problema de permisos.",
         "ru": "Файл hosts временно занят — Windows всё ещё обрабатывает предыдущие изменения (служба DNS-клиент).\nПодождите около минуты и попробуйте снова. Это не проблема прав доступа.",
-        "pt": "O arquivo hosts está temporariamente ocupado — o Windows ainda está processando alterações anteriores (serviço Cliente DNS).\nAguarde cerca de um minuto e tente novamente. Isto não é um problema de permissões.",
+        "pt": "O ficheiro hosts está temporariamente ocupado — o Windows ainda está a processar alterações anteriores (serviço Cliente DNS).\nAguarde cerca de um minuto e tente novamente. Isto não é um problema de permissões.",
         "it": "Il file hosts è temporaneamente occupato: Windows sta ancora elaborando le modifiche precedenti (servizio Client DNS).\nAttendi circa un minuto e riprova. Non si tratta di un problema di permessi.",
     },
     "par_success_title": {
@@ -2829,7 +3088,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Eigene Domains blockieren",
         "es": "Bloquear tus propios dominios",
         "ru": "Блокировать собственные домены",
-        "pt": "Bloquear seus próprios domínios",
+        "pt": "Bloquear os seus próprios domínios",
         "it": "Blocca i tuoi domini",
     },
     "par_custom_domains_tooltip": {
@@ -2839,7 +3098,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Ermöglicht es Ihnen, Websites selbst auf Ebene der Hosts-Datei zu sperren. Geben Sie die zu blockierenden Domainnamen ein (z. B. beispiel.de).\n\nDie Liste der blockierten Domains wird an einem sicheren Ort gespeichert, sodass Sie sie nach dem Wiederherstellen der Hosts-Datei oder dem Deinstallieren des Programms erneut nutzen können.",
         "es": "Te permite bloquear tú mismo sitios web a nivel del archivo hosts. Escribe los nombres de dominio que quieras bloquear (p. ej. ejemplo.es).\n\nLa lista de dominios bloqueados se guarda en un lugar seguro, así que podrás volver a usarla después de restaurar el archivo hosts o desinstalar el programa.",
         "ru": "Позволяет самостоятельно блокировать сайты на уровне файла hosts. Введите имена доменов, которые хотите заблокировать (например, example.com).\n\nСписок заблокированных доменов хранится в надёжном месте, так что вы сможете использовать его снова после восстановления файла hosts или удаления программы.",
-        "pt": "Permite bloquear sites por conta própria no nível do arquivo hosts. Digite os nomes de domínio que deseja bloquear (por exemplo, example.com).\n\nA lista de domínios bloqueados é armazenada em um local seguro, para que você possa usá-la novamente após restaurar o arquivo hosts ou desinstalar o programa.",
+        "pt": "Permite-lhe bloquear sites por conta própria ao nível do ficheiro hosts. Introduza os nomes de domínio que pretende bloquear (por exemplo, example.com).\n\nA lista de domínios bloqueados é guardada num local seguro, pelo que poderá voltar a usá-la depois de restaurar o ficheiro hosts ou desinstalar o programa.",
         "it": "Ti permette di bloccare tu stesso i siti web a livello del file hosts. Digita i nomi dei domini che vuoi bloccare (ad es. example.com).\n\nL'elenco dei domini bloccati viene conservato in un luogo sicuro, così potrai riutilizzarlo dopo il ripristino del file hosts o la disinstallazione del programma.",
     },
     "par_custom_count": {
@@ -2869,7 +3128,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Liste leer",
         "es": "Lista vacía",
         "ru": "Очистить список",
-        "pt": "Esvaziar lista",
+        "pt": "Lista vazia",
         "it": "Elenco vuoto",
     },
     "par_custom_edit_btn": {
@@ -2889,7 +3148,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Ihre Domains",
         "es": "Tus dominios",
         "ru": "Ваши домены",
-        "pt": "Seus domínios",
+        "pt": "Os seus domínios",
         "it": "I tuoi domini",
     },
     "par_custom_dialog_hint": {
@@ -2899,7 +3158,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Eine Domain pro Zeile (z. B. beispiel.de). Platzhalter (*) werden von der Windows-hosts-Datei nicht unterstützt.",
         "es": "Un dominio por línea (p. ej. ejemplo.com). El archivo hosts de Windows no admite comodines (*).",
         "ru": "Один домен на строку (например, example.com). Подстановочные знаки (*) не поддерживаются файлом hosts Windows.",
-        "pt": "Um domínio por linha (por exemplo, example.com). Caracteres curinga (*) não são suportados pelo arquivo hosts do Windows.",
+        "pt": "Um domínio por linha (por exemplo, example.com). Carateres universais (*) não são suportados pelo ficheiro hosts do Windows.",
         "it": "Un dominio per riga (ad es. example.com). I caratteri jolly (*) non sono supportati dal file hosts di Windows.",
     },
     "par_custom_placeholder": {
@@ -2929,7 +3188,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Die folgenden Zeilen sind keine gültigen Domains und wurden nicht gespeichert:\n{list}",
         "es": "Las siguientes líneas no son dominios válidos y no se guardaron:\n{list}",
         "ru": "Следующие строки не являются допустимыми доменами и не были сохранены:\n{list}",
-        "pt": "As linhas a seguir não são domínios válidos e não foram salvas:\n{list}",
+        "pt": "As seguintes linhas não são domínios válidos e não foram guardadas:\n{list}",
         "it": "Le righe seguenti non sono domini validi e non sono state salvate:\n{list}",
     },
     "par_custom_saved_title": {
@@ -2939,7 +3198,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Gespeichert",
         "es": "Guardado",
         "ru": "Сохранено",
-        "pt": "Salvo",
+        "pt": "Guardado",
         "it": "Salvato",
     },
     "par_custom_saved_msg": {
@@ -2949,7 +3208,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "{n} Domain(s) gespeichert.",
         "es": "{n} dominio(s) guardado(s).",
         "ru": "Сохранено доменов: {n}.",
-        "pt": "{n} domínio(s) salvo(s).",
+        "pt": "{n} domínio(s) guardado(s).",
         "it": "Domini salvati: {n}.",
     },
     "antispy_err_no_admin": {
@@ -2962,16 +3221,6 @@ _STRINGS: dict[str, dict[str, str]] = {
         "pt": "São necessários direitos de administrador.",
         "it": "Sono necessari i privilegi di amministratore.",
     },
-    "pwd_set_title": {
-        "en": "🔒  Password — HOTS Hosts Lite lock",
-        "pl": "🔒  Hasło — blokada HOTS Hosts Lite",
-        "fr": "🔒  Mot de passe — verrou HOTS Hosts Lite",
-        "de": "🔒  Passwort — HOTS-Hosts-Lite-Sperre",
-        "es": "🔒  Contraseña — bloqueo de HOTS Hosts Lite",
-        "ru": "🔒  Пароль — блокировка HOTS Hosts Lite",
-        "pt": "🔒  Senha — bloqueio do HOTS Hosts Lite",
-        "it": "🔒  Password — blocco di HOTS Hosts Lite",
-    },
     "pwd_prompt_title": {
         "en": "🔒  HOTS Hosts Lite — password verification",
         "pl": "🔒  HOTS Hosts Lite — weryfikacja hasła",
@@ -2979,28 +3228,8 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "🔒  HOTS Hosts Lite — Passwortüberprüfung",
         "es": "🔒  HOTS Hosts Lite — verificación de contraseña",
         "ru": "🔒  HOTS Hosts Lite — проверка пароля",
-        "pt": "🔒  HOTS Hosts Lite — verificação de senha",
+        "pt": "🔒  HOTS Hosts Lite — verificação da palavra-passe",
         "it": "🔒  HOTS Hosts Lite — verifica della password",
-    },
-    "pwd_info_on": {
-        "en": "Password is currently ENABLED.\nYou can change it or disable it completely.",
-        "pl": "Hasło jest aktualnie WŁĄCZONE.\nMożesz je zmienić lub całkowicie wyłączyć.",
-        "fr": "Le mot de passe est actuellement ACTIVÉ.\nVous pouvez le modifier ou le désactiver complètement.",
-        "de": "Das Passwort ist derzeit AKTIVIERT.\nSie können es ändern oder vollständig deaktivieren.",
-        "es": "La contraseña está actualmente ACTIVADA.\nPuedes cambiarla o desactivarla por completo.",
-        "ru": "Пароль в настоящее время ВКЛЮЧЁН.\nВы можете изменить его или полностью отключить.",
-        "pt": "A senha está atualmente ATIVADA.\nVocê pode alterá-la ou desativá-la completamente.",
-        "it": "La password è attualmente ATTIVA.\nPuoi cambiarla o disattivarla del tutto.",
-    },
-    "pwd_info_off": {
-        "en": "Password is currently DISABLED.\nEnter a password to protect the program from being launched.",
-        "pl": "Hasło jest aktualnie WYŁĄCZONE.\nWprowadź hasło, aby chronić program przed uruchomieniem.",
-        "fr": "Le mot de passe est actuellement DÉSACTIVÉ.\nEntrez un mot de passe pour protéger le programme.",
-        "de": "Das Passwort ist derzeit DEAKTIVIERT.\nGeben Sie ein Passwort ein, um den Programmstart zu schützen.",
-        "es": "La contraseña está actualmente DESACTIVADA.\nIntroduce una contraseña para proteger el inicio del programa.",
-        "ru": "Пароль в настоящее время ОТКЛЮЧЁН.\nВведите пароль, чтобы защитить программу от запуска.",
-        "pt": "A senha está atualmente DESATIVADA.\nDigite uma senha para proteger o programa contra inicialização.",
-        "it": "La password è attualmente DISATTIVATA.\nInserisci una password per proteggere l'avvio del programma.",
     },
     "pwd_lbl_current": {
         "en": "Current password:",
@@ -3009,7 +3238,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Aktuelles Passwort:",
         "es": "Contraseña actual:",
         "ru": "Текущий пароль:",
-        "pt": "Senha atual:",
+        "pt": "Palavra-passe atual:",
         "it": "Password attuale:",
     },
     "pwd_lbl_new": {
@@ -3019,7 +3248,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Neues Passwort:",
         "es": "Nueva contraseña:",
         "ru": "Новый пароль:",
-        "pt": "Nova senha:",
+        "pt": "Nova palavra-passe:",
         "it": "Nuova password:",
     },
     "pwd_lbl_repeat": {
@@ -3029,7 +3258,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Neues Passwort wiederholen:",
         "es": "Repetir nueva contraseña:",
         "ru": "Повторите новый пароль:",
-        "pt": "Repita a nova senha:",
+        "pt": "Repita a nova palavra-passe:",
         "it": "Ripeti la nuova password:",
     },
     "pwd_btn_set": {
@@ -3039,7 +3268,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Passwort festlegen",
         "es": "Establecer contraseña",
         "ru": "Установить пароль",
-        "pt": "Definir senha",
+        "pt": "Definir palavra-passe",
         "it": "Imposta password",
     },
     "pwd_btn_remove": {
@@ -3049,7 +3278,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Passwort entfernen",
         "es": "Eliminar contraseña",
         "ru": "Удалить пароль",
-        "pt": "Remover senha",
+        "pt": "Remover palavra-passe",
         "it": "Rimuovi password",
     },
     "pwd_btn_cancel": {
@@ -3079,7 +3308,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Geben Sie das aktuelle Passwort ein.",
         "es": "Introduce la contraseña actual.",
         "ru": "Введите текущий пароль.",
-        "pt": "Digite a senha atual.",
+        "pt": "Introduza a palavra-passe atual.",
         "it": "Inserisci la password attuale.",
     },
     "pwd_err_wrong": {
@@ -3089,7 +3318,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Das aktuelle Passwort ist falsch.",
         "es": "La contraseña actual es incorrecta.",
         "ru": "Текущий пароль неверен.",
-        "pt": "A senha atual está incorreta.",
+        "pt": "A palavra-passe atual está incorreta.",
         "it": "La password attuale non è corretta.",
     },
     "pwd_err_empty": {
@@ -3099,7 +3328,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Das neue Passwort darf nicht leer sein.",
         "es": "La nueva contraseña no puede estar vacía.",
         "ru": "Новый пароль не может быть пустым.",
-        "pt": "A nova senha não pode estar vazia.",
+        "pt": "A nova palavra-passe não pode estar vazia.",
         "it": "La nuova password non può essere vuota.",
     },
     "pwd_err_too_short": {
@@ -3109,7 +3338,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Das Passwort muss mindestens 4 Zeichen lang sein.",
         "es": "La contraseña debe tener al menos 4 caracteres.",
         "ru": "Пароль должен содержать не менее 4 символов.",
-        "pt": "A senha deve ter pelo menos 4 caracteres.",
+        "pt": "A palavra-passe deve ter pelo menos 4 carateres.",
         "it": "La password deve contenere almeno 4 caratteri.",
     },
     "pwd_err_mismatch": {
@@ -3119,7 +3348,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Die Passwörter stimmen nicht überein.",
         "es": "Las contraseñas no coinciden.",
         "ru": "Пароли не совпадают.",
-        "pt": "As senhas não coincidem.",
+        "pt": "As palavras-passe não coincidem.",
         "it": "Le password non coincidono.",
     },
     "pwd_err_no_for_remove": {
@@ -3129,7 +3358,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Geben Sie das aktuelle Passwort ein, um es zu entfernen.",
         "es": "Introduce la contraseña actual para eliminarla.",
         "ru": "Введите текущий пароль, чтобы удалить его.",
-        "pt": "Digite a senha atual para removê-la.",
+        "pt": "Introduza a palavra-passe atual para a remover.",
         "it": "Inserisci la password attuale per rimuoverla.",
     },
     "pwd_set_ok_title": {
@@ -3139,7 +3368,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Passwort festgelegt",
         "es": "Contraseña establecida",
         "ru": "Пароль установлен",
-        "pt": "Senha definida",
+        "pt": "Palavra-passe definida",
         "it": "Password impostata",
     },
     "pwd_set_ok_msg": {
@@ -3149,7 +3378,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Passwort erfolgreich festgelegt.\nAb dem nächsten Start wird HOTS ein Passwort verlangen.",
         "es": "Contraseña establecida correctamente.\nA partir del próximo inicio, HOTS requerirá una contraseña.",
         "ru": "Пароль успешно установлен.\nНачиная со следующего запуска, HOTS будет требовать пароль.",
-        "pt": "Senha definida com sucesso.\nA partir da próxima inicialização, o HOTS exigirá uma senha.",
+        "pt": "Palavra-passe definida com sucesso.\nA partir do próximo arranque, o HOTS irá pedir uma palavra-passe.",
         "it": "Password impostata correttamente.\nDal prossimo avvio HOTS richiederà una password.",
     },
     "pwd_remove_ok_title": {
@@ -3159,7 +3388,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Passwort entfernt",
         "es": "Contraseña eliminada",
         "ru": "Пароль удалён",
-        "pt": "Senha removida",
+        "pt": "Palavra-passe removida",
         "it": "Password rimossa",
     },
     "pwd_remove_ok_msg": {
@@ -3169,7 +3398,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Passwort entfernt.\nDas Programm verlangt beim Start kein Passwort mehr.",
         "es": "Contraseña eliminada.\nEl programa ya no requerirá una contraseña al iniciarse.",
         "ru": "Пароль удалён.\nПрограмма больше не будет требовать пароль при запуске.",
-        "pt": "Senha removida.\nO programa não exigirá mais senha na inicialização.",
+        "pt": "Palavra-passe removida.\nO programa deixará de pedir uma palavra-passe ao iniciar.",
         "it": "Password rimossa.\nIl programma non richiederà più una password all'avvio.",
     },
     "pwd_prompt_intro": {
@@ -3179,7 +3408,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "HOTS Hosts Lite ist passwortgeschützt.\nGeben Sie das Passwort ein, um fortzufahren.",
         "es": "HOTS Hosts Lite está protegido con contraseña.\nIntroduce la contraseña para continuar.",
         "ru": "HOTS Hosts Lite защищён паролем.\nВведите пароль, чтобы продолжить.",
-        "pt": "O HOTS Hosts Lite está protegido por senha.\nDigite a senha para continuar.",
+        "pt": "O HOTS Hosts Lite está protegido por palavra-passe.\nIntroduza a palavra-passe para continuar.",
         "it": "HOTS Hosts Lite è protetto da password.\nInserisci la password per continuare.",
     },
     "pwd_lbl_password": {
@@ -3189,7 +3418,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Passwort:",
         "es": "Contraseña:",
         "ru": "Пароль:",
-        "pt": "Senha:",
+        "pt": "Palavra-passe:",
         "it": "Password:",
     },
     "pwd_err_empty_field": {
@@ -3199,7 +3428,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Passwort eingeben.",
         "es": "Introduce la contraseña.",
         "ru": "Введите пароль.",
-        "pt": "Digite a senha.",
+        "pt": "Introduza a palavra-passe.",
         "it": "Inserisci la password.",
     },
     "pwd_err_wrong_retry": {
@@ -3209,7 +3438,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Falsches Passwort. Versuchen Sie es erneut.",
         "es": "Contraseña incorrecta. Inténtalo de nuevo.",
         "ru": "Неверный пароль. Попробуйте снова.",
-        "pt": "Senha incorreta. Tente novamente.",
+        "pt": "Palavra-passe incorreta. Tente novamente.",
         "it": "Password errata. Riprova.",
     },
     "sup_title": {
@@ -3219,7 +3448,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Das HOTS-Projekt unterstützen",
         "es": "Apoyar el proyecto HOTS",
         "ru": "Поддержать проект HOTS",
-        "pt": "Apoie o projeto HOTS",
+        "pt": "Apoiar o projeto HOTS",
         "it": "Sostieni il progetto HOTS",
     },
     "sup_greeting": {
@@ -3229,7 +3458,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Hallo! Ich bin Darsono.",
         "es": "¡Hola! Soy Darsono.",
         "ru": "Привет! Я Darsono.",
-        "pt": "Oi! Eu sou o Darsono.",
+        "pt": "Olá! Sou o Darsono.",
         "it": "Ciao! Sono Darsono.",
     },
     "sup_body": {
@@ -3239,7 +3468,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "HOTS ist ein Projekt, das ich in meiner Freizeit erstellt habe, völlig kostenlos.\nWenn es Ihnen gefällt und Ihre Arbeit erleichtert — oder Sie vielleicht\neinfach einen guten Tag haben — können Sie die weitere Entwicklung unterstützen.\nIch bin für jeden Betrag, auch einen kleinen, wirklich dankbar.",
         "es": "HOTS es un proyecto creado en mi tiempo libre, completamente gratuito.\nSi te gusta y te facilita el trabajo — o quizás simplemente\nestás teniendo un buen día — puedes apoyar su desarrollo futuro.\nEstaré verdaderamente agradecido por cualquier cantidad, incluso pequeña.",
         "ru": "HOTS — проект, созданный в моё свободное время, совершенно бесплатно.\nЕсли он вам нравится и облегчает вашу работу — или, может быть, у вас\nпросто хороший день — вы можете поддержать его дальнейшее развитие.\nЯ буду искренне благодарен за любую сумму, даже небольшую.",
-        "pt": "O HOTS é um projeto criado no meu tempo livre, totalmente gratuito.\nSe você gosta dele e ele facilita seu trabalho — ou talvez você esteja\napenas tendo um bom dia — você pode apoiar seu desenvolvimento futuro.\nFicarei verdadeiramente grato por qualquer valor, mesmo um pequeno.",
+        "pt": "O HOTS é um projeto criado no meu tempo livre, totalmente gratuito.\nSe gosta dele e facilita o seu trabalho — ou talvez esteja apenas\na ter um bom dia — pode apoiar o seu desenvolvimento contínuo.\nFicarei verdadeiramente grato por qualquer valor, mesmo pequeno.",
         "it": "HOTS è un progetto creato nel mio tempo libero, completamente gratuito.\nSe ti piace e ti semplifica il lavoro — o magari stai solo\npassando una bella giornata — puoi sostenerne lo sviluppo.\nTi sarò davvero grato per qualsiasi importo, anche piccolo.",
     },
     "sup_paypal_sub": {
@@ -3249,7 +3478,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Einmalige Zahlung · Keine Registrierung",
         "es": "Pago único · Sin registro",
         "ru": "Разовый платёж · Без регистрации",
-        "pt": "Pagamento único · Sem cadastro",
+        "pt": "Pagamento único · Sem registo",
         "it": "Pagamento una tantum · Nessuna registrazione",
     },
     "sup_btn_support": {
@@ -3283,14 +3512,14 @@ _STRINGS: dict[str, dict[str, str]] = {
         "it": "Apri Ko-fi",
     },
     "sup_alt_contact": {
-        "en": "You can also contact me directly:",
-        "pl": "Możesz też napisać do mnie bezpośrednio:",
-        "fr": "Vous pouvez aussi me contacter directement:",
-        "de": "Sie können mich auch direkt kontaktieren:",
-        "es": "También puedes contactarme directamente:",
-        "ru": "Вы также можете связаться со мной напрямую:",
-        "pt": "Você também pode entrar em contato diretamente comigo:",
-        "it": "Puoi anche contattarmi direttamente:",
+        "en": "Got an idea for an improvement, found a bug, or just want to say hi?\nFeel free to write to me directly:",
+        "pl": "Masz pomysł na ulepszenie, znalazłeś błąd albo po prostu chcesz coś napisać?\nŚmiało, napisz do mnie bezpośrednio:",
+        "fr": "Une idée d'amélioration, un bug trouvé, ou simplement envie d'écrire ?\nN'hésitez pas à m'écrire directement :",
+        "de": "Sie haben eine Idee für eine Verbesserung, einen Fehler gefunden oder möchten einfach nur schreiben?\nSchreiben Sie mir gern direkt:",
+        "es": "¿Tienes una idea para mejorar algo, has encontrado un error o simplemente quieres escribir?\nNo dudes en escribirme directamente:",
+        "ru": "Есть идея по улучшению, нашли ошибку или просто хотите написать?\nПишите мне напрямую:",
+        "pt": "Tem uma ideia de melhoria, encontrou um erro ou simplesmente quer escrever?\nEscreva-me diretamente:",
+        "it": "Hai un'idea per un miglioramento, hai trovato un bug o vuoi semplicemente scrivere?\nScrivimi pure direttamente:",
     },
     "sup_footer": {
         "en": "Thank you for using HOTS! — Darsono",
@@ -3309,7 +3538,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Der Browser konnte nicht geöffnet werden.\n\nGehen Sie manuell zu:\n{url}",
         "es": "No se pudo abrir el navegador.\n\nVe manualmente a:\n{url}",
         "ru": "Не удалось открыть браузер.\n\nПерейдите вручную по адресу:\n{url}",
-        "pt": "Não foi possível abrir o navegador.\n\nAcesse manualmente:\n{url}",
+        "pt": "Não foi possível abrir o navegador.\n\nAceda manualmente a:\n{url}",
         "it": "Impossibile aprire il browser.\n\nVai manualmente a:\n{url}",
     },
     "sup_copied_title": {
@@ -3349,7 +3578,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Ausschneiden",
         "es": "Cortar",
         "ru": "Вырезать",
-        "pt": "Recortar",
+        "pt": "Cortar",
         "it": "Taglia",
     },
     "ctx_copy": {
@@ -3399,7 +3628,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Hosts-Datei zum Importieren auswählen",
         "es": "Seleccionar archivo hosts para importar",
         "ru": "Выберите файл hosts для импорта",
-        "pt": "Selecionar arquivo hosts para importar",
+        "pt": "Selecionar ficheiro hosts a importar",
         "it": "Seleziona il file hosts da importare",
     },
     "import_filetypes_hosts": {
@@ -3409,7 +3638,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Hosts-/Textdateien",
         "es": "Archivos hosts / texto",
         "ru": "Файлы Hosts / текстовые",
-        "pt": "Arquivos Hosts / texto",
+        "pt": "Ficheiros Hosts / texto",
         "it": "File hosts / di testo",
     },
     "import_filetypes_all": {
@@ -3419,7 +3648,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Alle Dateien",
         "es": "Todos los archivos",
         "ru": "Все файлы",
-        "pt": "Todos os arquivos",
+        "pt": "Todos os ficheiros",
         "it": "Tutti i file",
     },
     "import_empty_title": {
@@ -3439,7 +3668,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Die ausgewählte Datei enthält keine gültigen Hosts-Einträge.",
         "es": "El archivo seleccionado no contiene entradas hosts válidas.",
         "ru": "Выбранный файл не содержит допустимых записей hosts.",
-        "pt": "O arquivo selecionado não contém entradas hosts válidas.",
+        "pt": "O ficheiro selecionado não contém entradas hosts válidas.",
         "it": "Il file selezionato non contiene voci hosts valide.",
     },
     "import_confirm_title": {
@@ -3459,7 +3688,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "In der ausgewählten Datei gefundene Einträge: {n}\n\nIn das Programm importieren?\n(Duplikate oder Formatierungsfehler können später mit „Datei reparieren\" behoben werden).",
         "es": "Entradas encontradas en el archivo seleccionado: {n}\n\n¿Importar al programa?\n(Los duplicados o errores de formato se pueden corregir después con 'Reparar archivo').",
         "ru": "Записей найдено в выбранном файле: {n}\n\nИмпортировать в программу?\n(Дубликаты или ошибки форматирования можно будет исправить позже через «Исправить файл»).",
-        "pt": "Entradas encontradas no arquivo selecionado: {n}\n\nImportar para o programa?\n(Duplicatas ou erros de formatação podem ser corrigidos depois com 'Reparar arquivo').",
+        "pt": "Entradas encontradas no ficheiro selecionado: {n}\n\nImportar para o programa?\n(Duplicados ou erros de formatação podem ser corrigidos mais tarde com 'Reparar ficheiro').",
         "it": "Voci trovate nel file selezionato: {n}\n\nImportarle nel programma?\n(Duplicati o errori di formattazione potranno essere corretti in seguito con «Ripara file»).",
     },
     "import_limit_ask_title": {
@@ -3489,7 +3718,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Hinzuzufügende Einträge: {n}. Aktive Einträge danach: {total} insgesamt — über dem sicheren Limit von {max}.\n\nSie können sie trotzdem hinzufügen, aber HOTS wird das Speichern der Datei verweigern, bis Sie genügend Einträge deaktivieren/löschen, um wieder unter {max} zu kommen (Windows-Leistungslimit).\n\nTrotzdem hinzufügen?",
         "es": "Entradas a añadir: {n}. Entradas activas después: {total} en total — por encima del límite seguro de {max}.\n\nAún podrás añadirlas, pero HOTS se negará a guardar el archivo hasta que desactives/elimines suficientes entradas para volver a estar por debajo de {max} (límite de rendimiento de Windows).\n\n¿Añadir de todos modos?",
         "ru": "Записей для добавления: {n}. Активных записей после этого: {total} всего — выше безопасного предела {max}.\n\nВы всё равно сможете их добавить, но HOTS откажется сохранять файл, пока вы не отключите/удалите достаточно записей, чтобы вернуться ниже {max} (предел производительности Windows).\n\nВсё равно добавить?",
-        "pt": "Entradas a adicionar: {n}. Entradas ativas depois disso: {total} no total — acima do limite seguro de {max}.\n\nVocê ainda poderá adicioná-las, mas o HOTS se recusará a salvar o arquivo até que você desative/exclua entradas suficientes para ficar abaixo de {max} (limite de desempenho do Windows).\n\nAdicionar mesmo assim?",
+        "pt": "Entradas a adicionar: {n}. Entradas ativas depois disso: {total} no total — acima do limite seguro de {max}.\n\nAinda poderá adicioná-las, mas o HOTS recusará guardar o ficheiro até que desative/elimine entradas suficientes para ficar abaixo de {max} (limite de desempenho do Windows).\n\nAdicionar mesmo assim?",
         "it": "Voci da aggiungere: {n}. Voci attive dopo l'aggiunta: {total} in totale — oltre il limite di sicurezza di {max}.\n\nPotrai comunque aggiungerle, ma HOTS rifiuterà di salvare il file finché non disattivi/elimini abbastanza voci da tornare sotto {max} (limite di prestazioni di Windows).\n\nAggiungere comunque?",
     },
     "import_limit_ask_msg": {
@@ -3499,7 +3728,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Einträge in dieser Datei: {n}. Aktive Einträge nach dem Import: {total} insgesamt — über dem sicheren Limit von {max}.\n\nSie können sie importieren und die Liste überprüfen, aber HOTS wird das Speichern der Datei verweigern, bis Sie genügend Einträge deaktivieren/löschen, um wieder unter {max} zu kommen (Windows-Leistungslimit).\n\nTrotzdem importieren?",
         "es": "Entradas en este archivo: {n}. Entradas activas después de importar: {total} en total — por encima del límite seguro de {max}.\n\nPodrás importarlas y revisar la lista, pero HOTS se negará a guardar el archivo hasta que desactives/elimines suficientes entradas para volver a estar por debajo de {max} (límite de rendimiento de Windows).\n\n¿Importar de todos modos?",
         "ru": "Записей в этом файле: {n}. Активных записей после импорта: {total} всего — выше безопасного предела {max}.\n\nВы сможете импортировать их и просмотреть список, но HOTS откажется сохранять файл, пока вы не отключите/удалите достаточно записей, чтобы вернуться ниже {max} (предел производительности Windows).\n\nВсё равно импортировать?",
-        "pt": "Entradas neste arquivo: {n}. Entradas ativas após a importação: {total} no total — acima do limite seguro de {max}.\n\nVocê poderá importá-las e revisar a lista, mas o HOTS se recusará a salvar o arquivo até que você desative/exclua entradas suficientes para ficar abaixo de {max} (limite de desempenho do Windows).\n\nImportar mesmo assim?",
+        "pt": "Entradas neste ficheiro: {n}. Entradas ativas após a importação: {total} no total — acima do limite seguro de {max}.\n\nPoderá importá-las e rever a lista, mas o HOTS recusará guardar o ficheiro até que desative/elimine entradas suficientes para ficar abaixo de {max} (limite de desempenho do Windows).\n\nImportar mesmo assim?",
         "it": "Voci in questo file: {n}. Voci attive dopo l'importazione: {total} in totale — oltre il limite di sicurezza di {max}.\n\nPotrai importarle ed esaminare l'elenco, ma HOTS rifiuterà di salvare il file finché non disattivi/elimini abbastanza voci da tornare sotto {max} (limite di prestazioni di Windows).\n\nImportare comunque?",
     },
     "import_header_comment": {
@@ -3519,7 +3748,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Hosts-Einträge exportieren",
         "es": "Exportar entradas hosts",
         "ru": "Экспорт записей hosts",
-        "pt": "Exportar entradas do hosts",
+        "pt": "Exportar entradas hosts",
         "it": "Esporta voci hosts",
     },
     "export_scope_label": {
@@ -3529,7 +3758,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Exportbereich",
         "es": "Ámbito de exportación",
         "ru": "Область экспорта",
-        "pt": "Escopo da exportação",
+        "pt": "Âmbito da exportação",
         "it": "Ambito dell'esportazione",
     },
     "export_scope_all": {
@@ -3599,7 +3828,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Hosts-Textdatei",
         "es": "Archivo de texto hosts",
         "ru": "Текстовый файл hosts",
-        "pt": "Arquivo de texto hosts",
+        "pt": "Ficheiro de texto hosts",
         "it": "File di testo hosts",
     },
     "export_filetypes_csv": {
@@ -3609,7 +3838,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "CSV-Datei (IP, Hostname, Kommentar)",
         "es": "Archivo CSV (IP, Hostname, Comentario)",
         "ru": "Файл CSV (IP, имя хоста, комментарий)",
-        "pt": "Arquivo CSV (IP, Nome de host, Comentário)",
+        "pt": "Ficheiro CSV (IP, Nome de anfitrião, Comentário)",
         "it": "File CSV (IP, Hostname, Commento)",
     },
     "export_filetypes_all": {
@@ -3619,7 +3848,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Alle Dateien",
         "es": "Todos los archivos",
         "ru": "Все файлы",
-        "pt": "Todos os arquivos",
+        "pt": "Todos os ficheiros",
         "it": "Tutti i file",
     },
     "export_csv_headers": {
@@ -3629,7 +3858,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Status,IP,Hostname,Kommentar",
         "es": "Estado,IP,Hostname,Comentario",
         "ru": "Статус,IP,Hostname,Комментарий",
-        "pt": "Status,IP,Hostname,Comentário",
+        "pt": "Estado,IP,Nome de anfitrião,Comentário",
         "it": "Stato,IP,Hostname,Commento",
     },
     "export_ok_csv_title": {
@@ -3669,7 +3898,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Hosts-Datei exportiert (Einträge: {n}):\n{path}",
         "es": "Archivo hosts exportado (entradas: {n}):\n{path}",
         "ru": "Экспортирован файл hosts (записей: {n}):\n{path}",
-        "pt": "Arquivo hosts exportado (entradas: {n}):\n{path}",
+        "pt": "Ficheiro hosts exportado (entradas: {n}):\n{path}",
         "it": "File hosts esportato (voci: {n}):\n{path}",
     },
     "export_err_title": {
@@ -3689,7 +3918,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Sicherung der Hosts-Datei konnte nicht erstellt werden: {ex}",
         "es": "No se pudo crear la copia de seguridad del archivo hosts: {ex}",
         "ru": "Не удалось создать резервную копию файла hosts: {ex}",
-        "pt": "Falha ao criar backup do arquivo hosts: {ex}",
+        "pt": "Falha ao criar cópia de segurança do ficheiro hosts: {ex}",
         "it": "Impossibile creare il backup del file hosts: {ex}",
     },
     "save_write_err": {
@@ -3699,7 +3928,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Fehler beim Schreiben der Datei: {ex}",
         "es": "Error al escribir el archivo: {ex}",
         "ru": "Ошибка записи файла: {ex}",
-        "pt": "Erro ao gravar o arquivo: {ex}",
+        "pt": "Erro ao escrever o ficheiro: {ex}",
         "it": "Errore durante la scrittura del file: {ex}",
     },
     "hosts_lock_err": {
@@ -3719,7 +3948,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "✨ Sie haben den Kometen gefunden! Danke, dass Sie hier sind ✨",
         "es": "✨ ¡Encontraste el cometa! Gracias por estar aquí ✨",
         "ru": "✨ Вы нашли комету! Спасибо, что вы здесь ✨",
-        "pt": "✨ Você encontrou o cometa! Obrigado por estar aqui ✨",
+        "pt": "✨ Encontrou o cometa! Obrigado por estar aqui ✨",
         "it": "✨ Hai trovato la cometa! Grazie di essere qui ✨",
     },
     "profiles_card_title": {
@@ -3739,7 +3968,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Ein Klick wechselt die gesamte Hosts-Datei zwischen 3 gespeicherten Momentaufnahmen.",
         "es": "Un clic cambia todo el archivo hosts entre 3 instantáneas guardadas.",
         "ru": "Один клик переключает весь файл hosts между 3 сохранёнными снимками.",
-        "pt": "Um clique alterna todo o arquivo hosts entre 3 instantâneos salvos.",
+        "pt": "Um clique alterna todo o ficheiro hosts entre 3 instantâneos guardados.",
         "it": "Un clic cambia l'intero file hosts tra 3 istantanee salvate.",
     },
     "profiles_card_tooltip": {
@@ -3749,7 +3978,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Alles, was Sie tun, betrifft das aktive Profil - einschließlich Speichern.\n\nDer Profilwechsel erfolgt sofort: nicht gespeicherte Änderungen werden zuerst im verlassenen Profil gespeichert, dann wird das neue Profil sofort geladen.\n\nDie Sperrung eigener Domains oben wird ebenfalls pro Profil gespeichert - sie wechselt mit dem Rest.",
         "es": "Todo lo que haces afecta al perfil activo - incluido Guardar.\n\nEl cambio de perfil es instantáneo: tus cambios sin guardar se guardan primero en el perfil que dejas, y luego se carga el nuevo al momento.\n\nEl bloqueo de dominios propios de arriba también se guarda por perfil - cambia junto con el resto.",
         "ru": "Всё, что вы делаете, относится к активному профилю - включая «Сохранить».\n\nПереключение профиля происходит мгновенно: несохранённые изменения сначала сохраняются в профиль, который вы покидаете, а затем сразу загружается новый.\n\nБлокировка пользовательских доменов выше тоже сохраняется отдельно для каждого профиля - она переключается вместе с остальным.",
-        "pt": "Tudo o que você faz afeta o perfil ativo - inclusive Salvar.\n\nA troca de perfil é instantânea: suas alterações não salvas são salvas primeiro no perfil que você está deixando, e o novo é carregado na hora.\n\nO bloqueio de domínios personalizados acima também é salvo por perfil - ele muda junto com o resto.",
+        "pt": "Tudo o que faz aplica-se ao perfil ativo - incluindo Guardar.\n\nA troca de perfil é instantânea: as suas alterações não guardadas são guardadas primeiro no perfil que está a deixar e o novo é carregado de imediato.\n\nO bloqueio de domínios personalizados acima também é guardado por perfil - muda juntamente com o resto.",
         "it": "Tutto ciò che fai avviene sul profilo attivo, compreso Salva.\n\nIl cambio di profilo è immediato: le modifiche non salvate vengono salvate nel profilo che lasci, poi il nuovo viene caricato subito.\n\nAnche il blocco dei domini personalizzati qui sopra viene salvato per ogni profilo e cambia insieme al resto.",
     },
     "profiles_btn_tooltip": {
@@ -3809,7 +4038,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Cloudflare begrenzt, wie oft eine Verbindung Tests ausführen darf. Wird abgelehnt (HTTP 429), zeigt das Programm die Wartezeit – Tests nicht direkt hintereinander starten.\n\nDer Test nutzt Ihre Verbindung einige Sekunden lang voll aus und überträgt Daten im Verhältnis zur Geschwindigkeit (etwa 100 MB je Richtung bei 100 Mb/s) – nicht auf einer getakteten Verbindung verwenden. Ein VPN oder anderer Netzwerkverkehr kann das Ergebnis verringern.",
         "es": "Cloudflare limita la frecuencia con la que una conexión puede hacer pruebas. Si lo rechaza (HTTP 429), la aplicación indica cuánto esperar: evita hacer pruebas seguidas.\n\nLa prueba usa tu conexión al máximo durante unos segundos y transfiere datos en proporción a tu velocidad (unos 100 MB en cada sentido a 100 Mb/s), así que evítala en conexiones con límite de datos. Una VPN u otro tráfico de red puede reducir el resultado.",
         "ru": "Cloudflare ограничивает, как часто одно подключение может запускать тесты. При отказе (HTTP 429) программа покажет, сколько ждать, — не запускайте тесты один за другим.\n\nТест несколько секунд полностью загружает канал и передаёт объём данных, пропорциональный скорости (около 100 МБ в каждую сторону при 100 Мбит/с), поэтому не запускайте его на соединении с лимитом трафика. VPN или другой сетевой трафик может занизить результат.",
-        "pt": "A Cloudflare limita a frequência com que uma conexão pode fazer testes. Se recusar (HTTP 429), o app mostra quanto esperar – evite fazer testes em sequência.\n\nO teste usa totalmente a sua conexão por alguns segundos e transfere dados proporcionais à velocidade (cerca de 100 MB em cada direção a 100 Mb/s), por isso evite-o em conexões com limite de dados. Uma VPN ou outro tráfego de rede pode reduzir o resultado.",
+        "pt": "A Cloudflare limita a frequência com que uma ligação pode fazer testes. Se recusar (HTTP 429), a aplicação mostra quanto tempo esperar – evite fazer testes em sequência.\n\nO teste usa totalmente a sua ligação durante alguns segundos e transfere dados proporcionais à velocidade (cerca de 100 MB em cada direção a 100 Mb/s), por isso evite-o em ligações com limite de dados. Uma VPN ou outro tráfego de rede pode reduzir o resultado.",
         "it": "Cloudflare limita la frequenza con cui una singola connessione può eseguire i test. Se rifiuta (HTTP 429), l'app indica quanto attendere: evita di eseguire i test uno dopo l'altro.\n\nIl test sfrutta a pieno la tua connessione per alcuni secondi e trasferisce dati in proporzione alla sua velocità (circa 100 MB per direzione a 100 Mb/s), quindi evitalo su una connessione a consumo. Una VPN o altro traffico di rete possono abbassare il risultato.",
     },
     "speed_status_idle": {
@@ -3829,7 +4058,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Ping wird gemessen…",
         "es": "Midiendo el ping…",
         "ru": "Измерение пинга…",
-        "pt": "Medindo o ping…",
+        "pt": "A medir o ping…",
         "it": "Misurazione del ping…",
     },
     "speed_status_down": {
@@ -3839,7 +4068,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Download-Geschwindigkeit wird getestet…",
         "es": "Probando la velocidad de descarga…",
         "ru": "Проверка скорости загрузки…",
-        "pt": "Testando a velocidade de download…",
+        "pt": "A testar a velocidade de download…",
         "it": "Test della velocità di download…",
     },
     "speed_status_up": {
@@ -3849,7 +4078,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Upload-Geschwindigkeit wird getestet…",
         "es": "Probando la velocidad de subida…",
         "ru": "Проверка скорости отдачи…",
-        "pt": "Testando a velocidade de upload…",
+        "pt": "A testar a velocidade de upload…",
         "it": "Test della velocità di upload…",
     },
     "speed_status_done": {
@@ -3879,7 +4108,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Cloudflare begrenzt vorübergehend Tests von Ihrer Verbindung (HTTP 429) – erneut versuchen in {t}",
         "es": "Cloudflare limita temporalmente las pruebas desde tu conexión (HTTP 429): inténtalo de nuevo en {t}",
         "ru": "Cloudflare временно ограничивает тесты с вашего подключения (HTTP 429) — повторите через {t}",
-        "pt": "A Cloudflare está limitando temporariamente os testes da sua conexão (HTTP 429) – tente novamente em {t}",
+        "pt": "A Cloudflare está a limitar temporariamente os testes da sua ligação (HTTP 429) – tente novamente dentro de {t}",
         "it": "Cloudflare sta limitando temporaneamente i test dalla tua connessione (HTTP 429) – riprova tra {t}",
     },
     "speed_status_wait": {
@@ -3889,7 +4118,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Bitte {t} warten, bevor der Test wiederholt wird (Anfragelimit von Cloudflare)",
         "es": "Espera {t} antes de repetir la prueba (límite de solicitudes de Cloudflare)",
         "ru": "Подождите {t} перед повторным тестом (лимит запросов Cloudflare)",
-        "pt": "Aguarde {t} antes de repetir o teste (limite de solicitações da Cloudflare)",
+        "pt": "Aguarde {t} antes de repetir o teste (limite de pedidos da Cloudflare)",
         "it": "Attendi {t} prima di ripetere il test (limite di richieste di Cloudflare)",
     },
     "speed_btn_open": {
@@ -3929,7 +4158,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Spiele: {n}/5 – hängt vor allem von Ping und dessen Stabilität (Jitter) ab. Richtwert: zum Testserver gemessen, nicht zum Spieleserver",
         "es": "Juegos: {n}/5: depende sobre todo del ping y su estabilidad (jitter). Orientativo: medido al servidor de prueba, no al del juego",
         "ru": "Игры: {n}/5 — зависит в основном от пинга и его стабильности (джиттера). Ориентировочно: измеряется до тестового сервера, а не до игрового",
-        "pt": "Jogos: {n}/5 – depende principalmente do ping e da sua estabilidade (jitter). Indicativo: medido até o servidor de teste, não o do jogo",
+        "pt": "Jogos: {n}/5 – depende sobretudo do ping e da sua estabilidade (jitter). Indicativo: medido até ao servidor de teste, não ao do jogo",
         "it": "Giochi: {n}/5 – dipende soprattutto dal ping e dalla sua stabilità (jitter). Indicativo: misurato verso il server del test, non verso quello del gioco",
     },
     "speed_q_stream": {
@@ -3939,7 +4168,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Streams ansehen: {n}/5 – hängt von der Download-Geschwindigkeit ab (5/5 ≈ 4K, 4/5 ≈ Full HD, 3/5 ≈ HD)",
         "es": "Ver streaming: {n}/5: depende de la velocidad de descarga (5/5 ≈ 4K, 4/5 ≈ Full HD, 3/5 ≈ HD)",
         "ru": "Просмотр стриминга: {n}/5 — зависит от скорости загрузки (5/5 ≈ 4K, 4/5 ≈ Full HD, 3/5 ≈ HD)",
-        "pt": "Assistir a streaming: {n}/5 – depende da velocidade de download (5/5 ≈ 4K, 4/5 ≈ Full HD, 3/5 ≈ HD)",
+        "pt": "Ver streaming: {n}/5 – depende da velocidade de download (5/5 ≈ 4K, 4/5 ≈ Full HD, 3/5 ≈ HD)",
         "it": "Visione di streaming: {n}/5 – dipende dalla velocità di download (5/5 ≈ 4K, 4/5 ≈ Full HD, 3/5 ≈ HD)",
     },
     "speed_q_live": {
@@ -3949,7 +4178,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Live-Streaming und Videoanrufe: {n}/5 – hängt von der Upload-Geschwindigkeit ab (5/5 ≈ Full-HD-Livestream, 3/5 ≈ HD-Videoanrufe)",
         "es": "Retransmisión y videollamadas: {n}/5: depende de la velocidad de subida (5/5 ≈ directo en Full HD, 3/5 ≈ videollamadas en HD)",
         "ru": "Трансляции и видеозвонки: {n}/5 — зависит от скорости отдачи (5/5 ≈ трансляция в Full HD, 3/5 ≈ видеозвонки в HD)",
-        "pt": "Transmissão ao vivo e videochamadas: {n}/5 – depende da velocidade de upload (5/5 ≈ transmissão em Full HD, 3/5 ≈ videochamadas em HD)",
+        "pt": "Transmissão em direto e videochamadas: {n}/5 – depende da velocidade de upload (5/5 ≈ transmissão em direto em Full HD, 3/5 ≈ videochamadas em HD)",
         "it": "Streaming in diretta e videochiamate: {n}/5 – dipende dalla velocità di upload (5/5 ≈ diretta in Full HD, 3/5 ≈ videochiamate in HD)",
     },
     "speed_ping_jitter": {
@@ -3989,7 +4218,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Noch keine Bewertung – starten Sie den Test, um zu sehen, wie gut Ihre Verbindung für Surfen, Spiele, Streams und Videoanrufe geeignet ist",
         "es": "Aún sin valoración: inicia la prueba para ver si tu conexión sirve para navegar, jugar, ver streaming y hacer videollamadas",
         "ru": "Оценки пока нет — запустите тест, чтобы узнать, подходит ли соединение для веб-серфинга, игр, просмотра стриминга и видеозвонков",
-        "pt": "Ainda sem avaliação – execute o teste para ver se a sua conexão serve para navegar, jogar, assistir a streaming e fazer videochamadas",
+        "pt": "Ainda sem avaliação – execute o teste para ver se a sua ligação serve para navegar, jogar, ver streaming, transmitir em direto e fazer videochamadas",
         "it": "Ancora nessuna valutazione – esegui il test di velocità per vedere quanto la tua connessione è adatta a navigazione web, giochi, streaming e dirette o videochiamate",
     },
     "speed_last_test": {
@@ -4019,7 +4248,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Test fehlgeschlagen – Internetverbindung prüfen",
         "es": "La prueba falló: comprueba tu conexión a Internet",
         "ru": "Тест не удался — проверьте подключение к интернету",
-        "pt": "O teste falhou – verifique a sua conexão com a internet",
+        "pt": "O teste falhou – verifique a sua ligação à internet",
         "it": "Test non riuscito – controlla la connessione a Internet",
     },
     "speed_btn_start": {
@@ -4109,7 +4338,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Sendet DNS-Anfragen zu 8 beliebten Websites direkt an Ihren DNS-Server und an öffentliche Server (Cloudflare, Google, Quad9, OpenDNS) und misst, wie schnell jeder antwortet. Die hosts-Datei und der Systemcache werden umgangen.\n\nLangsame Seiten bei schnellem DNS deuten auf die Verbindung selbst hin. Ein langsamer DNS lässt sich beheben, indem man in den Netzwerkeinstellungen zu einem schnelleren Server wechselt. Ein Server, der nicht antwortet, wird möglicherweise von Ihrem Netzwerk blockiert.",
         "es": "Envía consultas DNS de 8 sitios populares directamente a tu servidor DNS y a servidores públicos (Cloudflare, Google, Quad9, OpenDNS) y mide qué tan rápido responde cada uno. Se omiten el archivo hosts y la caché del sistema.\n\nSi las páginas van lentas con un DNS rápido, el problema es la propia conexión. Un DNS lento se puede arreglar cambiando a un servidor más rápido en la configuración de red. Un servidor que no responde puede estar bloqueado por tu red.",
         "ru": "Отправляет DNS-запросы для 8 популярных сайтов напрямую вашему DNS-серверу и публичным (Cloudflare, Google, Quad9, OpenDNS) и измеряет, как быстро отвечает каждый. Файл hosts и системный кэш не используются.\n\nМедленные страницы при быстром DNS указывают на само подключение. Медленный DNS можно исправить, переключившись на более быстрый сервер в настройках сети. Сервер, который не отвечает, может блокироваться вашей сетью.",
-        "pt": "Envia consultas DNS de 8 sites populares diretamente ao seu servidor DNS e a servidores públicos (Cloudflare, Google, Quad9, OpenDNS) e mede a rapidez de cada resposta. O arquivo hosts e o cache do sistema são ignorados.\n\nPáginas lentas com DNS rápido apontam para a própria conexão. Um DNS lento pode ser resolvido mudando para um servidor mais rápido nas configurações de rede. Um servidor que não responde pode estar bloqueado pela sua rede.",
+        "pt": "Envia consultas DNS de 8 sites populares diretamente para o seu servidor DNS e para servidores públicos (Cloudflare, Google, Quad9, OpenDNS) e mede a rapidez de cada resposta. O ficheiro hosts e a cache do sistema são ignorados.\n\nPáginas lentas com DNS rápido apontam para a própria ligação. Um DNS lento pode ser resolvido mudando para um servidor mais rápido nas definições de rede. Um servidor que não responde pode estar bloqueado pela sua rede.",
         "it": "Invia query DNS per 8 siti molto diffusi direttamente al tuo server DNS e a quelli pubblici (Cloudflare, Google, Quad9, OpenDNS) e misura la rapidità di ciascuna risposta. Il file hosts e la cache di sistema vengono aggirati.\n\nPagine lente con un DNS veloce indicano un problema della connessione. Un DNS lento si può risolvere passando a un server più veloce nelle impostazioni di rete. Un server che non risponde potrebbe essere bloccato dalla tua rete.",
     },
     "dns_status_idle": {
@@ -4129,7 +4358,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "DNS-Server werden getestet… {d}/{n}",
         "es": "Probando servidores DNS… {d}/{n}",
         "ru": "Проверка DNS-серверов… {d}/{n}",
-        "pt": "Testando servidores DNS… {d}/{n}",
+        "pt": "A testar servidores DNS… {d}/{n}",
         "it": "Test dei server DNS… {d}/{n}",
     },
     "dns_btn_open": {
@@ -4159,7 +4388,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Ihr DNS",
         "es": "Tu DNS",
         "ru": "Ваш DNS",
-        "pt": "Seu DNS",
+        "pt": "O seu DNS",
         "it": "Il tuo DNS",
     },
     "dns_fastest": {
@@ -4229,7 +4458,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "{name} antwortet {d} schneller als Ihr DNS – ein Wechsel des DNS-Servers lohnt sich vielleicht.",
         "es": "{name} responde {d} más rápido que tu DNS: considera cambiar de servidor DNS.",
         "ru": "{name} отвечает на {d} быстрее вашего DNS — стоит подумать о смене DNS-сервера.",
-        "pt": "{name} responde {d} mais rápido que o seu DNS – considere trocar de servidor DNS.",
+        "pt": "{name} responde {d} mais rápido do que o seu DNS – considere mudar de servidor DNS.",
         "it": "{name} risponde {d} più velocemente del tuo DNS – valuta di cambiare server DNS.",
     },
     "dns_v_same": {
@@ -4269,7 +4498,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Öffentliche DNS-Server haben nicht geantwortet (Ihr Netzwerk blockiert sie vielleicht), ein Vergleich ist nicht möglich.",
         "es": "Los servidores DNS públicos no respondieron (tu red puede bloquearlos), así que no hay con qué comparar.",
         "ru": "Публичные DNS-серверы не ответили (возможно, ваша сеть их блокирует), поэтому сравнить не с чем.",
-        "pt": "Os servidores DNS públicos não responderam (a sua rede pode bloqueá-los), então não há com o que comparar.",
+        "pt": "Os servidores DNS públicos não responderam (a sua rede pode bloqueá-los), pelo que não há nada com que comparar.",
         "it": "I server DNS pubblici non hanno risposto (la tua rete potrebbe bloccarli), quindi non c'è nulla da confrontare.",
     },
     "dns_v_offline": {
@@ -4279,7 +4508,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Kein DNS-Server hat geantwortet – prüfen Sie die Internetverbindung.",
         "es": "Ningún servidor DNS respondió: comprueba tu conexión a Internet.",
         "ru": "Ни один DNS-сервер не ответил — проверьте подключение к интернету.",
-        "pt": "Nenhum servidor DNS respondeu – verifique a sua conexão com a internet.",
+        "pt": "Nenhum servidor DNS respondeu – verifique a sua ligação à internet.",
         "it": "Nessun server DNS ha risposto – controlla la connessione a Internet.",
     },
     "dns_info_cloudflare": {
@@ -4299,7 +4528,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Betrieben von Google. Sehr zuverlässig, mit Servern auf der ganzen Welt. Filtert keine Websites. Google speichert einige Anfragedaten, wie in der Datenschutzerklärung beschrieben.",
         "es": "Lo gestiona Google. Muy fiable, con servidores en todo el mundo. No filtra sitios web. Google conserva algunos datos de las consultas, según su política de privacidad.",
         "ru": "Управляется Google. Очень надёжный, серверы по всему миру. Сайты не фильтрует. Google хранит часть данных запросов, как описано в его политике конфиденциальности.",
-        "pt": "Operado pelo Google. Muito confiável, com servidores no mundo todo. Não filtra sites. O Google guarda alguns dados das consultas, conforme a sua política de privacidade.",
+        "pt": "Operado pela Google. Muito fiável, com servidores em todo o mundo. Não filtra sites. A Google guarda alguns dados das consultas, conforme descrito na sua política de privacidade.",
         "it": "Gestito da Google. Molto affidabile, con server in tutto il mondo. Non filtra i siti web. Google conserva alcuni dati delle query, come descritto nella sua informativa sulla privacy.",
     },
     "dns_info_quad9": {
@@ -4309,7 +4538,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Betrieben von der gemeinnützigen Quad9-Stiftung (Schweiz). Blockiert bekannte schädliche Websites (Malware, Phishing). Speichert keine IP-Adressen der Nutzer.",
         "es": "Lo gestiona la fundación sin ánimo de lucro Quad9 (Suiza). Bloquea sitios web maliciosos conocidos (malware, phishing). No guarda las direcciones IP de los usuarios.",
         "ru": "Управляется некоммерческим фондом Quad9 (Швейцария). Блокирует известные вредоносные сайты (вредоносное ПО, фишинг). Не хранит IP-адреса пользователей.",
-        "pt": "Operado pela fundação sem fins lucrativos Quad9 (Suíça). Bloqueia sites maliciosos conhecidos (malware, phishing). Não guarda os endereços IP dos usuários.",
+        "pt": "Operado pela fundação sem fins lucrativos Quad9 (Suíça). Bloqueia sites maliciosos conhecidos (malware, phishing). Não guarda os endereços IP dos utilizadores.",
         "it": "Gestito dalla fondazione non profit Quad9 (Svizzera). Blocca i siti dannosi noti (malware, phishing). Non memorizza gli indirizzi IP degli utenti.",
     },
     "dns_info_opendns": {
@@ -4319,7 +4548,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Betrieben von Cisco. Schützt vor Phishing-Seiten; zusätzliche Inhaltsfilter (z. B. für Erwachsenenseiten) sind nach der Einrichtung in einem kostenlosen OpenDNS-Konto verfügbar.",
         "es": "Lo gestiona Cisco. Protege contra sitios de phishing; el filtrado de contenido adicional (p. ej. sitios para adultos) está disponible tras configurarlo en una cuenta gratuita de OpenDNS.",
         "ru": "Управляется Cisco. Защищает от фишинговых сайтов; дополнительная фильтрация контента (например, сайтов для взрослых) доступна после настройки в бесплатной учётной записи OpenDNS.",
-        "pt": "Operado pela Cisco. Protege contra sites de phishing; a filtragem de conteúdo adicional (p. ex. sites adultos) está disponível após configurá-la numa conta gratuita do OpenDNS.",
+        "pt": "Operado pela Cisco. Protege contra sites de phishing; a filtragem de conteúdo adicional (por ex. sites para adultos) está disponível após a configurar numa conta gratuita do OpenDNS.",
         "it": "Gestito da Cisco. Offre protezione dai siti di phishing; un filtro aggiuntivo dei contenuti (ad es. siti per adulti) è disponibile dopo la configurazione in un account OpenDNS gratuito.",
     },
     "dns_btn_set": {
@@ -4349,7 +4578,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "{name} ({a}) als DNS-Server festlegen, mit {b} als alternativem Server?\n\nDadurch werden die Einstellungen Ihrer aktiven Netzwerkverbindung geändert. Sie können das jederzeit in den Windows-Netzwerkeinstellungen rückgängig machen.",
         "es": "¿Usar {name} ({a}) como tu servidor DNS, con {b} como alternativo?\n\nEsto cambia la configuración de tu conexión de red activa. Puedes deshacerlo en cualquier momento en la configuración de red de Windows.",
         "ru": "Установить {name} ({a}) как ваш DNS-сервер, а {b} — как альтернативный?\n\nЭто изменит настройки вашего активного сетевого подключения. Вернуть прежние значения можно в любой момент в сетевых настройках Windows.",
-        "pt": "Definir {name} ({a}) como o seu servidor DNS, com {b} como alternativo?\n\nIsso altera as configurações da sua conexão de rede ativa. Você pode reverter a qualquer momento nas configurações de rede do Windows.",
+        "pt": "Definir {name} ({a}) como o seu servidor DNS, com {b} como alternativo?\n\nIsto altera as definições da sua ligação de rede ativa. Pode reverter a qualquer momento nas definições de rede do Windows.",
         "it": "Impostare {name} ({a}) come server DNS, con {b} come alternativo?\n\nQuesto modifica le impostazioni della connessione di rete attiva. Puoi ripristinarle in qualsiasi momento dalle impostazioni di rete di Windows.",
     },
     "dns_set_ok": {
@@ -4379,7 +4608,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Standard-DNS wiederherstellen",
         "es": "Restaurar el DNS predeterminado",
         "ru": "Вернуть DNS по умолчанию",
-        "pt": "Restaurar o DNS padrão",
+        "pt": "Restaurar o DNS predefinido",
         "it": "Ripristina il DNS predefinito",
     },
     "dns_reset_confirm": {
@@ -4389,7 +4618,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Das DNS wiederherstellen, das Sie vor der Änderung hier hatten (automatisches DNS von Router oder Internetanbieter, falls Sie kein eigenes festgelegt hatten)?\n\nDadurch werden die Einstellungen Ihrer aktiven Netzwerkverbindung geändert.",
         "es": "¿Restaurar el DNS que tenías antes de cambiarlo aquí (DNS automático de tu router o proveedor de internet, si no habías configurado uno propio)?\n\nEsto cambia la configuración de tu conexión de red activa.",
         "ru": "Вернуть DNS, который был до изменения здесь (автоматический от роутера или провайдера, если вы не задавали свой)?\n\nЭто изменит настройки вашего активного сетевого подключения.",
-        "pt": "Restaurar o DNS que tinha antes de o alterar aqui (DNS automático do roteador ou provedor de internet, se não tinha definido um próprio)?\n\nIsso altera as configurações da sua conexão de rede ativa.",
+        "pt": "Restaurar o DNS que tinha antes de o alterar aqui (DNS automático do router ou do fornecedor de internet, se não tinha definido um próprio)?\n\nIsto altera as definições da sua ligação de rede ativa.",
         "it": "Ripristinare il DNS che avevi prima di modificarlo qui (DNS automatico del router o del provider Internet, se non ne avevi impostato uno tuo)?\n\nQuesto modifica le impostazioni della connessione di rete attiva.",
     },
     "dns_reset_ok": {
@@ -4419,7 +4648,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "(Standard)",
         "es": "(predeterminado)",
         "ru": "(по умолчанию)",
-        "pt": "(padrão)",
+        "pt": "(predefinido)",
         "it": "(predefinito)",
     },
     "fw_card_title": {
@@ -4449,7 +4678,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Fügt Windows-Firewall-Regeln hinzu, die den Netzwerkzugriff des ausgewählten Programms blockieren.\n\nMit den Pfeilen neben jedem Programm lassen sich ausgehender (▲) und eingehender (▼) Datenverkehr unabhängig voneinander blockieren.\n\nDas Programm läuft weiter, kann aber in den blockierten Richtungen nicht auf das Netzwerk zugreifen. Entfernen Sie es jederzeit aus der Liste, um den vollen Zugriff wiederherzustellen.\n\nBlockierungen funktionieren nur, solange die Windows-Firewall eingeschaltet ist. Wenn eine andere Firewall installiert ist und übernommen hat (Windows-Firewall ausgeschaltet), werden diese Regeln nicht durchgesetzt.",
         "es": "Añade reglas del Firewall de Windows que bloquean el acceso a la red del programa seleccionado.\n\nLas flechas junto a cada programa permiten bloquear el tráfico saliente (▲) y entrante (▼) de forma independiente.\n\nEl programa sigue funcionando, simplemente no podrá conectarse a la red en las direcciones bloqueadas. Quítalo de la lista en cualquier momento para restaurar el acceso completo.\n\nLos bloqueos solo funcionan mientras el Firewall de Windows esté activado. Si hay otro firewall instalado que lo ha reemplazado (el Firewall de Windows está desactivado), estas reglas no se aplican.",
         "ru": "Добавляет правила брандмауэра Windows, блокирующие сетевой доступ выбранной программы.\n\nСтрелки рядом с каждой программой позволяют независимо блокировать исходящий (▲) и входящий (▼) трафик.\n\nПрограмма продолжает работать, просто не может обращаться к сети в заблокированных направлениях. В любой момент удалите её из списка, чтобы восстановить полный доступ.\n\nБлокировки работают, только пока включён брандмауэр Windows. Если установлен другой брандмауэр, который его заменил (брандмауэр Windows отключён), эти правила не применяются.",
-        "pt": "Adiciona regras do Firewall do Windows que bloqueiam o acesso à rede do programa selecionado.\n\nAs setas ao lado de cada programa permitem bloquear o tráfego de saída (▲) e de entrada (▼) de forma independente.\n\nO programa continua em execução, apenas não consegue acessar a rede nas direções bloqueadas. Remova-o da lista a qualquer momento para restaurar o acesso total.\n\nOs bloqueios só funcionam enquanto o Firewall do Windows estiver ativado. Se outro firewall estiver instalado e tiver assumido o controle (o Firewall do Windows está desativado), essas regras não são aplicadas.",
+        "pt": "Adiciona regras da Firewall do Windows que bloqueiam o acesso do programa selecionado à rede.\n\nAs setas junto a cada programa permitem bloquear o tráfego de saída (▲) e de entrada (▼) de forma independente.\n\nO programa continua em execução, apenas não consegue aceder à rede nas direções bloqueadas. Remova-o da lista a qualquer momento para restaurar o acesso total.\n\nOs bloqueios só funcionam enquanto a Firewall do Windows estiver ativada. Se estiver instalada outra firewall que tenha assumido o controlo (a Firewall do Windows está desativada), estas regras não são aplicadas.",
         "it": "Aggiunge regole di Windows Firewall che bloccano l'accesso alla rete del programma selezionato.\n\nLe frecce accanto a ogni programma permettono di bloccare separatamente il traffico in uscita (▲) e in entrata (▼).\n\nIl programma continua a funzionare, ma non può raggiungere la rete nelle direzioni bloccate. Rimuovilo dall'elenco in qualsiasi momento per ripristinare l'accesso completo.\n\nI blocchi funzionano solo mentre Windows Firewall è attivo. Se è installato un altro firewall che ne ha preso il posto (Windows Firewall è disattivato), queste regole non vengono applicate.",
     },
     "fw_card_count": {
@@ -4469,7 +4698,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Verwalten",
         "es": "Gestionar",
         "ru": "Управление",
-        "pt": "Gerenciar",
+        "pt": "Gerir",
         "it": "Gestisci",
     },
     "fw_btn_collapse": {
@@ -4562,6 +4791,76 @@ _STRINGS: dict[str, dict[str, str]] = {
         "pt": "Remover da lista",
         "it": "Rimuovi dall'elenco",
     },
+    "fw_section_blocked": {
+        "en": "Blocked",
+        "pl": "Zablokowane",
+        "fr": "Bloqués",
+        "de": "Blockiert",
+        "es": "Bloqueados",
+        "ru": "Заблокированные",
+        "pt": "Bloqueados",
+        "it": "Bloccati",
+    },
+    "fw_section_free": {
+        "en": "Unblocked",
+        "pl": "Odblokowane",
+        "fr": "Débloqués",
+        "de": "Nicht blockiert",
+        "es": "Desbloqueados",
+        "ru": "Незаблокированные",
+        "pt": "Desbloqueados",
+        "it": "Sbloccati",
+    },
+    "speed_ping_loaded": {
+        "en": "Under load: ↓ {d} · ↑ {u}",
+        "pl": "Pod obciążeniem: ↓ {d} · ↑ {u}",
+        "fr": "En charge : ↓ {d} · ↑ {u}",
+        "de": "Unter Last: ↓ {d} · ↑ {u}",
+        "es": "Con carga: ↓ {d} · ↑ {u}",
+        "ru": "Под нагрузкой: ↓ {d} · ↑ {u}",
+        "pt": "Sob carga: ↓ {d} · ↑ {u}",
+        "it": "Sotto carico: ↓ {d} · ↑ {u}",
+    },
+    "speed_ping_stalls": {
+        "en": "Stalls: ↓ {d} · ↑ {u}",
+        "pl": "Zacięcia: ↓ {d} · ↑ {u}",
+        "fr": "Blocages : ↓ {d} · ↑ {u}",
+        "de": "Aussetzer: ↓ {d} · ↑ {u}",
+        "es": "Atascos: ↓ {d} · ↑ {u}",
+        "ru": "Зависания: ↓ {d} · ↑ {u}",
+        "pt": "Bloqueios: ↓ {d} · ↑ {u}",
+        "it": "Blocchi: ↓ {d} · ↑ {u}",
+    },
+    "speed_stalls_tip": {
+        "en": "What is it? Attempts to connect to the server that took over a second while the line was full (download · upload).\nIs it a problem? A few are normal. If most attempts stall, web pages and games may freeze for a moment during big downloads.\nWhat to do? Turn on QoS or Smart Queue in your router (if it has it) or ask your provider.",
+        "pl": "Co to jest? Próby połączenia z serwerem, które przy pełnym łączu trwały ponad sekundę (pobieranie · wysyłanie).\nCzy to problem? Kilka to normalne. Gdy zacina się większość, strony i gry mogą się chwilami wieszać przy dużym pobieraniu.\nCo zrobić? Włącz w routerze QoS lub Smart Queue (jeśli ma) albo zapytaj operatora.",
+        "fr": "De quoi s'agit-il ? Des tentatives de connexion au serveur qui ont pris plus d'une seconde alors que la ligne était pleine (téléchargement · envoi).\nEst-ce un problème ? Quelques-unes sont normales. Si la plupart échouent, les pages web et les jeux peuvent se figer un instant pendant un gros téléchargement.\nQue faire ? Activez la QoS ou Smart Queue dans votre routeur (s'il en a une) ou contactez votre opérateur.",
+        "de": "Was ist das? Verbindungsversuche zum Server, die bei voller Leitung länger als eine Sekunde dauerten (Download · Upload).\nIst das ein Problem? Einige sind normal. Wenn die meisten Versuche hängen, können Webseiten und Spiele bei großen Downloads kurz einfrieren.\nWas tun? Aktivieren Sie im Router QoS oder Smart Queue (falls vorhanden) oder fragen Sie Ihren Anbieter.",
+        "es": "¿Qué es? Intentos de conexión con el servidor que tardaron más de un segundo con la línea llena (descarga · subida).\n¿Es un problema? Unos pocos son normales. Si se atascan la mayoría, las páginas web y los juegos pueden congelarse un momento durante descargas grandes.\n¿Qué hacer? Activa QoS o Smart Queue en el router (si lo tiene) o consulta a tu operador.",
+        "ru": "Что это? Попытки соединения с сервером, которые при полном канале занимали больше секунды (загрузка · отправка).\nЭто проблема? Несколько таких случаев — норма. Если зависает большинство попыток, страницы и игры могут ненадолго зависать при больших загрузках.\nЧто делать? Включите в роутере QoS или Smart Queue (если есть) либо обратитесь к провайдеру.",
+        "pt": "O que é? Tentativas de ligação ao servidor que demoraram mais de um segundo com a linha cheia (download · upload).\nÉ um problema? Algumas são normais. Se a maioria bloquear, as páginas web e os jogos podem congelar por instantes durante grandes downloads.\nO que fazer? Ative o QoS ou o Smart Queue no router (se tiver) ou contacte o seu operador.",
+        "it": "Che cos'è? Tentativi di connessione al server che con la linea piena hanno richiesto più di un secondo (download · upload).\nÈ un problema? Alcuni sono normali. Se si bloccano la maggior parte, pagine web e giochi possono bloccarsi per un attimo durante download grandi.\nCosa fare? Attiva QoS o Smart Queue nel router (se disponibile) o contatta il tuo operatore.",
+    },
+    "fw_btn_refresh": {
+        "en": "Refresh list",
+        "pl": "Odśwież listę",
+        "fr": "Actualiser la liste",
+        "de": "Liste aktualisieren",
+        "es": "Actualizar lista",
+        "ru": "Обновить список",
+        "pt": "Atualizar lista",
+        "it": "Aggiorna elenco",
+    },
+    "fw_ctx_open_location": {
+        "en": "Open file location",
+        "pl": "Otwórz lokalizację pliku",
+        "fr": "Ouvrir l'emplacement du fichier",
+        "de": "Dateispeicherort öffnen",
+        "es": "Abrir ubicación del archivo",
+        "ru": "Открыть расположение файла",
+        "pt": "Abrir localização do ficheiro",
+        "it": "Apri percorso file",
+    },
     "fw_status_count": {
         "en": "{n} program(s) in the list",
         "pl": "Programów na liście: {n}",
@@ -4579,7 +4878,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Vorgang läuft...",
         "es": "Operación en curso...",
         "ru": "Обработка...",
-        "pt": "Trabalhando...",
+        "pt": "A trabalhar...",
         "it": "Operazione in corso...",
     },
     "fw_search_placeholder": {
@@ -4589,7 +4888,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Installiertes Programm suchen...",
         "es": "Buscar un programa instalado...",
         "ru": "Поиск установленных программ...",
-        "pt": "Buscar programas instalados...",
+        "pt": "Pesquisar programas instalados...",
         "it": "Cerca tra i programmi installati...",
     },
     "fw_scan_working": {
@@ -4599,7 +4898,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Installierte Programme werden gescannt...",
         "es": "Escaneando programas instalados...",
         "ru": "Сканирование установленных программ...",
-        "pt": "Verificando programas instalados...",
+        "pt": "A verificar programas instalados...",
         "it": "Scansione dei programmi installati...",
     },
     "fw_empty_list": {
@@ -4699,7 +4998,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Die ausgewählte Datei existiert nicht.",
         "es": "El archivo seleccionado no existe.",
         "ru": "Выбранный файл не существует.",
-        "pt": "O arquivo selecionado não existe.",
+        "pt": "O ficheiro selecionado não existe.",
         "it": "Il file selezionato non esiste.",
     },
     "fw_missing_suffix": {
@@ -4709,7 +5008,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "(Datei fehlt)",
         "es": "(archivo no encontrado)",
         "ru": "(файл отсутствует)",
-        "pt": "(arquivo ausente)",
+        "pt": "(ficheiro em falta)",
         "it": "(file mancante)",
     },
     "fw_missing_tooltip": {
@@ -4719,7 +5018,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Die Datei dieses Programms wurde auf der Festplatte nicht gefunden — es wurde wahrscheinlich deinstalliert oder gelöscht.",
         "es": "No se encontró el archivo de este programa en el disco: probablemente se desinstaló o se eliminó.",
         "ru": "Файл этой программы не найден на диске — вероятно, она была удалена или деинсталлирована.",
-        "pt": "O arquivo deste programa não foi encontrado no disco — provavelmente foi desinstalado ou excluído.",
+        "pt": "O ficheiro deste programa não foi encontrado no disco — provavelmente foi desinstalado ou eliminado.",
         "it": "Il file di questo programma non è stato trovato sul disco — probabilmente è stato disinstallato o eliminato.",
     },
     "fw_missing_removable_suffix": {
@@ -4729,7 +5028,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "(Datei fehlt — Wechseldatenträger?)",
         "es": "(archivo no encontrado: ¿unidad extraíble?)",
         "ru": "(файл отсутствует — съёмный диск?)",
-        "pt": "(arquivo ausente — unidade removível?)",
+        "pt": "(ficheiro em falta — unidade amovível?)",
         "it": "(file mancante — unità rimovibile?)",
     },
     "fw_missing_removable_tooltip": {
@@ -4739,7 +5038,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Die Datei dieses Programms befindet sich auf einem Wechseldatenträger oder Netzlaufwerk, das derzeit nicht verbunden ist — es könnte nur vorübergehend getrennt und nicht deinstalliert sein.",
         "es": "El archivo de este programa está en una unidad extraíble o de red que no está conectada actualmente — puede que solo esté desconectada, no desinstalada.",
         "ru": "Файл этой программы находится на съёмном или сетевом диске, который сейчас не подключён — возможно, он просто отсоединён, а не удалён.",
-        "pt": "O arquivo deste programa está em uma unidade removível ou de rede que não está conectada no momento — pode estar apenas desconectada, não desinstalada.",
+        "pt": "O ficheiro deste programa está numa unidade amovível ou de rede que não está ligada neste momento — pode estar apenas desligada, não desinstalada.",
         "it": "Il file di questo programma si trova su un'unità rimovibile o di rete al momento non collegata — potrebbe essere solo scollegata, non disinstallata.",
     },
     "fw_missing_cleanup_title": {
@@ -4749,7 +5048,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Fehlendes Programm erkannt",
         "es": "Programa no encontrado",
         "ru": "Обнаружена отсутствующая программа",
-        "pt": "Programa ausente detectado",
+        "pt": "Programa em falta detetado",
         "it": "Rilevato programma mancante",
     },
     "fw_missing_cleanup_msg": {
@@ -4759,7 +5058,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Diese Einträge und ihre Regeln in der Windows-Firewall entfernen?",
         "es": "¿Quitar estas entradas y sus reglas del Firewall de Windows?",
         "ru": "Удалить эти записи и их правила брандмауэра Windows?",
-        "pt": "Remover essas entradas e suas regras do Firewall do Windows?",
+        "pt": "Remover estas entradas e as respetivas regras da Firewall do Windows?",
         "it": "Rimuovere queste voci e le relative regole di Windows Firewall?",
     },
     "fw_missing_cleanup_removable_note": {
@@ -4769,7 +5068,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "(Ohne {n} Programm(e) auf Wechseldatenträgern/Netzlaufwerken — diese wurden unverändert gelassen, da sie möglicherweise nur getrennt sind.)",
         "es": "(Sin contar {n} programa(s) en unidades extraíbles/de red — se dejaron tal cual porque puede que solo estén desconectadas.)",
         "ru": "(Не считая {n} программ(ы) на съёмных/сетевых дисках — они оставлены как есть, так как могут быть просто отключены.)",
-        "pt": "(Não contando {n} programa(s) em unidades removíveis/de rede — esses foram deixados como estão, pois podem estar apenas desconectados.)",
+        "pt": "(Sem contar com {n} programa(s) em unidades amovíveis/de rede — esses foram deixados como estão, pois podem estar apenas desligados.)",
         "it": "(Esclusi {n} programmi su unità rimovibili o di rete: sono stati lasciati così come sono, perché potrebbero essere solo scollegati.)",
     },
     "fw_err_netsh_missing": {
@@ -4779,7 +5078,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Das Kommandozeilentool der Windows-Firewall (netsh) ist nicht verfügbar.",
         "es": "La herramienta de línea de comandos del Firewall de Windows (netsh) no está disponible.",
         "ru": "Инструмент командной строки брандмауэра Windows (netsh) недоступен.",
-        "pt": "A ferramenta de linha de comando do Firewall do Windows (netsh) não está disponível.",
+        "pt": "A ferramenta de linha de comandos da Firewall do Windows (netsh) não está disponível.",
         "it": "Lo strumento a riga di comando di Windows Firewall (netsh) non è disponibile.",
     },
     "fw_err_netsh_failed": {
@@ -4789,7 +5088,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Das Kommandozeilentool der Windows-Firewall (netsh) ist fehlgeschlagen oder hat nicht rechtzeitig geantwortet.",
         "es": "La herramienta de línea de comandos del Firewall de Windows (netsh) falló o no respondió a tiempo.",
         "ru": "Инструмент командной строки брандмауэра Windows (netsh) завершился с ошибкой или не ответил вовремя.",
-        "pt": "A ferramenta de linha de comando do Firewall do Windows (netsh) falhou ou não respondeu a tempo.",
+        "pt": "A ferramenta de linha de comandos da Firewall do Windows (netsh) falhou ou não respondeu a tempo.",
         "it": "Lo strumento a riga di comando di Windows Firewall (netsh) non è riuscito o non ha risposto in tempo.",
     },
     "fw_err_disabled": {
@@ -4799,7 +5098,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Die Windows-Firewall ist ausgeschaltet, daher werden Programmblockaden nicht durchgesetzt. Aktivieren Sie den Dienst der Windows-Firewall und alle Netzwerkprofile, um Programme zu blockieren.",
         "es": "El Firewall de Windows está desactivado, por lo que los bloqueos de programas no se aplican. Activa el servicio del Firewall de Windows y todos los perfiles de red para bloquear programas.",
         "ru": "Брандмауэр Windows отключён, поэтому блокировки программ не действуют. Включите службу брандмауэра Windows и все сетевые профили, чтобы блокировать программы.",
-        "pt": "O Firewall do Windows está desativado, por isso os bloqueios de programas não são aplicados. Ative o serviço do Firewall do Windows e todos os perfis de rede para bloquear programas.",
+        "pt": "A Firewall do Windows está desativada, por isso os bloqueios de programas não são aplicados. Ative o serviço da Firewall do Windows e todos os perfis de rede para bloquear programas.",
         "it": "Windows Firewall è disattivato, quindi i blocchi dei programmi non sono applicati. Attiva il servizio Windows Firewall e tutti i profili di rete per bloccare i programmi.",
     },
     "fw_err_service_stopped": {
@@ -4809,7 +5108,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Der Dienst der Windows-Firewall wird nicht ausgeführt, daher konnte die Firewallregel nicht entfernt werden. Starten Sie den Dienst und versuchen Sie es erneut.",
         "es": "El servicio del Firewall de Windows no se está ejecutando, por lo que no se pudo eliminar la regla del firewall. Inicia el servicio e inténtalo de nuevo.",
         "ru": "Служба брандмауэра Windows не запущена, поэтому правило брандмауэра не удалось удалить. Запустите службу и повторите попытку.",
-        "pt": "O serviço do Firewall do Windows não está em execução, por isso não foi possível remover a regra do firewall. Inicie o serviço e tente novamente.",
+        "pt": "O serviço da Firewall do Windows não está em execução, por isso não foi possível remover a regra da firewall. Inicie o serviço e tente novamente.",
         "it": "Il servizio Windows Firewall non è in esecuzione, quindi non è stato possibile rimuovere la regola del firewall. Avvia il servizio e riprova.",
     },
     "fw_btn_enable": {
@@ -4819,7 +5118,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Windows-Firewall einschalten",
         "es": "Activar el Firewall de Windows",
         "ru": "Включить брандмауэр Windows",
-        "pt": "Ativar o Firewall do Windows",
+        "pt": "Ativar a Firewall do Windows",
         "it": "Attiva Windows Firewall",
     },
     "fw_enable_confirm": {
@@ -4829,7 +5128,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Die Windows-Firewall wird für alle Netzwerkprofile eingeschaltet und ihr Dienst wird bei Bedarf gestartet. Andere Firewall-Einstellungen werden nicht geändert.\n\nWenn Sie eine andere Firewall oder ein Antivirenprogramm mit eigener Firewall verwenden, kann das Einschalten zu Konflikten führen. Fortfahren?",
         "es": "El Firewall de Windows se activará para todos los perfiles de red y su servicio se iniciará si es necesario. Los demás ajustes del firewall no se modificarán.\n\nSi usas otro firewall o un antivirus con su propio firewall, activarlo puede causar conflictos. ¿Continuar?",
         "ru": "Брандмауэр Windows будет включён для всех сетевых профилей, а его служба при необходимости будет запущена. Остальные параметры брандмауэра не изменятся.\n\nЕсли вы используете другой брандмауэр или антивирус с собственным брандмауэром, включение может вызвать конфликты. Продолжить?",
-        "pt": "O Firewall do Windows será ativado para todos os perfis de rede e o serviço será iniciado, se necessário. As outras configurações do firewall não serão alteradas.\n\nSe você usa outro firewall ou um antivírus com firewall próprio, ativá-lo pode causar conflitos. Continuar?",
+        "pt": "A Firewall do Windows será ativada para todos os perfis de rede e o respetivo serviço será iniciado, se necessário. As outras definições da firewall não serão alteradas.\n\nSe utiliza outra firewall ou um antivírus com firewall própria, ativá-la pode causar conflitos. Continuar?",
         "it": "Windows Firewall verrà attivato per tutti i profili di rete e il suo servizio verrà avviato se necessario. Le altre impostazioni del firewall non verranno modificate.\n\nSe usi un altro firewall o un antivirus con un proprio firewall, l'attivazione potrebbe causare conflitti. Continuare?",
     },
     "fw_err_enable_failed": {
@@ -4839,7 +5138,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Die Windows-Firewall konnte nicht eingeschaltet werden. Sie wird möglicherweise durch eine Systemrichtlinie oder ein anderes Sicherheitsprodukt verwaltet.",
         "es": "No se pudo activar el Firewall de Windows. Puede que lo gestione una directiva del sistema u otro producto de seguridad.",
         "ru": "Не удалось включить брандмауэр Windows. Возможно, им управляет системная политика или другой продукт безопасности.",
-        "pt": "Não foi possível ativar o Firewall do Windows. Ele pode estar sendo gerenciado por uma política do sistema ou por outro produto de segurança.",
+        "pt": "Não foi possível ativar a Firewall do Windows. Pode estar a ser gerida por uma política do sistema ou por outro produto de segurança.",
         "it": "Impossibile attivare Windows Firewall. Potrebbe essere gestito da un criterio di sistema o da un altro prodotto di sicurezza.",
     },
     "fw_drift_restored": {
@@ -4849,7 +5148,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Es wurden von HOTS erstellte Firewallregeln gefunden, die in der Liste fehlten. Sie wurden wieder in die Liste der blockierten Programme aufgenommen.",
         "es": "Se encontraron reglas del firewall creadas por HOTS que faltaban en la lista. Se han vuelto a añadir a la lista de programas bloqueados.",
         "ru": "Найдены правила брандмауэра, созданные HOTS, которых не было в списке. Они возвращены в список заблокированных программ.",
-        "pt": "Foram encontradas regras do firewall criadas pelo HOTS que não estavam na lista. Elas foram adicionadas novamente à lista de programas bloqueados.",
+        "pt": "Foram encontradas regras da firewall criadas pelo HOTS que não estavam na lista. Foram adicionadas novamente à lista de programas bloqueados.",
         "it": "Sono state trovate regole del firewall create da HOTS che mancavano nell'elenco. Sono state aggiunte di nuovo all'elenco dei programmi bloccati.",
     },
     "fw_drift_updated": {
@@ -4859,7 +5158,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Ein blockiertes Programm wurde aktualisiert und in einen neuen Ordner verschoben. Die Firewallregel verweist jetzt auf die aktuelle Version.",
         "es": "Un programa bloqueado se actualizó y pasó a una carpeta nueva. La regla del firewall ahora apunta a su versión actual.",
         "ru": "Заблокированная программа была обновлена и перемещена в новую папку. Правило брандмауэра теперь указывает на её актуальную версию.",
-        "pt": "Um programa bloqueado foi atualizado e movido para uma nova pasta. A regra do firewall agora aponta para a versão atual.",
+        "pt": "Um programa bloqueado foi atualizado e movido para uma nova pasta. A regra da firewall aponta agora para a versão atual.",
         "it": "Un programma bloccato è stato aggiornato e spostato in una nuova cartella. La regola del firewall ora punta alla sua versione attuale.",
     },
     "fw_err_remove_failed": {
@@ -4869,7 +5168,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Die Firewallregel konnte nicht entfernt werden. Versuchen Sie es erneut oder prüfen Sie die Einstellungen der Windows-Firewall.",
         "es": "No se pudo eliminar la regla del firewall. Inténtalo de nuevo o revisa la configuración del Firewall de Windows.",
         "ru": "Не удалось удалить правило брандмауэра. Повторите попытку или проверьте настройки брандмауэра Windows.",
-        "pt": "Não foi possível remover a regra do firewall. Tente novamente ou verifique as configurações do Firewall do Windows.",
+        "pt": "Não foi possível remover a regra da firewall. Tente novamente ou verifique as definições da Firewall do Windows.",
         "it": "Impossibile rimuovere la regola del firewall. Riprova o controlla le impostazioni di Windows Firewall.",
     },
     "fw_card_disabled": {
@@ -4889,7 +5188,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Firewall-Schutz geändert",
         "es": "La protección del firewall ha cambiado",
         "ru": "Защита брандмауэра изменена",
-        "pt": "A proteção do firewall foi alterada",
+        "pt": "A proteção da firewall foi alterada",
         "it": "Protezione del firewall modificata",
     },
     "fw_drift_regressed": {
@@ -4899,7 +5198,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Einige von HOTS erstellte Firewallregeln wurden außerhalb des Programms entfernt. Die Liste der blockierten Programme wurde aktualisiert.",
         "es": "Algunas reglas del firewall creadas por HOTS se eliminaron fuera del programa. La lista de programas bloqueados se ha actualizado.",
         "ru": "Некоторые правила брандмауэра, созданные HOTS, были удалены вне программы. Список заблокированных программ обновлён.",
-        "pt": "Algumas regras do firewall criadas pelo HOTS foram removidas fora do programa. A lista de programas bloqueados foi atualizada.",
+        "pt": "Algumas regras da firewall criadas pelo HOTS foram removidas fora do programa. A lista de programas bloqueados foi atualizada.",
         "it": "Alcune regole del firewall create da HOTS sono state rimosse al di fuori del programma. L'elenco dei programmi bloccati è stato aggiornato.",
     },
 
@@ -5000,7 +5299,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Die unter „Eigene Domains blockieren“ eingegebene Liste bleibt standardmäßig erhalten, damit Sie sie nach einer Neuinstallation weiterverwenden können. Aktivieren Sie dies, um sie ebenfalls zu löschen.",
         "es": "La lista que escribiste en «Bloquear tus propios dominios» se conserva por defecto, para que puedas reutilizarla tras reinstalar. Marca esta opción para eliminarla también.",
         "ru": "Список, введённый в разделе «Блокировка собственных доменов», по умолчанию сохраняется, чтобы им можно было воспользоваться после переустановки. Отметьте, чтобы удалить и его.",
-        "pt": "A lista que escreveu em «Bloquear seus próprios domínios» é mantida por predefinição, para que a possa reutilizar após reinstalar. Assinale para a eliminar também.",
+        "pt": "A lista que escreveu em «Bloquear os seus próprios domínios» é mantida por predefinição, para que a possa reutilizar após reinstalar. Assinale para a eliminar também.",
         "it": "L'elenco inserito in «Blocca i tuoi domini» viene conservato per impostazione predefinita, così puoi riutilizzarlo dopo una reinstallazione. Seleziona questa opzione per eliminare anche quello.",
     },
     "uninst_opt_domains_desc_none": {
@@ -5100,7 +5399,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Zu welchem DNS möchten Sie zurückkehren?\n\nDadurch werden die Einstellungen Ihrer aktiven Netzwerkverbindung geändert.",
         "es": "¿A qué DNS quieres volver?\n\nEsto cambia la configuración de tu conexión de red activa.",
         "ru": "К какому DNS вы хотите вернуться?\n\nЭто изменит настройки вашего активного сетевого подключения.",
-        "pt": "A que DNS quer voltar?\n\nIsso altera as configurações da sua conexão de rede ativa.",
+        "pt": "A que DNS quer voltar?\n\nIsto altera as definições da sua ligação de rede ativa.",
         "it": "A quale DNS vuoi tornare?\n\nQuesto modifica le impostazioni della connessione di rete attiva.",
     },
     "dns_reset_choice_prev": {
@@ -5120,7 +5419,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "Automatisch (von Router oder Anbieter)",
         "es": "Automático (del router o proveedor)",
         "ru": "Автоматический (от роутера или провайдера)",
-        "pt": "Automático (do roteador ou provedor)",
+        "pt": "Automático (do router ou do fornecedor)",
         "it": "Automatico (dal router o dal provider)",
     },
     "dns_reset_ok_auto": {
@@ -5140,7 +5439,7 @@ _STRINGS: dict[str, dict[str, str]] = {
         "de": "{app} benötigt Administratorrechte, um korrekt zu funktionieren.\n\nDer Start wurde abgebrochen. Starten Sie das Programm erneut und bestätigen Sie die Abfrage der Benutzerkontensteuerung (UAC).",
         "es": "{app} necesita privilegios de administrador para funcionar correctamente.\n\nEl inicio se canceló. Vuelve a abrir el programa y acepta el aviso del Control de cuentas de usuario (UAC).",
         "ru": "Для правильной работы {app} требуются права администратора.\n\nЗапуск отменён. Запустите программу снова и подтвердите запрос контроля учётных записей (UAC).",
-        "pt": "O {app} precisa de privilégios de administrador para funcionar corretamente.\n\nA inicialização foi cancelada. Inicie o programa novamente e aceite a solicitação do Controle de Conta de Usuário (UAC).",
+        "pt": "O {app} precisa de privilégios de administrador para funcionar corretamente.\n\nA inicialização foi cancelada. Inicie o programa novamente e aceite o pedido do Controlo de Conta de Utilizador (UAC).",
         "it": "{app} richiede i privilegi di amministratore per funzionare correttamente.\n\nL'avvio è stato annullato. Avvia di nuovo il programma e accetta la richiesta del Controllo account utente (UAC).",
     },
     "startup_error_title": {
@@ -5210,7 +5509,7 @@ def system_lang() -> str:
 
 def pick_lang(settings: dict) -> str:
     code = settings.get("language")
-    return code if code in LANGUAGES else system_lang()
+    return code if isinstance(code, str) and code in LANGUAGES else system_lang()
 
 
 def _pl_backup_word(n: int) -> str:

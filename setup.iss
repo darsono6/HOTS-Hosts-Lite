@@ -1,6 +1,6 @@
-﻿
+
 #define MyAppName "HOTS Hosts Lite"
-#define MyAppVersion "1.2"
+#define MyAppVersion "1.3"
 #define MyAppPublisher "Darsono"
 #define MyAppExeName "HOTS Hosts Lite.exe"
 #expr EmitLanguagesSection
@@ -30,12 +30,14 @@ WizardStyle=modern dynamic
 AppMutex=Global\HOTS_HostsLite_SingleInstance_Mutex
 
 [Tasks]
-Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"
 
 [Files]
 Source: "dist\hosts_editor_launcher.dist\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 Source: "dist\hosts_editor_launcher.dist\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "README.txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: "LICENSE.txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: "THIRD-PARTY-NOTICES.txt"; DestDir: "{app}"; Flags: ignoreversion
 Source: "hots_uninstall_cleanup.cmd"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
@@ -69,15 +71,14 @@ begin
   Result := CompareText(ExtractFileName(RemoveBackslash(ExpandConstant('{app}'))), '{#MyAppName}') = 0;
 end;
 
-// Stricter check for the install-time wipe: the folder must also contain our own files.
+// Stricter check for the install-time wipe: the folder must also contain our own program file.
 function IsOwnInstallFolder(): Boolean;
 var
   Dir: String;
 begin
   Dir := RemoveBackslash(ExpandConstant('{app}'));
   Result := IsOwnFolderName() and
-            FileExists(Dir + '\{#MyAppExeName}') and
-            FileExists(Dir + '\hots_uninstall_cleanup.cmd');
+            FileExists(Dir + '\{#MyAppExeName}');
 end;
 
 function NextButtonClick(CurPageID: Integer): Boolean;

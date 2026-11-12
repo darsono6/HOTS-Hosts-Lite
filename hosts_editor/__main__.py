@@ -14,7 +14,7 @@ def _setup_error_log():
         # The launcher (.pyw) may have already opened this log, so don't reopen it.
         # faulthandler must be enabled in either case.
         if getattr(sys.stderr, "name", None) != str(log_path):
-            mode = "w" if log_path.exists() and log_path.stat().st_size > 250_000 else "a"
+            mode = "w" if log_path.exists() and log_path.stat().st_size > 1_000_000 else "a"
             sys.stderr = open(log_path, mode, encoding="utf-8", buffering=1)
             sys.stdout = sys.stderr
         faulthandler.enable(file=sys.stderr, all_threads=True)
@@ -204,7 +204,8 @@ def _run():
     if password_hash:
         from .dialogs import PasswordPromptDialog
         dlg = PasswordPromptDialog(None, password_hash,
-                                   on_success=_launch_after_prompt, on_cancel=app.quit)
+                                   on_success=_launch_after_prompt, on_cancel=app.quit,
+                                   save_hash=_reg_set_password)
         dlg.show()
     else:
         _launch()
@@ -234,10 +235,10 @@ def _crash_texts(tb: str, log_path):
         from .i18n import T, set_lang, pick_lang
         set_lang(pick_lang(load_settings()))
         return (T("startup_failed_title", app="HOTS Hosts Lite"), T("startup_failed_msg"),
-                T("startup_failed_details", details=tb[:800], path=log_path))
+                T("startup_failed_details", details=tb.strip().splitlines()[-1][:300], path=log_path))
     except Exception:
         return ("HOTS Hosts Lite — Startup Error", "The program failed to start.",
-                f"Error details:\n{tb[:800]}\n\nFull log: {log_path}")
+                f"Error details:\n{tb.strip().splitlines()[-1][:300]}\n\nFull log: {log_path}")
 
 
 def _show_crash(tb: str):

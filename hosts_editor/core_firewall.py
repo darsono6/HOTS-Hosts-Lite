@@ -198,9 +198,25 @@ def _current_exe(path: str) -> str:
     return best or path
 
 
-def _rule_name(norm_path: str) -> str:
+def _clean_title(name) -> str:
+    return "".join(ch for ch in str(name) if ch.isprintable() and ch not in "<>")[:120].strip()
+
+
+def _legacy_rule_name(norm_path: str) -> str:
     digest = hashlib.md5(norm_path.encode("utf-8", "ignore"), usedforsecurity=False).hexdigest()[:12]
     return f"{RULE_PREFIX}{digest}"
+
+
+def _rule_name(norm_path: str) -> str:
+    stem = re.sub(r"[^A-Za-z0-9._-]", "_", os.path.basename(norm_path))[:40]
+    digest = hashlib.sha256(norm_path.encode("utf-8", "ignore")).hexdigest()[:10]
+    return f"{RULE_PREFIX}{stem}_{digest}"
+
+
+def _rule_description(path: str, title) -> str:
+    unsafe = re.compile(r"[^A-Za-z0-9 ._()+-]")
+    label = unsafe.sub("", str(title or "")).strip() or unsafe.sub("", os.path.basename(path)).strip() or "program"
+    return f"HOTS Hosts Lite - {label}"[:200]
 
 
 def _oem_encoding() -> str:
@@ -280,7 +296,7 @@ class FirewallAppBlocker:
         moves = []
         for entry in apps.values():
             path = entry.get("path", "")
-            if not path or entry.get("removable"):
+            if not path or entry.get("removable") or entry.get("hidden"):
                 continue
             new = _current_exe(path)
             if os.path.normcase(new) != os.path.normcase(path):
@@ -342,6 +358,7 @@ class FirewallAppBlocker:
                 flag = f"blocked_{direction}"
                 if not entry.get(flag):
                     entry[flag] = True
+                    entry.pop("hidden", None)
                     restored = True
             if regressed or restored:
                 FirewallAppBlocker._save_state(apps)
@@ -368,6 +385,11 @@ class FirewallAppBlocker:
                 entry["blocked_in"] = old
                 entry.pop("blocked", None)
                 migrated = True
+            if not entry.get("rule") and entry.get("path"):
+                norm = os.path.normcase(entry["path"])
+                blocked = entry.get("blocked_out") or entry.get("blocked_in")
+                entry["rule"] = _legacy_rule_name(norm) if blocked else _rule_name(norm)
+                migrated = True
         if migrated:
             FirewallAppBlocker._save_state(apps)
 
@@ -380,15 +402,16 @@ class FirewallAppBlocker:
     @staticmethod
     def list_apps() -> List[dict]:
         apps = FirewallAppBlocker._load_state()["apps"]
-        entries = [e for e in apps.values() if e.get("path")]
+        entries = [e for e in apps.values() if e.get("path") and not e.get("hidden")]
         found = _probe_removable([e["path"] for e in entries if e.get("removable")])
         items = [
             {
-                "path": e["path"], "name": os.path.basename(e["path"]),
+                "path": e["path"], "name": str(e.get("title") or os.path.basename(e["path"])),
                 "blocked_out": bool(e.get("blocked_out")),
                 "blocked_in": bool(e.get("blocked_in")),
                 "missing": not (found[e["path"]] if e.get("removable") else os.path.isfile(e["path"])),
                 "removable": bool(e.get("removable", False)),
+                "notified": bool(e.get("missing_notified")),
             }
             for e in entries
         ]
@@ -398,7 +421,66 @@ class FirewallAppBlocker:
     @staticmethod
     def is_added(path: str) -> bool:
         key = os.path.normcase(_current_exe(os.path.abspath(path)))
-        return key in FirewallAppBlocker._load_state()["apps"]
+        entry = FirewallAppBlocker._load_state()["apps"].get(key)
+        return entry is not None and not entry.get("hidden")
+
+    @staticmethod
+    def mark_missing_notified(paths: List[str], notified: bool = True) -> None:
+        targets = set(paths)
+        with FirewallAppBlocker._op_lock:
+            apps = FirewallAppBlocker._load_state()["apps"]
+            changed = False
+            for entry in apps.values():
+                if entry.get("path") in targets and bool(entry.get("missing_notified")) != notified:
+                    if notified:
+                        entry["missing_notified"] = True
+                    else:
+                        entry.pop("missing_notified", None)
+                    changed = True
+            if changed:
+                FirewallAppBlocker._save_state(apps)
+
+    @staticmethod
+    def sync_installed(scanned: List[dict]) -> bool:
+        if not scanned:
+            return False
+        with FirewallAppBlocker._op_lock:
+            apps = FirewallAppBlocker._load_state()["apps"]
+            installed = {}
+            for item in scanned:
+                path = _current_exe(os.path.abspath(item["path"]))
+                installed[os.path.normcase(path)] = (path, _clean_title(item.get("name", "")))
+            changed = False
+            for key, (path, title) in installed.items():
+                entry = apps.get(key)
+                if entry is None:
+                    apps[key] = {
+                        "path": path, "rule": _rule_name(key),
+                        "blocked_out": False, "blocked_in": False,
+                        "removable": _is_removable_or_network_drive(path),
+                        "auto": True, "title": title,
+                    }
+                    changed = True
+                    continue
+                if not entry.get("auto"):
+                    entry["auto"] = True
+                    changed = True
+                if entry.pop("missing_notified", None):
+                    changed = True
+                if title and entry.get("title") != title:
+                    entry["title"] = title
+                    changed = True
+            stale = [
+                k for k, e in apps.items()
+                if e.get("auto") and k not in installed
+                and not e.get("blocked_out") and not e.get("blocked_in")
+            ]
+            for k in stale:
+                del apps[k]
+                changed = True
+            if changed:
+                FirewallAppBlocker._save_state(apps)
+            return changed
 
 
     @staticmethod
@@ -417,12 +499,15 @@ class FirewallAppBlocker:
             key = os.path.normcase(path)
             state = FirewallAppBlocker._load_state()
             apps = state["apps"]
-            if key not in apps:
+            entry = apps.get(key)
+            if entry is None:
                 apps[key] = {
                     "path": path, "rule": _rule_name(key),
                     "blocked_out": False, "blocked_in": False,
                     "removable": _is_removable_or_network_drive(path),
                 }
+                FirewallAppBlocker._save_state(apps)
+            elif entry.pop("hidden", None):
                 FirewallAppBlocker._save_state(apps)
             return True
 
@@ -462,7 +547,10 @@ class FirewallAppBlocker:
                     FirewallAppBlocker._save_state(apps)
 
             if key in apps:
-                del apps[key]
+                if apps[key].get("auto"):
+                    apps[key]["hidden"] = True
+                else:
+                    del apps[key]
                 FirewallAppBlocker._save_state(apps)
             return True
 
@@ -492,11 +580,13 @@ class FirewallAppBlocker:
             if entry and entry.get(flag):
                 return True
 
-            rule = (entry.get("rule") if entry else None) or _rule_name(key)
+            in_use = bool(entry and (entry.get("blocked_out") or entry.get("blocked_in")))
+            rule = (entry.get("rule") if in_use else None) or _rule_name(key)
             r = _run_netsh([
                 "advfirewall", "firewall", "add", "rule",
                 f"name={rule}", f"dir={direction}", "action=block",
                 f"program={path}", "enable=yes",
+                f"description={_rule_description(path, entry.get('title') if entry else '')}",
             ])
             if r is None or r.returncode != 0:
                 FirewallAppBlocker.last_error = (
@@ -514,6 +604,7 @@ class FirewallAppBlocker:
                 }
             entry["rule"] = rule
             entry[flag] = True
+            entry.pop("hidden", None)
             apps[key] = entry
             FirewallAppBlocker._save_state(apps)
             logger.info("FirewallAppBlocker.block: OK (%s, dir=%s)", path, direction)

@@ -1,5 +1,6 @@
 import logging
 import os
+import subprocess
 import traceback
 from typing import Dict
 
@@ -7,19 +8,20 @@ from PySide6.QtWidgets import (
     QVBoxLayout, QHBoxLayout, QLabel, QWidget, QScrollArea,
     QLineEdit, QCompleter, QFileDialog, QFileIconProvider, QFrame, QGraphicsOpacityEffect,
 )
-from PySide6.QtCore import Qt, QObject, QEvent, Signal, QTimer, QFileInfo
+from PySide6.QtCore import Qt, QObject, QEvent, Signal, QTimer, QFileInfo, QCoreApplication
 from PySide6.QtGui import QColor, QIcon, QTransform
 import shiboken6
 
 from ..icons import FIF
 from ..ui_parts import IconWidget, TransparentToolButton
-from ..constants import DARK, HOSTS_PATH
+from ..constants import DARK, HOSTS_PATH, load_settings, save_settings
 from ..core_hosts_lock import HostsLockManager
 from ..core_firewall import FirewallAppBlocker
 from ..core_installed_apps import scan_installed_apps
 from ..widgets_qt import (
     HOTSPage, HOTSDialog, HOTSButton, h_separator, attach_fluent_tip, colored_svg_icon,
     attach_line_edit_context_menu, style_completer_popup, SmoothWheel, quiet_faulthandler,
+    HOTSContextMenu,
 )
 from ..i18n import T
 from ..bg_tasks import start_bg_thread, is_shutting_down
@@ -66,6 +68,61 @@ def _fw_rotated_triangle_icon(color: QColor, degrees: int, size: int = 22) -> QI
     pixmap = base.pixmap(size, size)
     rotated = pixmap.transformed(QTransform().rotate(degrees), Qt.SmoothTransformation)
     return QIcon(rotated)
+
+
+_EXPLORER_EXE = os.path.join(os.environ.get("SystemRoot", r"C:\Windows"), "explorer.exe")
+
+
+def _fw_open_location(path: str):
+    def worker():
+        try:
+            target = os.path.abspath(path)
+            if os.path.isfile(target):
+                if '"' in target:
+                    return
+                subprocess.Popen(f'"{_EXPLORER_EXE}" /select,"{target}"')
+                return
+            folder = os.path.dirname(target)
+            while folder and not os.path.isdir(folder):
+                parent = os.path.dirname(folder)
+                if parent == folder:
+                    return
+                folder = parent
+            if folder:
+                subprocess.Popen([_EXPLORER_EXE, folder])
+        except Exception:
+            logger.warning("open location failed: %s", traceback.format_exc(limit=2))
+
+    start_bg_thread(worker)
+
+
+class _FwSectionHeader(QWidget):
+
+    def __init__(self, title: str, count: int, expanded: bool, on_click, parent=None):
+        super().__init__(parent)
+        self._on_click = on_click
+        self.setCursor(Qt.PointingHandCursor)
+        self.setStyleSheet("background: transparent; border: none;")
+        h = QHBoxLayout(self)
+        h.setContentsMargins(10, 8, 10, 4)
+        h.setSpacing(8)
+        self._icon_lbl = QLabel()
+        self._icon_lbl.setFixedSize(16, 16)
+        self.set_expanded(expanded)
+        h.addWidget(self._icon_lbl, 0, Qt.AlignVCenter)
+        text_lbl = QLabel(f"{title} ({count})")
+        text_lbl.setTextFormat(Qt.PlainText)
+        text_lbl.setStyleSheet(f"color: {DARK['accent']}; font-size: 9pt; font-weight: 600; background: transparent; border: none;")
+        h.addWidget(text_lbl, 1, Qt.AlignVCenter)
+
+    def set_expanded(self, expanded: bool):
+        chevron = _FW_CHEVRON_OPEN if expanded else _FW_CHEVRON_CLOSED
+        self._icon_lbl.setPixmap(colored_svg_icon(chevron, QColor(DARK["accent"]), sizes=(16,)).pixmap(16, 16))
+
+    def mousePressEvent(self, event):
+        if event.button() == Qt.LeftButton:
+            self._on_click()
+        super().mousePressEvent(event)
 
 
 class _FwSearchEdit(QLineEdit):
@@ -132,7 +189,9 @@ class _FirewallRow(QWidget):
             tooltip = path.replace("\\", "\\\u200b")
 
         name_lbl = QLabel(f"{name}  {suffix}" if suffix else name)
-        name_lbl.setStyleSheet(f"color: {DARK['fg2'] if missing else DARK['fg']}; font-size: 9pt; background: transparent; border: none;")
+        name_lbl.setTextFormat(Qt.PlainText)
+        name_color = DARK["red"] if missing and not removable else DARK["fg2"] if missing else DARK["fg"]
+        name_lbl.setStyleSheet(f"color: {name_color}; font-size: 9pt; background: transparent; border: none;")
         attach_fluent_tip(name_lbl, tooltip, width=260)
         h.addWidget(name_lbl, 1)
 
@@ -160,6 +219,15 @@ class _FirewallRow(QWidget):
         h.addWidget(remove_btn, 0, Qt.AlignVCenter)
 
         self.setStyleSheet(f"background: {DARK['bg3']}; border-radius: 4px;")
+        self.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.customContextMenuRequested.connect(self._show_menu)
+
+    def _show_menu(self, pos):
+        path = self._path
+        menu = HOTSContextMenu(self.window(), [
+            ("📂", DARK["accent"], T("fw_ctx_open_location"), lambda p=path: _fw_open_location(p)),
+        ])
+        menu.popup(self.mapToGlobal(pos))
 
     @staticmethod
     def _make_arrow_btn(rotation_degrees: int, blocked: bool) -> TransparentToolButton:
@@ -187,7 +255,7 @@ class _FirewallOpSignals(QObject):
 
 
 class _FirewallScanSignals(QObject):
-    done = Signal(list)
+    done = Signal(list, bool)
 
 
 def _clear_layout(layout):
@@ -245,9 +313,17 @@ class FeaturesPage(_FeatureCardMixin, _SpeedtestCardMixin, _DnsTestCardMixin, HO
         self._manual_ops_active = 0
         self._pending_refresh = False
         self._fw_expanded = False
-        self._fw_missing_prompted = False
+        self._fw_notified_paths = set()
         self._fw_installed_cache = None
+        self._fw_scanning = False
         self._fw_installed_map = {}
+        self._fw_sec_ui = {}
+        self._fw_name_counts = {}
+        saved = load_settings()
+        self._fw_sec_open = {
+            "blocked": saved.get("fw_sec_blocked", True) is not False,
+            "free": saved.get("fw_sec_free", False) is True,
+        }
         self._built_signature = None
         self._speedtest_init()
         self._dnstest_init()
@@ -278,6 +354,9 @@ class FeaturesPage(_FeatureCardMixin, _SpeedtestCardMixin, _DnsTestCardMixin, HO
         try:
             _clear_layout(self.content_layout)
             self._build()
+            for _ in range(3):
+                QCoreApplication.sendPostedEvents(None, 0)
+                self.layout().activate()
         finally:
             self.setUpdatesEnabled(True)
 
@@ -384,7 +463,7 @@ class FeaturesPage(_FeatureCardMixin, _SpeedtestCardMixin, _DnsTestCardMixin, HO
     def _make_profiles_card(self) -> QWidget:
         outer = QWidget()
         outer.setStyleSheet(
-            f"background: {DARK['panel_bg']}; border: 1px solid {DARK['border_faint']}; border-radius: 6px;"
+            f"background: {DARK['panel_bg']}; border: 1px solid {DARK['border_faint']}; border-radius: 8px;"
         )
         h = QHBoxLayout(outer)
         h.setContentsMargins(16, 14, 16, 14)
@@ -437,7 +516,7 @@ class FeaturesPage(_FeatureCardMixin, _SpeedtestCardMixin, _DnsTestCardMixin, HO
     def _make_firewall_card(self) -> QWidget:
         outer = QWidget()
         outer.setStyleSheet(
-            f"background: {DARK['panel_bg']}; border: 1px solid {DARK['border_faint']}; border-radius: 6px;"
+            f"background: {DARK['panel_bg']}; border: 1px solid {DARK['border_faint']}; border-radius: 8px;"
         )
         outer_lay = QVBoxLayout(outer)
         outer_lay.setContentsMargins(0, 0, 0, 0)
@@ -595,6 +674,13 @@ class FeaturesPage(_FeatureCardMixin, _SpeedtestCardMixin, _DnsTestCardMixin, HO
         search_row.addWidget(add_btn)
         self._fw_add_btn = add_btn
 
+        refresh_btn = HOTSButton(FIF.SYNC, "#ffffff", "", accent=True, h_margins=(12, 12))
+        refresh_btn.setFixedWidth(42)
+        attach_fluent_tip(refresh_btn, T("fw_btn_refresh"))
+        refresh_btn.clicked.connect(self._fw_rescan)
+        search_row.addWidget(refresh_btn)
+        self._fw_refresh_btn = refresh_btn
+
         v.addLayout(search_row)
 
         list_widget = QWidget()
@@ -613,12 +699,27 @@ class FeaturesPage(_FeatureCardMixin, _SpeedtestCardMixin, _DnsTestCardMixin, HO
         return outer
 
 
-    def _fw_ensure_installed_apps_loaded(self):
+    def _fw_rescan(self):
+        if self._fw_scanning:
+            return
+        self._fw_installed_cache = None
+        self._fw_ensure_installed_apps_loaded(force_refresh=True)
+
+    def _fw_set_scanning(self, scanning: bool):
+        self._fw_scanning = scanning
+        btn = getattr(self, "_fw_refresh_btn", None)
+        if btn is not None and shiboken6.isValid(btn):
+            btn.setEnabled(not scanning)
+
+    def _fw_ensure_installed_apps_loaded(self, force_refresh: bool = False):
         if self._fw_installed_cache is not None:
             self._fw_populate_completer(self._fw_installed_cache)
             if shiboken6.isValid(self._fw_status_lbl):
                 self._fw_status_lbl.setText(T("fw_status_count", n=len(FirewallAppBlocker.list_apps())))
             return
+        if self._fw_scanning:
+            return
+        self._fw_set_scanning(True)
         if shiboken6.isValid(self._fw_status_lbl):
             self._fw_status_lbl.setText(T("fw_scan_working"))
         self._mark_op_start()
@@ -626,26 +727,31 @@ class FeaturesPage(_FeatureCardMixin, _SpeedtestCardMixin, _DnsTestCardMixin, HO
         signals = _FirewallScanSignals(self)
         self._toggle_signal_refs.append(signals)
 
-        def _handle(apps):
+        def _handle(apps, changed):
             if signals in self._toggle_signal_refs:
                 self._toggle_signal_refs.remove(signals)
             self._mark_op_end()
             if not shiboken6.isValid(self) or is_shutting_down():
                 return
-            self._fw_installed_cache = apps
+            self._fw_set_scanning(False)
+            self._fw_installed_cache = apps or None
             self._fw_populate_completer(apps)
-            if shiboken6.isValid(self._fw_status_lbl):
+            if changed or force_refresh:
+                self._fw_refresh_list()
+            elif shiboken6.isValid(self._fw_status_lbl):
                 self._fw_status_lbl.setText(T("fw_status_count", n=len(FirewallAppBlocker.list_apps())))
 
         signals.done.connect(_handle)
 
         def worker():
+            changed = False
             try:
                 apps = scan_installed_apps()
+                changed = FirewallAppBlocker.sync_installed(apps)
             except Exception:
                 logger.error("scan_installed_apps failed: %s", traceback.format_exc(limit=3))
                 apps = []
-            signals.done.emit(apps)
+            signals.done.emit(apps, changed)
 
         start_bg_thread(worker)
 
@@ -740,30 +846,64 @@ class FeaturesPage(_FeatureCardMixin, _SpeedtestCardMixin, _DnsTestCardMixin, HO
             empty.setStyleSheet(f"color: {DARK['fg2']}; font-size: 9pt; background: transparent; padding: 12px;")
             container.addWidget(empty)
         else:
+            self._fw_sec_ui = {}
             name_counts = {}
             for e in apps:
                 k = e["name"].lower()
                 name_counts[k] = name_counts.get(k, 0) + 1
-            for i, entry in enumerate(apps):
-                if i > 0:
-                    container.addWidget(_fw_row_separator())
-                display = entry["name"]
-                if name_counts[display.lower()] > 1:
-                    parts = os.path.normpath(os.path.dirname(entry["path"])).split(os.sep)
-                    display = f"{display}  ({os.sep.join(parts[-2:])})"
-                row = _FirewallRow(
-                    entry["path"], display, entry["blocked_out"], entry["blocked_in"],
-                    entry["missing"], entry["removable"],
-                    on_toggle=self._fw_on_row_toggle,
-                    on_toggle_all=self._fw_on_row_toggle_all,
-                    on_remove=lambda p: self._fw_run_op(FirewallAppBlocker.remove, p, T("fw_err_remove_title")),
+            self._fw_name_counts = name_counts
+            sections = (
+                ("blocked", "fw_section_blocked", [e for e in apps if e["blocked_out"] or e["blocked_in"]]),
+                ("free", "fw_section_free", [e for e in apps if not (e["blocked_out"] or e["blocked_in"])]),
+            )
+            for sec, title_key, items in sections:
+                header = _FwSectionHeader(
+                    T(title_key), len(items), self._fw_sec_open[sec], lambda s=sec: self._fw_toggle_section(s),
                 )
-                container.addWidget(row)
+                body = QWidget()
+                body_lay = QVBoxLayout(body)
+                body_lay.setContentsMargins(0, 0, 0, 0)
+                body_lay.setSpacing(4)
+                container.addWidget(header)
+                container.addWidget(body)
+                self._fw_sec_ui[sec] = {"header": header, "lay": body_lay, "items": items}
+                self._fw_fill_section(sec)
 
         if shiboken6.isValid(self._fw_status_lbl):
             self._fw_status_lbl.setText(T("fw_status_count", n=len(apps)))
         self._refresh_firewall_card()
         self._fw_check_missing_once(apps)
+
+    def _fw_toggle_section(self, sec: str):
+        self._fw_sec_open[sec] = not self._fw_sec_open[sec]
+        data = load_settings()
+        data["fw_sec_blocked"] = self._fw_sec_open["blocked"]
+        data["fw_sec_free"] = self._fw_sec_open["free"]
+        save_settings(data)
+        if sec in self._fw_sec_ui:
+            self._fw_fill_section(sec)
+
+    def _fw_fill_section(self, sec: str):
+        ui = self._fw_sec_ui[sec]
+        _clear_layout(ui["lay"])
+        opened = self._fw_sec_open[sec]
+        ui["header"].set_expanded(opened)
+        if not opened:
+            return
+        for i, entry in enumerate(ui["items"]):
+            if i > 0:
+                ui["lay"].addWidget(_fw_row_separator())
+            display = entry["name"]
+            if self._fw_name_counts[display.lower()] > 1:
+                parts = os.path.normpath(os.path.dirname(entry["path"])).split(os.sep)
+                display = f"{display}  ({os.sep.join(parts[-2:])})"
+            ui["lay"].addWidget(_FirewallRow(
+                entry["path"], display, entry["blocked_out"], entry["blocked_in"],
+                entry["missing"], entry["removable"],
+                on_toggle=self._fw_on_row_toggle,
+                on_toggle_all=self._fw_on_row_toggle_all,
+                on_remove=lambda p: self._fw_run_op(FirewallAppBlocker.remove, p, T("fw_err_remove_title")),
+            ))
 
     def _fw_apply_enabled(self, enabled: bool):
         for name in ("_fw_search_edit", "_fw_add_btn", "_fw_list_widget"):
@@ -779,18 +919,24 @@ class FeaturesPage(_FeatureCardMixin, _SpeedtestCardMixin, _DnsTestCardMixin, HO
                 w.setGraphicsEffect(effect)
 
     def _fw_check_missing_once(self, apps):
-        if self._fw_missing_prompted:
-            return
-        self._fw_missing_prompted = True
+        recovered = [a["path"] for a in apps if not a["missing"]]
+        self._fw_notified_paths.difference_update(recovered)
+        stale = [a["path"] for a in apps if not a["missing"] and a["notified"]]
+        if stale:
+            start_bg_thread(lambda: FirewallAppBlocker.mark_missing_notified(stale, False))
 
         missing = [a for a in apps if a["missing"]]
-        if not missing:
-            return
-
         removable = [a for a in missing if a["removable"]]
-        cleanable = [a for a in missing if not a["removable"]]
+        cleanable = [
+            a for a in missing
+            if not a["removable"] and not a["notified"] and a["path"] not in self._fw_notified_paths
+        ]
         if not cleanable:
             return
+
+        paths = [a["path"] for a in cleanable]
+        self._fw_notified_paths.update(paths)
+        start_bg_thread(lambda: FirewallAppBlocker.mark_missing_notified(paths))
 
         shown = "\n".join(f"• {a['name']}" for a in cleanable[:10])
         if len(cleanable) > 10:

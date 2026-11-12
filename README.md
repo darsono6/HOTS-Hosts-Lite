@@ -10,7 +10,7 @@
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010%2F11%20%2864--bit%29-0078D4?logo=windows)](https://github.com/)
 [![Language](https://img.shields.io/badge/Language-EN%20%7C%20PL%20%7C%20FR%20%7C%20DE%20%7C%20ES%20%7C%20PT%20%7C%20RU%20%7C%20IT-brightgreen)](#language-support)
 
-### 📥 [⬇️ Download for Windows — free](https://github.com/darsono6/HOTS-Hosts-Lite/releases/latest/download/HOTS_Hosts_Lite_setup.exe)
+### 📥 [⬇️ Download for Windows — free](https://github.com/darsono6/HOTS-Hosts-Lite/releases/latest)
 
 *No account, no subscription, no ads. Just download and run.*
 
@@ -39,7 +39,7 @@ You don't need to understand *how* any of this works to use it — the app walks
 
 ## Getting started
 
-1. **[Download the installer](https://github.com/darsono6/HOTS-Hosts-Lite/releases/latest/download/HOTS_Hosts_Lite_setup.exe)**
+1. Download the installer from the [Releases page](https://github.com/darsono6/HOTS-Hosts-Lite/releases/latest)
 2. Double-click it — Windows will ask for Administrator permission (that's normal, the app needs it to edit system files)
 3. Follow the setup wizard — done
 
@@ -118,29 +118,34 @@ If you'd rather double-check the app yourself first, the full source code is rig
 <details>
 <summary><strong>🎨 Other features</strong> — click to expand</summary>
 
-- Light and dark themes, 5 accent colors, custom window with Mica backdrop on Windows 11
+- Light and dark themes, 6 accent colors, custom window with Mica or Acrylic backdrop and an optional glow on Windows 11 (Acrylic needs Windows 11 22H2 or newer)
 - 8 languages: English, Polski, Français, Deutsch, Español, Português, Русский, Italiano
 - Optional password protection
 - Uninstall wizard — choose exactly what to undo (domain and app blocks, original DNS servers, saved configuration, custom domain list, hosts backups) instead of an all-or-nothing removal; no password needed to uninstall
-- Built-in update checker (checks GitHub Releases on startup — can be switched off in **Options → About**)
+- Built-in update checker (checks GitHub Releases on startup — can be switched off in **Options → Updates**)
 - Auto-elevation, single-instance guard, window geometry memory
 
 </details>
 
 ---
 
-## What's new in 1.2
+## What's new in 1.3
 
-- **Internet speed test** — measures download speed, upload speed and ping with one click, keeps a history of your results, and rates how well your connection suits web browsing, gaming, streaming and live video calls
-- **DNS speed test** — checks how fast your DNS server answers compared with popular public ones (Cloudflare, Google, Quad9, OpenDNS), tells you whether switching would help, and can set a public DNS for you with one click. You can go back to your previous DNS (or to automatic DNS from your router or provider) at any time, and the uninstaller can restore it too
-- **Italian language added** — the interface is now available in 8 languages, and the app now starts in your Windows language when it is supported
-- Minor improvements throughout the application's code
+- **New visual effects** — Acrylic material next to Mica, a glow effect with adjustable strength (transparency in Acrylic mode), and a switch to turn window effects off
+- **New accent color** — Graphite joins the existing five, so there are now 6 accent colors
+- **Rebuilt Options page** — expandable cards for Language and Appearance, plus Updates (check for updates on startup, manual check), About and Support
+- **License information** — the About page now opens the full license and the third-party notices
+- **Updates** — clicking an available update now downloads the installer directly, instead of only opening the repository page
+- **Copy diagnostics** — a new button on the About page copies anonymized system and program information to the clipboard, ready to paste into a bug report
+- **Improved blocking of your own domains** — the feature has been reworked to work better
+- **Improved Internet speed test and Firewall** — both features have been reworked to work better
+- Several smaller fixes and improvements throughout the application
 
 ---
 
 <div align="center">
 
-### 📥 [⬇️ Download for Windows — free](https://github.com/darsono6/HOTS-Hosts-Lite/releases/latest/download/HOTS_Hosts_Lite_setup.exe)
+### 📥 [⬇️ Download for Windows — free](https://github.com/darsono6/HOTS-Hosts-Lite/releases/latest)
 
 *No account, no subscription, no ads.*
 
@@ -175,7 +180,7 @@ hosts_editor_launcher.pyw   # Single-instance guard + admin elevation entry poin
 hosts_editor/
 ├── __main__.py             # Entry point — app startup, password prompt, language init
 ├── app.py                  # Main window — hosts table, toolbar, page navigation
-├── frameless.py            # Custom window shell — title bar, DWM shadow, Mica (Win11), page stack
+├── frameless.py            # Custom window shell — title bar, DWM shadow, Mica / Acrylic (Win11), page stack
 ├── nav_rail.py             # Side navigation rail
 ├── core.py                 # Data logic — parse, save, import/export, profiles, custom domain blocking
 ├── core_hosts_lock.py      # Hosts file lock (ACL deny-write protection)
@@ -186,13 +191,14 @@ hosts_editor/
 ├── core_dnstest.py         # DNS speed test, DNS switching and restoring the previous DNS
 ├── uninstall_flow.py       # Uninstall cleanup logic — mandatory system-lock teardown + optional, wizard-driven reverts
 ├── bg_tasks.py             # Background worker thread registry — joined on app quit
+├── password_utils.py       # Password hashing and verification (PBKDF2-SHA256)
 ├── constants.py            # Theme colors, accent presets, paths, settings load/save
-├── widgets_qt.py            # Reusable Qt UI components — buttons, dialogs, pages, tooltips
-├── ui_parts.py              # Small widgets — icon widget, toolbar button, progress ring, info banner
+├── widgets_qt.py           # Reusable Qt UI components — buttons, dialogs, pages, tooltips
+├── ui_parts.py             # Small widgets — icon widget, toolbar button, progress ring, info banner
 ├── icons.py                 # Built-in SVG icon set
 ├── resource_utils.py        # Base-path resolution (dev / frozen / Nuitka builds)
 ├── win_icon.py             # Sets the window/taskbar icon explicitly via WinAPI (no default icon)
-├── i18n.py                  # Multilingual string system (EN / PL / FR / DE / ES / PT / RU / IT)
+├── i18n.py                 # Multilingual string system (EN / PL / FR / DE / ES / PT / RU / IT)
 ├── graphic/
 │   ├── logo.png             # About page logo
 │   ├── logo.ico             # Window/taskbar icon
@@ -208,10 +214,9 @@ hosts_editor/
     ├── features_page.py        # Domain blocking + hosts lock + firewall + profiles + speed/DNS tests
     ├── custom_domains_dialog.py  # Editor for the "Block your own domains" list
     ├── export_dialog.py        # Export to .txt / .csv
-    ├── language_dialog.py      # Language selection
-    ├── accent_dialog.py        # Accent color picker
+    ├── options_page.py         # Options — Language, Appearance (theme, accent, window effects), Updates, About, Support
     ├── support_page.py         # Support / donate window
-    ├── about_page.py            # About & update checker
+    ├── about_page.py           # About & update checker
     ├── password_dialog.py      # Set / verify startup password
     ├── uninstall_wizard.py     # Uninstall-time "what should we undo?" wizard (launched by the installer's uninstaller)
     └── _*.py                   # Shared/internal helpers for the pages above
@@ -254,7 +259,7 @@ HOTS Hosts Lite is provided in good faith but **without any warranty**. The auth
 
 ## Bug reports
 
-Found a bug? Open an [issue](https://github.com/darsono6/HOTS-Hosts-Lite/issues/new/choose) — the form asks for everything needed to reproduce it.
+Found a bug? Open an [issue](https://github.com/darsono6/HOTS-Hosts-Lite/issues/new/choose) — the form asks for everything needed to reproduce it. In the app, open **About → Copy diagnostics** and paste the result into the report — it contains the app and Windows version and the end of the error log (your user name and computer name are replaced). The log may include names of programs or domains mentioned in error messages, so feel free to review it before pasting. The full log is kept at `%APPDATA%\HOTS Hosts Lite\error.log`.
 
 ---
 
@@ -268,7 +273,9 @@ Found a security issue? Please report it privately rather than opening a public 
 
 If HOTS Hosts Lite saves you time or you simply want to say thanks:
 
-<a href="https://ko-fi.com/darsono"><img src="assets/kofi_badge_dark.png" alt="Support me on Ko-fi" width="200"/></a>
+<p align="center">
+<a href="https://ko-fi.com/darsono"><img src="assets/kofi_badge_dark.png" alt="Support me on Ko-fi" width="150"/></a>
+</p>
 
 **Website:** [hotstools.com](https://hotstools.com)
 **Ko-fi:** [ko-fi.com/darsono](https://ko-fi.com/darsono)

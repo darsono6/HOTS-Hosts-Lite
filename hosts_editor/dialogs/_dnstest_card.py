@@ -6,12 +6,12 @@ import time
 
 from PySide6.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QFrame, QApplication
 from PySide6.QtCore import Qt, Signal, QObject, QRectF, QEvent
-from PySide6.QtGui import QPainter, QPen, QColor, QFontMetrics, QIcon, QTransform
+from PySide6.QtGui import QPainter, QColor, QFontMetrics, QIcon, QTransform
 import shiboken6
 
 from ..icons import FIF
 from ..ui_parts import IconWidget, TransparentToolButton
-from ..constants import DARK, load_settings, save_settings
+from ..constants import DARK, load_settings, save_settings, secondary_color
 from ..widgets_qt import HOTSButton, HOTSDialog, attach_fluent_tip, attach_fluent_point_tip, colored_svg_icon
 from ..i18n import T
 from ..bg_tasks import start_bg_thread, is_shutting_down
@@ -156,7 +156,7 @@ class _DnsBars(QWidget):
         icon = colored_svg_icon(FIF.PLAY, QColor(DARK["accent"]), sizes=(22,))
         if key is None:
             b.setProperty("active", True)
-            icon = colored_svg_icon(FIF.PLAY, QColor(DARK["green"]), sizes=(22,))
+            icon = colored_svg_icon(FIF.PLAY, QColor(secondary_color()), sizes=(22,))
             icon = QIcon(icon.pixmap(22, 22).transformed(QTransform().rotate(180), Qt.SmoothTransformation))
         else:
             b.setCursor(Qt.PointingHandCursor)
@@ -315,7 +315,7 @@ class _DnsTestCardMixin:
     def _make_dnstest_card(self) -> QWidget:
         outer = QWidget()
         outer.setStyleSheet(
-            f"background: {DARK['panel_bg']}; border: 1px solid {DARK['border_faint']}; border-radius: 6px;"
+            f"background: {DARK['panel_bg']}; border: 1px solid {DARK['border_faint']}; border-radius: 8px;"
         )
         outer_lay = QVBoxLayout(outer)
         outer_lay.setContentsMargins(0, 0, 0, 0)

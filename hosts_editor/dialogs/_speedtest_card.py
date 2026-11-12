@@ -12,7 +12,7 @@ import shiboken6
 
 from ..icons import FIF
 from ..ui_parts import IconWidget
-from ..constants import DARK, load_settings, save_settings
+from ..constants import DARK, load_settings, save_settings, secondary_color
 from ..widgets_qt import HOTSButton, attach_fluent_tip, attach_fluent_point_tip, colored_svg_icon
 from ..i18n import T
 from ..bg_tasks import start_bg_thread, is_shutting_down
@@ -97,7 +97,7 @@ class _SpeedChart(QWidget):
             return QPointF(plot.left() + min(t / DURATION, 1.0) * plot.width(),
                            plot.bottom() - min(v / ymax, 1.0) * plot.height())
 
-        for pts, color in ((self._down, _qcolor(DARK["accent"])), (self._up, _qcolor(DARK["green"]))):
+        for pts, color in ((self._down, _qcolor(DARK["accent"])), (self._up, _qcolor(secondary_color()))):
             if not pts:
                 continue
             points = [xy(t, v) for t, v in pts]
@@ -214,6 +214,35 @@ def _entry_text(e) -> str:
     return f"{when}\n↓ {f(e['down'])} · ↑ {f(e['up'])} {T('speed_unit')}\n{_ping_line(e['ping'], e['jitter'])}"
 
 
+def _clean_loaded(raw):
+    out = {"down": None, "up": None}
+    if isinstance(raw, dict):
+        for k in out:
+            try:
+                x = float(raw[k])
+            except (KeyError, TypeError, ValueError):
+                continue
+            if math.isfinite(x) and x >= 0:
+                out[k] = x
+    return out
+
+
+def _clean_stalls(raw):
+    out = {"down": None, "up": None}
+    if isinstance(raw, dict):
+        for k in out:
+            v = raw.get(k)
+            if not isinstance(v, (list, tuple)) or len(v) != 2:
+                continue
+            try:
+                n, t = int(v[0]), int(v[1])
+            except (TypeError, ValueError, OverflowError):
+                continue
+            if 0 <= n <= t <= 1000:
+                out[k] = [n, t]
+    return out
+
+
 def _clean_history(raw):
     """Keeps only well-formed entries (the file may have been edited or damaged)."""
     out = []
@@ -304,7 +333,7 @@ class _HistoryChart(QWidget):
         def point(i, v):
             return QPointF(self._x(i, plot), plot.bottom() - min(v / ymax, 1.0) * plot.height())
 
-        for key, color in (("down", _qcolor(DARK["accent"])), ("up", _qcolor(DARK["green"]))):
+        for key, color in (("down", _qcolor(DARK["accent"])), ("up", _qcolor(secondary_color()))):
             have = [(i, e[key]) for i, e in enumerate(self._entries) if e[key] is not None]
             line = QPainterPath()
             prev = None
@@ -329,6 +358,7 @@ class _SpeedSignals(QObject):
     ping = Signal(float, object)  # (ms, jitter ms or None)
     sample = Signal(str, float, float)
     result = Signal(str, object, str)
+    loaded = Signal(str, object, object)
     done = Signal(object, str)
 
 
@@ -341,6 +371,8 @@ class _SpeedtestCardMixin:
         self._speed_pts = {"down": [], "up": []}
         self._speed_ping = None
         self._speed_jitter = None
+        self._speed_loaded = {"down": None, "up": None}
+        self._speed_stalls = {"down": None, "up": None}
         self._speed_val = {"down": None, "up": None}
         self._speed_final = {"down": False, "up": False}
         self._speed_has_run = False
@@ -375,7 +407,9 @@ class _SpeedtestCardMixin:
                 return
         except Exception:
             return
-        self._speed_last = {"down": down, "up": up, "ping": ping, "jitter": jitter, "ts": ts, "pts": pts}
+        self._speed_last = {"down": down, "up": up, "ping": ping, "jitter": jitter, "ts": ts, "pts": pts,
+                            "loaded": _clean_loaded(d.get("loaded")),
+                            "stalls": _clean_stalls(d.get("stalls"))}
         if not self._speed_history:  # a result saved before the history existed becomes its first entry
             self._speed_history = [{"ts": ts, "down": down, "up": up, "ping": ping, "jitter": jitter}]
         self._speed_apply_last()
@@ -389,7 +423,11 @@ class _SpeedtestCardMixin:
             self._speed_val = {"down": None, "up": None}
             self._speed_final = {"down": False, "up": False}
             self._speed_ping = self._speed_jitter = None
+            self._speed_loaded = {"down": None, "up": None}
+            self._speed_stalls = {"down": None, "up": None}
             return
+        self._speed_loaded = dict(last.get("loaded") or {"down": None, "up": None})
+        self._speed_stalls = dict(last.get("stalls") or {"down": None, "up": None})
         self._speed_val = {"down": last["down"], "up": last["up"]}
         self._speed_final = {"down": True, "up": last["up"] is not None}
         self._speed_ping = last["ping"]
@@ -400,7 +438,8 @@ class _SpeedtestCardMixin:
         pts = {k: [(round(t, 2), round(v, 1)) for t, v in self._speed_pts[k]] for k in ("down", "up")}
         now = time.time()
         self._speed_last = {"down": self._speed_val["down"], "up": self._speed_val["up"],
-                            "ping": self._speed_ping, "jitter": self._speed_jitter, "ts": now, "pts": pts}
+                            "ping": self._speed_ping, "jitter": self._speed_jitter, "ts": now, "pts": pts,
+                            "loaded": dict(self._speed_loaded), "stalls": dict(self._speed_stalls)}
         self._speed_history = (self._speed_history + [{
             "ts": now, "down": self._speed_val["down"], "up": self._speed_val["up"],
             "ping": self._speed_ping, "jitter": self._speed_jitter}])[-_HISTORY_MAX:]
@@ -415,7 +454,7 @@ class _SpeedtestCardMixin:
     def _make_speedtest_card(self) -> QWidget:
         outer = QWidget()
         outer.setStyleSheet(
-            f"background: {DARK['panel_bg']}; border: 1px solid {DARK['border_faint']}; border-radius: 6px;"
+            f"background: {DARK['panel_bg']}; border: 1px solid {DARK['border_faint']}; border-radius: 8px;"
         )
         outer_lay = QVBoxLayout(outer)
         outer_lay.setContentsMargins(0, 0, 0, 0)
@@ -489,7 +528,7 @@ class _SpeedtestCardMixin:
         right.setSpacing(2)
         right.setAlignment(Qt.AlignVCenter)
         vals = {}
-        for phase, arrow, color in (("down", "↓", DARK["accent"]), ("up", "↑", DARK["green"])):
+        for phase, arrow, color in (("down", "↓", DARK["accent"]), ("up", "↑", secondary_color())):
             row = QHBoxLayout()
             row.setSpacing(6)
             arr = QLabel(arrow)
@@ -506,6 +545,18 @@ class _SpeedtestCardMixin:
             vals[phase] = val
         body.addLayout(right)
         v.addLayout(body)
+
+        extra = QHBoxLayout()
+        extra.setSpacing(18)
+        loaded_lbl = QLabel()
+        stalls_lbl = QLabel()
+        for lbl in (loaded_lbl, stalls_lbl):
+            lbl.setTextFormat(Qt.PlainText)
+            lbl.setStyleSheet(f"color: {DARK['fg']}; font-size: 9pt; background: transparent; border: none;")
+            lbl.setVisible(False)
+            extra.addWidget(lbl, 0, Qt.AlignLeft | Qt.AlignVCenter)
+        extra.addStretch()
+        v.addLayout(extra)
 
         # ping on the left, icons in the middle, run button on the right: the two outer cells
         # have the same stretch, so the middle one stays centred
@@ -540,7 +591,8 @@ class _SpeedtestCardMixin:
         panel.setVisible(self._speed_expanded)
 
         self._speed_w = {"status": status, "toggle_btn": toggle_btn, "btn": run_btn, "panel": panel,
-                         "sep": sep, "chart": chart, "vals": vals, "ping": ping, "tiles": tiles, "history": history}
+                         "sep": sep, "chart": chart, "vals": vals, "ping": ping, "loaded": loaded_lbl, "stalls": stalls_lbl,
+                         "tiles": tiles, "history": history}
         toggle_btn.clicked.connect(self._speed_toggle_panel)
         run_btn.clicked.connect(self._speed_toggle)
         self._speed_update_ui()
@@ -582,6 +634,20 @@ class _SpeedtestCardMixin:
     def _speed_ping_text(self) -> str:
         return _ping_line(self._speed_ping, self._speed_jitter)
 
+    def _speed_loaded_text(self) -> str:
+        down, up = self._speed_loaded["down"], self._speed_loaded["up"]
+        if down is None and up is None:
+            return ""
+        fmt = lambda x: "—" if x is None else f"{x:.0f} ms"
+        return T("speed_ping_loaded", d=fmt(down), u=fmt(up))
+
+    def _speed_stalls_text(self) -> str:
+        sd, su = self._speed_stalls["down"], self._speed_stalls["up"]
+        if not any(s and s[0] > 0 for s in (sd, su)):
+            return ""
+        fmt = lambda s: "—" if not s else f"{s[0]}/{s[1]}"
+        return T("speed_ping_stalls", d=fmt(sd), u=fmt(su))
+
     def _speed_update_ui(self):
         w = self._speed_w
         if not w or not shiboken6.isValid(w["chart"]):
@@ -605,6 +671,10 @@ class _SpeedtestCardMixin:
             lbl.setStyleSheet(f"color: {color}; font-size: 16pt; background: transparent; border: none;")
             lbl.setText("—" if val is None else f"{val:.1f}")
         w["ping"].setText(self._speed_ping_text())
+        for key, text in (("loaded", self._speed_loaded_text()), ("stalls", self._speed_stalls_text())):
+            w[key].setText(text)
+            w[key].setVisible(bool(text))
+        attach_fluent_tip(w["stalls"], T("speed_stalls_tip"), width=300)
 
         # only finished phases count, so the dots do not jump around while a phase is running
         levels = quality_levels(self._speed_val["down"] if self._speed_final["down"] else None,
@@ -653,6 +723,8 @@ class _SpeedtestCardMixin:
         stop = self._speed_stop
         self._speed_pts = {"down": [], "up": []}
         self._speed_ping = self._speed_jitter = None
+        self._speed_loaded = {"down": None, "up": None}
+        self._speed_stalls = {"down": None, "up": None}
         self._speed_val = {"down": None, "up": None}
         self._speed_final = {"down": False, "up": False}
         self._speed_status_key = "speed_status_ping"
@@ -662,13 +734,15 @@ class _SpeedtestCardMixin:
         sig.ping.connect(self._speed_on_ping)
         sig.sample.connect(self._speed_on_sample)
         sig.result.connect(self._speed_on_result)
+        sig.loaded.connect(self._speed_on_loaded)
         sig.done.connect(self._speed_on_done)
         self._speed_signals = sig
 
         def worker():
             try:
                 res = run_speedtest(sig.ping.emit, sig.sample.emit, sig.result.emit,
-                                    lambda: stop.is_set() or is_shutting_down())
+                                    lambda: stop.is_set() or is_shutting_down(),
+                                    on_loaded=sig.loaded.emit)
                 sig.done.emit(res, "stopped" if res is None else "ok")
             except Exception as exc:
                 logger.warning("speed test failed: %s", exc)
@@ -705,10 +779,16 @@ class _SpeedtestCardMixin:
         self._speed_final[phase] = avg is not None
         if err:
             self._speed_err = self._speed_note_error(err)
-            self._speed_pts[phase] = []
+            if avg is None:
+                self._speed_pts[phase] = []
             logger.warning("speed test: %s", err)
         if phase == "down":
             self._speed_status_key = "speed_status_up"
+        self._speed_update_ui()
+
+    def _speed_on_loaded(self, phase: str, ms, stalls):
+        self._speed_loaded[phase] = ms
+        self._speed_stalls[phase] = list(stalls) if stalls else None
         self._speed_update_ui()
 
     def _speed_on_done(self, res, kind: str):
@@ -720,7 +800,9 @@ class _SpeedtestCardMixin:
                 self._speed_429 = 0
             self._speed_status_key = ("speed_status_done" if self._speed_val["up"] is not None
                                       else "speed_status_up_failed")
-            self._speed_save_last()
+            if (not self._speed_err and self._speed_val["down"] is not None
+                    and self._speed_val["up"] is not None):
+                self._speed_save_last()
         elif kind == "stopped":
             self._speed_apply_last()  # a stopped test does not replace the last result
             self._speed_status_key = "speed_status_done" if self._speed_last else "speed_status_stopped"
